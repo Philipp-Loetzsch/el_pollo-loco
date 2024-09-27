@@ -6,13 +6,15 @@ class World {
   keyboard;
   camera_x = 0;
   statusBar = new Statusbar();
+  healthBar = new HealthBar();
   throwableObjects = [];
+  collidingObject = new CollidingObject();
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard
-    this.draw();
+    this.drawWorld();
     this.setWorld()
     this.run()
   }
@@ -22,48 +24,30 @@ class World {
   } 
 
   run(){
-    setInterval(() => this.checkThrowObjects() , 200);
-    setInterval(() => this.checkCollisions(), 1000);
+    setInterval(() => this.collidingObject.checkThrowObjects() , 200);
+    setInterval(() => this.collidingObject.checkCollisions(), 1000);
   }
 
-  checkThrowObjects(){
-    if (this.keyboard.D) {
-      let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100)
-      this.throwableObjects.push(bottle)
-    }
-  }
-
-  checkCollisions(){
-    this.level.enemies.forEach((enemie) =>{
-      if(this.character.isColliding(enemie)){
-        this.character.hit();
-        this.statusBar.setPercentage(this.character.energy)
-      }
-    }); 
-  }
-
-  draw() {
+  drawWorld() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
     this.ctx.translate(this.camera_x, 0)
-    this.addObjectsToMap(this.level.backgroundObjects);
-
+    this.addAllMovableObjects()
     this.ctx.translate(-this.camera_x, 0)
     this.addToMap(this.statusBar)
-    this.ctx.translate(this.camera_x, 0)
+    this.addToMap(this.healthBar)
+    let self = this;
+    requestAnimationFrame(function () {
+      self.drawWorld();
+    });
+  }
 
+  addAllMovableObjects(){
+    this.addObjectsToMap(this.level.backgroundObjects);
     this.addToMap(this.character);
-    
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.throwableObjects);
-   
-    this.ctx.translate(-this.camera_x, 0)
 
-    let self = this;
-    requestAnimationFrame(function () {
-      self.draw();
-    });
   }
 
   addObjectsToMap(objects){
@@ -75,17 +59,12 @@ class World {
   addToMap(mo) {
     if (mo.otherDirection) {
       this.flipImage(mo)
-     
     }
-
     mo.draw(this.ctx)
     mo.drawFrame(this.ctx)
-    
-
-    if (mo.otherDirection) {
-     this.flipImageBack(mo)
-    }
+    if (mo.otherDirection) this.flipImageBack(mo)
   }
+  
   flipImage(mo){
     this.ctx.save();
     this.ctx.translate(mo.width, 0);

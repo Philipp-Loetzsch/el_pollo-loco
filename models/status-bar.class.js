@@ -15,7 +15,7 @@ class Statusbar extends DrawableObject{
         super()
         this.loadImages(this.HEALTH)
         this.x = 0
-        this.y = 20
+        this.y = 0
         this.setPercentage(100)
     }
 
