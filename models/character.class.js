@@ -2,6 +2,11 @@ class Character extends MovableObject {
   height = 250;
   width = 100;
   speed = 5;
+  offsetX = 10;
+  offsetY= 100;
+  offsetHeight = 110
+  offsetWidth = 20
+
   IMAGES_WALKING = [
     "img/2_character_pepe/2_walk/W-21.png",
     "img/2_character_pepe/2_walk/W-22.png",

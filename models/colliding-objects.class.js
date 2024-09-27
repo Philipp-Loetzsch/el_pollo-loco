@@ -11,7 +11,7 @@ class CollidingObject extends DrawableObject{
         world.level.enemies.forEach((enemie) =>{
           if(world.character.isColliding(enemie)){
             world.character.hit();
-            world.statusBar.setPercentage(world.character.energy)
+            world.healthBar.setPercentage(world.character.energy)
           }
         }); 
       }

@@ -1,5 +1,6 @@
 class HealthBar extends Statusbar {
-    HEALTH = [
+    percentage = 100;
+    IMAGE = [
         "img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png",
         "img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png",
         "img/7_statusbars/1_statusbar/2_statusbar_health/green/40.png",
@@ -12,12 +13,8 @@ class HealthBar extends Statusbar {
         super();
         this.x = 0;
         this.y = 0;
-        this.loadImages(this.HEALTH); // Load the specific health images
-        this.setPercentage(100); // Initialize with 100% health
+        this.loadImages(this.IMAGE);
+        this.setPercentage(100); 
     }
 
-    // Override the getImages method to return the health images
-    getImages() {
-        return this.HEALTH;
-    }
-}
+  }
