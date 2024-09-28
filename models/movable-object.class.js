@@ -66,6 +66,6 @@ class MovableObject extends CollidingObject {
     this.x -= this.speed;
   }
   jump() {
-    this.speedY = 30;
+    this.speedY = 25;
   }
 }

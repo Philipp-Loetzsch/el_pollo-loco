@@ -2,8 +2,8 @@ class DrawableObject {
   img;
   imageChache = [];
   currentImage = 0;
-  x = 20;
-  y = 85;
+  x = -120;
+  y= 180 
   offsetX = 0;
   offsetY = 0;
   offsetHeight = 0
