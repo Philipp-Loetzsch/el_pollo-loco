@@ -13,6 +13,9 @@ body{
     font-family: 'zabars', Arial, Helvetica, sans-serif;
     font-size: 32px;
     background-image: url('img/desert.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 
 }
 

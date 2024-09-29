@@ -5,14 +5,19 @@ class ThrowableObject extends MovableObject{
         this.y = y;
         this.width = 50
         this.height = 60
-        this.throw()
+        this.throw();
     }
 
     throw(){
-        this.speedY = 30;
+        this.speedY = 20;
         this.applyGravaty();
         setInterval(() => {
-            this.x += 10
-        }, 50);
+            if(world.character.otherDirection){
+            this.x -= 10
+            }
+            else{
+            this.x += 7
+            }
+        }, 1000 / 60);
     }
 }

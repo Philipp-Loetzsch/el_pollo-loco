@@ -17,17 +17,12 @@ class World {
     this.keyboard = keyboard;
     this.drawWorld();
     this.setWorld();
-    this.run();
   }
 
   setWorld() {
     this.character.world = this;
   }
 
-  run() {
-    setInterval(() => this.collidingObject.checkThrowObjects(), 200);
-    setInterval(() => this.collidingObject.checkCollisions(), 500);
-  }
 
   drawWorld() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -46,7 +41,7 @@ class World {
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.clouds);
-    this.addObjectsToMap(this.level.coin)
+    this.addObjectsToMap(this.level.collectableObjects)
     this.addObjectsToMap(this.throwableObjects);
   }
 

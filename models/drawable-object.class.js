@@ -2,7 +2,7 @@ class DrawableObject {
   img;
   imageChache = [];
   currentImage = 0;
-  x = -120;
+  x = -150;
   y= 180 
   offsetX = 0;
   offsetY = 0;
@@ -31,7 +31,7 @@ class DrawableObject {
     });
   }
   drawFrame(ctx) {
-    if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) {
+    if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof CollactableObject) {
       ctx.beginPath();
       ctx.lineWidth = "2";
       ctx.strokeStyle = "blue";

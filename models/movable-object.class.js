@@ -6,7 +6,6 @@ class MovableObject extends CollidingObject {
   energy = 100;
   lastHit = 0;
 
-
   applyGravaty() {
     setInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
@@ -25,10 +24,10 @@ class MovableObject extends CollidingObject {
   }
 
   isColliding(obj) {
-    return  (this.x + this.width) >= obj.x && 
-     this.x <= (obj.x + obj.width) && 
-     (this.y + this.offsetY + this.height) >= obj.y &&
-     (this.y + this.offsetY) <= (obj.y + obj.height);  
+    return  (this.x - this.offsetX + this.width) >= (obj.x + this.offsetX) && 
+     (this.x - this.offsetX )<= (obj.x + obj.width) && 
+     (this.y + this.offsetY + this.offsetHeight) >= obj.y &&
+     (this.y + this.offsetY) <= (obj.y + obj.height- obj.offsetHeight);  
   }
 
   hit() {
