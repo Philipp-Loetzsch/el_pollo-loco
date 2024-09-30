@@ -6,44 +6,20 @@ class MovableObject extends CollidingObject {
   energy = 100;
   lastHit = 0;
 
+
   applyGravaty() {
     setInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
-      }
+        if(this.speedY < 0){
+          this.fallingDown = true
+        }
+        else{
+          this.fallingDown = false
+        }
+     }
     }, 1000 / 25);
-  }
-
-  isAboveGround() {
-    if (this instanceof ThrowableObject) {
-      return true;
-    } else {
-      return this.y < 180;
-    }
-  }
-
-  isColliding(obj) {
-    return  (this.x - this.offsetX + this.width) >= (obj.x + this.offsetX) && 
-     (this.x + this.offsetX )<= (obj.x + obj.width -this.offsetX) && 
-     (this.y + this.offsetY + this.offsetHeight) >= obj.y &&
-     (this.y + this.offsetY) <= (obj.y + obj.height- obj.offsetHeight);  
-  }
-
-  hit() {
-    if(this.isHurt()) return
-    this.energy -= 20;
-    if (this.energy <= 0) {
-      this.energy = 0;
-    } else {
-      this.lastHit = new Date().getTime();
-    }
-  }
-
-  isHurt() {
-    let timepassed = new Date().getTime() - this.lastHit;
-    timepassed = timepassed / 1000;
-    return timepassed < 1;
   }
 
   isDead() {
