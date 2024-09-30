@@ -1,4 +1,9 @@
 class ThrowableObject extends MovableObject {
+  splashFrame = 0
+  offsetHeight = 20
+  offsetWidth = 20
+  offsetX = 10
+  offsetY = 10
   IMAGE_ROTATE = [
     "img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png",
     "img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png",
@@ -27,26 +32,41 @@ class ThrowableObject extends MovableObject {
   }
 
   throw() {
-    this.speedY = 20;
+     this.speedY = 20;
     this.applyGravaty();
-
-    let splasObject = setInterval(() => {
+    this.checkCollisions()
+    let rotateInterval;
+    
+    
+    let checkPosition = setInterval(() => {
       if (this.y >= 350) {
-        this.x += 0;
-        this.splash();
-        clearInterval(splasObject)
-      } else {
-        this.x += 20;
-        this.rotate();
+        this.fallingDown = false
+        this.currentImage = 0
+        clearInterval(rotateInterval);       
+        this.splash();        
+        let splashBottle = setInterval(() => {
+        
+          this.x += 0; 
+          this.splash();  
+          this.splashFrame ++
+          if (this.splashFrame === this.IMAGE_SPLASH.length - 1) {
+            clearInterval(splashBottle)
+          }
+        }, 50);
+        clearInterval(checkPosition);
       }
-    }, 1000 / 15);
+    }, 100);
+    rotateInterval = setInterval(() => {
+      this.x += 5;
+      this.rotate();
+    }, 1000 / 20);
   }
 
   rotate() {
-        this.playAnimation(this.IMAGE_ROTATE);
+    this.playAnimation(this.IMAGE_ROTATE);
   }
 
   splash() {
-       this.playAnimation(this.IMAGE_SPLASH); 
+     this.playAnimation(this.IMAGE_SPLASH);   
   }
 }

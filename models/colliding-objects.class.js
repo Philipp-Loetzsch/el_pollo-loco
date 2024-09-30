@@ -1,12 +1,12 @@
 class CollidingObject extends DrawableObject {
-
-  fallingDown = false
+  fallingDown = false;
+  
 
   isAboveGround() {
     if (this instanceof ThrowableObject) {
       return this.y < 350;
     } else {
-      return this.y < 180
+      return this.y < 180;
     }
   }
 
@@ -14,11 +14,10 @@ class CollidingObject extends DrawableObject {
     setInterval(() => {
       world.level.enemies.forEach((enemie) => {
         if (this.isColliding(enemie)) {
-          if (this.isAboveGround() && this.fallingDown) {
-            this.attack(enemie)
-          }
-          else{
-            this.hit();
+          if (this.fallingDown) {
+            this.attack(enemie);
+          } else {
+            this.hit(20);
             world.healthBar.setPercentage(world.character.energy);
           }
         }
@@ -27,15 +26,18 @@ class CollidingObject extends DrawableObject {
   }
 
   isColliding(obj) {
-    return  (this.x - this.offsetX + this.width) >= (obj.x + this.offsetX) && 
-     (this.x + this.offsetX )<= (obj.x + obj.width) && 
-     (this.y + this.offsetY + this.offsetHeight) >= (obj.y - obj.height / 2.5 + obj.offsetY) &&
-     (this.y + this.offsetY) <= (obj.y + obj.height- obj.offsetHeight );  
+    return (
+      this.x - this.offsetX + this.width >= obj.x + this.offsetX &&
+      this.x + this.offsetX <= obj.x + obj.width &&
+      this.y + this.offsetY + this.offsetHeight >=
+        obj.y - obj.height / 2.5 + obj.offsetY &&
+      this.y + this.offsetY <= obj.y + obj.height - obj.offsetHeight
+    );
   }
 
-  hit() {
-    if(this.isHurt()) return
-    this.energy -= 20;
+  hit(damage) {
+    if (this.isHurt()) return;
+    this.energy -= damage;
     if (this.energy <= 0) {
       this.energy = 0;
     } else {
@@ -48,8 +50,9 @@ class CollidingObject extends DrawableObject {
     timepassed = timepassed / 1000;
     return timepassed < 1;
   }
-  attack(enemie){
-    enemie.energy = 0
-    enemie.offsetY += 80
+
+  attack(enemie) {
+    enemie.energy -= 100 ;
+    enemie.offsetY += 80;
   }
 }

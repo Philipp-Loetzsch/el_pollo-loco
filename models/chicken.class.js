@@ -14,6 +14,7 @@ class Chicken extends MovableObject {
     this.loadImages(this.IMAGES_WALKING);
     this.x = 200 + Math.random() * 500;
     this.animate();
+    
   }
 
   animate() {
@@ -24,10 +25,10 @@ class Chicken extends MovableObject {
       }
     }, 1000 / 60); 
     
-    setInterval(() => {
+    let deadChicken = setInterval(() => {
       if (this.isDead()) {
         this.loadImage('../img/3_enemies_chicken/chicken_normal/2_dead/dead.png')
-        
+        clearInterval(deadChicken)
       }
       else{
         this.playAnimation(this.IMAGES_WALKING);

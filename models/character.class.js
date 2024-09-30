@@ -82,7 +82,7 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_LONG_IDLE);
     this.animate();
     this.applyGravaty();
-    this.checkCollisions();
+    this.checkCollisions('character');
   }
 
   animate() {
