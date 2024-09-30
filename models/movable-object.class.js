@@ -25,7 +25,7 @@ class MovableObject extends CollidingObject {
 
   isColliding(obj) {
     return  (this.x - this.offsetX + this.width) >= (obj.x + this.offsetX) && 
-     (this.x - this.offsetX )<= (obj.x + obj.width) && 
+     (this.x + this.offsetX )<= (obj.x + obj.width -this.offsetX) && 
      (this.y + this.offsetY + this.offsetHeight) >= obj.y &&
      (this.y + this.offsetY) <= (obj.y + obj.height- obj.offsetHeight);  
   }
