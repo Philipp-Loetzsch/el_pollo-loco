@@ -74,7 +74,7 @@ class CollidingObject extends DrawableObject {
   }
 
   attack(enemie) {
-    if (!this.lastAttack && !enemie.damage || this instanceof Character) {
+    if ((!this.lastAttack && !enemie.damage) || this instanceof Character) {
       enemie.damage = true;
       enemie.energy -= 100;
       enemie.offsetY += 80;
@@ -86,28 +86,34 @@ class CollidingObject extends DrawableObject {
   }
   checkCollactable() {
     setInterval(() => {
-        world.level.collectableObjects.forEach((co) => {
-            if (this.isColliding(co) && !this.collect) {
-                if (co instanceof Coin) {  // Überprüfe, ob das Objekt eine Münze ist
-                    this.remove(co);  // Entferne das Münz-Objekt
-                    world.coinBar.percentage += 20;
-                    world.coinBar.setPercentage(world.coinBar.percentage);
-                } else if (co instanceof Bottle) {  // Überprüfe, ob das Objekt eine Flasche ist
-                    this.remove(co);  // Entferne das Flaschen-Objekt
-                    world.bottleBar.percentage += 20;
-                    world.bottleBar.setPercentage(world.bottleBar.percentage);
-                }
-            }
-        });
+      world.level.collectableObjects.forEach((co) => {
+        if (this.isColliding(co) && !this.collect) {
+          if (co instanceof Coin && this.coinAmount < 5) {
+            this.removeItem(co);
+            world.coinBar.percentage += 20;
+            world.coinBar.setPercentage(world.coinBar.percentage);
+            this.coinAmount ++           
+          } else if (co instanceof Bottle && this.bottleAmount < 5) {
+            this.removeItem(co);
+            world.bottleBar.percentage += 20;
+            world.bottleBar.setPercentage(world.bottleBar.percentage);
+            this.bottleAmount ++
+          }
+        }
+      });
     }, 1000 / 60);
-}
+  }
 
-
-  remove(co) {
+  removeItem(co) {
     let index = world.level.collectableObjects.indexOf(co);
     if (index > -1) {
-        world.level.collectableObjects.splice(index, 1);
+      world.level.collectableObjects.splice(index, 1);
     }
-}
-
+  }
+  removeEnemie(enemie){
+    let index = world.level.enemies.indexOf(enemie);
+    if (index > -1) {
+      world.level.enemies.splice(index, 1);
+    }
+  }
 }

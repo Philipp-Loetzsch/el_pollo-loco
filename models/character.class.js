@@ -7,7 +7,9 @@ class Character extends MovableObject {
   offsetHeight = 110;
   offsetWidth = 45;
   idleTime = 0;
-
+  coinAmount = 0
+  bottleAmount =0
+ 
   IMAGES_IDLE = [
     "img/2_character_pepe/1_idle/idle/I-1.png",
     "img/2_character_pepe/1_idle/idle/I-2.png",
@@ -144,11 +146,14 @@ class Character extends MovableObject {
   }
 
   throwBottle() {
-    if (this.world.keyboard.D && !this.currentThrow) {
+    if (this.world.keyboard.D && !this.currentThrow && this.bottleAmount > 0) {
+      this.bottleAmount--;
       this.idleTime = 0;
       let bottle = new ThrowableObject(this.x + 50, this.y + 50);
       world.throwableObjects.push(bottle);
       this. currentThrow = true
+      world.bottleBar.percentage -= 20;
+      world.bottleBar.setPercentage(world.bottleBar.percentage);
       setTimeout(() => {
         this.currentThrow = false
       }, 1000);

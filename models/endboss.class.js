@@ -63,7 +63,7 @@ class Endboss extends MovableObject {
   }
 
   animate() {
-    const mainAnimation = setInterval(() => {
+    let mainAnimation = setInterval(() => {
       if (this.x <= 2600) {
         this.leftEnd = true;
       } else if (this.x >= 4000) {
