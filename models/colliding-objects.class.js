@@ -1,6 +1,7 @@
 class CollidingObject extends DrawableObject {
   fallingDown = false;
-  
+  lastAttack = false;
+  collect = false;
 
   isAboveGround() {
     if (this instanceof ThrowableObject) {
@@ -10,11 +11,25 @@ class CollidingObject extends DrawableObject {
     }
   }
 
+  applyGravaty() {
+    setInterval(() => {
+      if (this.isAboveGround() || this.speedY > 0) {
+        this.y -= this.speedY;
+        this.speedY -= this.acceleration;
+        if (this.speedY < 0 && this.isAboveGround()) {
+          this.fallingDown = true;
+        } else {
+          this.fallingDown = false;
+        }
+      }
+    }, 1000 / 25);
+  }
+
   checkCollisions() {
     setInterval(() => {
       world.level.enemies.forEach((enemie) => {
         if (this.isColliding(enemie)) {
-          if (this.fallingDown) {
+          if (this.isAttack(enemie)) {
             this.attack(enemie);
           } else {
             this.hit(20);
@@ -35,6 +50,13 @@ class CollidingObject extends DrawableObject {
     );
   }
 
+  isAttack(enemie) {
+    return (
+      (this.fallingDown && this.y + this.offsetHeight < enemie.y) ||
+      this instanceof ThrowableObject
+    );
+  }
+
   hit(damage) {
     if (this.isHurt()) return;
     this.energy -= damage;
@@ -52,7 +74,40 @@ class CollidingObject extends DrawableObject {
   }
 
   attack(enemie) {
-    enemie.energy -= 100 ;
-    enemie.offsetY += 80;
+    if (!this.lastAttack && !enemie.damage || this instanceof Character) {
+      enemie.damage = true;
+      enemie.energy -= 100;
+      enemie.offsetY += 80;
+      if (enemie.energy <= 0) {
+        enemie.energy = 0;
+      }
+      this.lastAttack = true;
+    }
   }
+  checkCollactable() {
+    setInterval(() => {
+        world.level.collectableObjects.forEach((co) => {
+            if (this.isColliding(co) && !this.collect) {
+                if (co instanceof Coin) {  // Überprüfe, ob das Objekt eine Münze ist
+                    this.remove(co);  // Entferne das Münz-Objekt
+                    world.coinBar.percentage += 20;
+                    world.coinBar.setPercentage(world.coinBar.percentage);
+                } else if (co instanceof Bottle) {  // Überprüfe, ob das Objekt eine Flasche ist
+                    this.remove(co);  // Entferne das Flaschen-Objekt
+                    world.bottleBar.percentage += 20;
+                    world.bottleBar.setPercentage(world.bottleBar.percentage);
+                }
+            }
+        });
+    }, 1000 / 60);
+}
+
+
+  remove(co) {
+    let index = world.level.collectableObjects.indexOf(co);
+    if (index > -1) {
+        world.level.collectableObjects.splice(index, 1);
+    }
+}
+
 }

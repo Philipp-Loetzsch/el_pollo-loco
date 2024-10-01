@@ -5,22 +5,10 @@ class MovableObject extends CollidingObject {
   acceleration = 2;
   energy = 100;
   lastHit = 0;
-
-
-  applyGravaty() {
-    setInterval(() => {
-      if (this.isAboveGround() || this.speedY > 0) {
-        this.y -= this.speedY;
-        this.speedY -= this.acceleration;
-        if(this.speedY < 0){
-          this.fallingDown = true
-        }
-        else{
-          this.fallingDown = false
-        }
-     }
-    }, 1000 / 25);
-  }
+  leftEnd = false
+  rightEnd = false
+  damage = false
+  currentThrow = false
 
   isDead() {
     return this.energy == 0;

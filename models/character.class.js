@@ -73,7 +73,7 @@ class Character extends MovableObject {
   walking_sound = new Audio("../audio/running.mp3");
 
   constructor() {
-    super().loadImage("../img/2_character_pepe/1_idle/idle/I-1.png");
+    super().loadImage(this.IMAGES_IDLE[0]);
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_JUMPING);
     this.loadImages(this.IMAGES_HURT);
@@ -82,13 +82,14 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_LONG_IDLE);
     this.animate();
     this.applyGravaty();
-    this.checkCollisions('character');
+    this.checkCollisions();
+    this.checkCollactable()
   }
 
   animate() {
     setInterval(() => {
       this.walking_sound.pause();
-      this.characterMovement()
+      this.characterMovement();
       this.world.camera_x = -this.x + 50;
     }, 1000 / 60);
 
@@ -98,7 +99,10 @@ class Character extends MovableObject {
     }, 1000 / 10);
 
     setInterval(() => {
-      if (!(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) &&  !this.isAboveGround()) {
+      if (
+        !(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) &&
+        !this.isAboveGround()
+      ) {
         this.idleAnimation();
       } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
@@ -107,7 +111,7 @@ class Character extends MovableObject {
     }, 300);
   }
 
-  characterMovement(){
+  characterMovement() {
     if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
       this.moveRight();
       this.otherDirection = false;
@@ -140,9 +144,14 @@ class Character extends MovableObject {
   }
 
   throwBottle() {
-    if (this.world.keyboard.D) {
+    if (this.world.keyboard.D && !this.currentThrow) {
+      this.idleTime = 0;
       let bottle = new ThrowableObject(this.x + 50, this.y + 50);
       world.throwableObjects.push(bottle);
+      this. currentThrow = true
+      setTimeout(() => {
+        this.currentThrow = false
+      }, 1000);
     }
   }
   idleAnimation() {

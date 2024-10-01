@@ -3,6 +3,7 @@ class Statusbar extends DrawableObject{
     height= 45
 
     setPercentage(percentage){
+        if(percentage >= 100) percentage = 100
         this.percentage = percentage;
         let path = this.IMAGE[this.resolveImageIndex()]
         this.img = this.imageChache[path];
