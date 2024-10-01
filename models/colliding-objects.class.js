@@ -116,4 +116,10 @@ class CollidingObject extends DrawableObject {
       world.level.enemies.splice(index, 1);
     }
   }
+  removeThrownObject(to){
+    let index = world.throwableObjects.indexOf(to);
+    if (index > -1) {
+      world.throwableObjects.splice(index, 1);
+    }
+  }
 }

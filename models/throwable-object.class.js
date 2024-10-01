@@ -50,6 +50,10 @@ class ThrowableObject extends MovableObject {
           this.splashFrame ++
           if (this.splashFrame === this.IMAGE_SPLASH.length - 1) {
             clearInterval(splashBottle)
+            setTimeout(() => {
+              this.removeThrownObject(this)
+            }, 500);
+           
           }
         }, 50);
         clearInterval(checkPosition);
