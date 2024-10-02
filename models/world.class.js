@@ -10,13 +10,24 @@ class World {
   coinBar = new CoinBar();
   throwableObjects = [];
   collidingObject = new CollidingObject();
+  world_music = new Audio ('../audio/world_theme.mp3')
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
+    this.world_music.volume = 0.15;
     this.drawWorld();
     this.setWorld();
+    this.playTheme();
+    
+  }
+
+  playTheme(){
+  
+    setInterval(() => {
+      this.world_music.play()
+    }, 1000/60);
   }
 
   setWorld() {

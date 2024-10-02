@@ -2,6 +2,7 @@ class Chicken extends MovableObject {
   height = 90;
   width = 55; 
   y = 335;
+  killChickenAudio = new Audio("../audio/kill_chicken.mp3") 
 
   IMAGES_WALKING = [
     "img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
@@ -15,6 +16,7 @@ class Chicken extends MovableObject {
     this.x = x;
     this.spawnPoint = this.x;
     this.animate();
+    this.killChickenAudio.volume = 0.3
   }
 
   animate() {
@@ -38,9 +40,8 @@ class Chicken extends MovableObject {
 
     let deadChicken = setInterval(() => {
       if (this.isDead()) {
-        this.loadImage(
-          "../img/3_enemies_chicken/chicken_normal/2_dead/dead.png"
-        );
+        this.killChickenAudio.play()
+        this.loadImage("../img/3_enemies_chicken/chicken_normal/2_dead/dead.png");
         clearInterval(deadChicken);
         setTimeout(() => {
           this.removeEnemie(this);

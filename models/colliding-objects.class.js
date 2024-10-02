@@ -2,9 +2,10 @@ class CollidingObject extends DrawableObject {
   fallingDown = false;
   lastAttack = false;
   collect = false;
+  
 
   isAboveGround() {
-    if (this instanceof ThrowableObject) {
+    if (this instanceof ThrowableObject || this instanceof ChickenSmall) {
       return this.y < 350;
     } else {
       return this.y < 180;

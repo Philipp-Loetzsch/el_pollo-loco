@@ -29,7 +29,7 @@ class MovableObject extends CollidingObject {
   moveLeft() {
     this.x -= this.speed;
   }
-  jump() {
-    this.speedY = 25;
+  jump(height) {
+    this.speedY = height;
   }
 }

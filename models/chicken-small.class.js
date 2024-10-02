@@ -2,6 +2,7 @@ class ChickenSmall extends MovableObject {
   height = 60;
   width = 45;
   y = 365;
+  killChickenSmallAudio = new Audio("../audio/kill_chicken_small.mp3") 
 
   IMAGES_WALKING = [
     "img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
@@ -15,6 +16,8 @@ class ChickenSmall extends MovableObject {
     this.x = 200 + Math.random() * x;
     this.spawnPoint = this.x;
     this.animate();
+    this.applyGravaty()
+    this.killChickenSmallAudio.volume = 0.2
   }
 
   animate() {
@@ -28,15 +31,23 @@ class ChickenSmall extends MovableObject {
       }
       if (!this.leftEnd && this.energy == 100) {
         this.moveLeft();
+            
         this.otherDirection = false;
       } else if (this.energy == 100) {
         this.moveRight();
         this.otherDirection = true;
-      }
+      }    
     }, 1000 / 60);
+    setInterval(() => {
+        if(!this.isAboveGround() && !this.isDead()){
+        this.jump(20)
+        }
+    }, 2000);
 
     let deadChicken = setInterval(() => {
       if (this.isDead()) {
+        this.killChickenSmallAudio.play()
+        this.offsetY = 500
         this.loadImage(
           "../img/3_enemies_chicken/chicken_small/2_dead/dead.png"
         );
