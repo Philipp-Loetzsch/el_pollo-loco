@@ -73,9 +73,9 @@ class Character extends MovableObject {
     "img/2_character_pepe/5_dead/D-57.png",
   ];
   world;
-  walking_sound = new Audio("../audio/running.mp3");
-  hurt_sound = new Audio("../audio/char_hit.mp3");
-  dying_sound = new Audio("../audio/char_dye.mp3");
+  walking_sound = new Audio("audio/running.mp3");
+  hurt_sound = new Audio("audio/char_hit.mp3");
+  dying_sound = new Audio("audio/char_dye.mp3");
 
   constructor() {
     super().loadImage(this.IMAGES_IDLE[0]);

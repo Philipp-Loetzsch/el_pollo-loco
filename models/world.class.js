@@ -10,7 +10,7 @@ class World {
   coinBar = new CoinBar();
   throwableObjects = [];
   collidingObject = new CollidingObject();
-  world_music = new Audio ('../audio/world_theme.mp3')
+  world_music = new Audio ('audio/world_theme.mp3')
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");

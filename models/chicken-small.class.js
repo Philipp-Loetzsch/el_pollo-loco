@@ -2,7 +2,7 @@ class ChickenSmall extends MovableObject {
   height = 60;
   width = 45;
   y = 365;
-  killChickenSmallAudio = new Audio("../audio/kill_chicken_small.mp3") 
+  killChickenSmallAudio = new Audio("audio/kill_chicken_small.mp3") 
 
   IMAGES_WALKING = [
     "img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
@@ -11,7 +11,7 @@ class ChickenSmall extends MovableObject {
   ];
 
   constructor(x) {
-    super().loadImage("../img/3_enemies_chicken/chicken_small/1_walk/1_w.png");
+    super().loadImage("img/3_enemies_chicken/chicken_small/1_walk/1_w.png");
     this.loadImages(this.IMAGES_WALKING);
     this.x = 200 + Math.random() * x;
     this.spawnPoint = this.x;
@@ -49,7 +49,7 @@ class ChickenSmall extends MovableObject {
         this.killChickenSmallAudio.play()
         this.offsetY = 500
         this.loadImage(
-          "../img/3_enemies_chicken/chicken_small/2_dead/dead.png"
+          "img/3_enemies_chicken/chicken_small/2_dead/dead.png"
         );
         clearInterval(deadChicken);
         setTimeout(() => {
