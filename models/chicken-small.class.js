@@ -1,18 +1,18 @@
-class Chicken extends MovableObject {
-  height = 90;
-  width = 55; 
-  y = 335;
+class ChickenSmall extends MovableObject {
+  height = 60;
+  width = 45;
+  y = 365;
 
   IMAGES_WALKING = [
-    "img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
-    "img/3_enemies_chicken/chicken_normal/1_walk/2_w.png",
-    "img/3_enemies_chicken/chicken_normal/1_walk/3_w.png",
+    "img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
+    "img/3_enemies_chicken/chicken_small/1_walk/2_w.png",
+    "img/3_enemies_chicken/chicken_small/1_walk/3_w.png",
   ];
 
   constructor(x) {
-    super().loadImage("../img/3_enemies_chicken/chicken_normal/1_walk/1_w.png");
+    super().loadImage("../img/3_enemies_chicken/chicken_small/1_walk/1_w.png");
     this.loadImages(this.IMAGES_WALKING);
-    this.x = x;
+    this.x = 200 + Math.random() * x;
     this.spawnPoint = this.x;
     this.animate();
   }
@@ -23,8 +23,7 @@ class Chicken extends MovableObject {
     setInterval(() => {
       if (this.x <= this.spawnPoint - 500 || this.x <= 0) {
         this.leftEnd = true;
-      } else if (
-        this.x >= this.spawnPoint + 500) {
+      } else if (this.x >= this.spawnPoint + 500) {
         this.leftEnd = false;
       }
       if (!this.leftEnd && this.energy == 100) {
@@ -39,7 +38,7 @@ class Chicken extends MovableObject {
     let deadChicken = setInterval(() => {
       if (this.isDead()) {
         this.loadImage(
-          "../img/3_enemies_chicken/chicken_normal/2_dead/dead.png"
+          "../img/3_enemies_chicken/chicken_small/2_dead/dead.png"
         );
         clearInterval(deadChicken);
         setTimeout(() => {

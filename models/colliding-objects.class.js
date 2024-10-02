@@ -77,7 +77,7 @@ class CollidingObject extends DrawableObject {
     if ((!this.lastAttack && !enemie.damage) || this instanceof Character) {
       enemie.damage = true;
       enemie.energy -= 100;
-      enemie.offsetY += 80;
+      enemie.offsetY += 120;
       if (enemie.energy <= 0) {
         enemie.energy = 0;
       }

@@ -58,15 +58,15 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_ATTACK);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
-    this.x = 3000;
+    this.x = this.level_end_x;
     this.animate();
   }
 
   animate() {
     let mainAnimation = setInterval(() => {
-      if (this.x <= 2600) {
+      if (this.x <= this.level_end_x - 500) {
         this.leftEnd = true;
-      } else if (this.x >= 4000) {
+      } else if (this.x >= this.level_end_x) {
         this.leftEnd = false;
       }
       if (this.isDead()) {
@@ -110,10 +110,10 @@ class Endboss extends MovableObject {
   bossWalking(){
     this.playAnimation(this.IMAGES_WALKING);
 
-    if (this.x >= 2600 && !this.leftEnd) {
+    if (!this.leftEnd) {
       this.moveLeft();
       this.otherDirection = false;
-    } else if (this.x <= 4000 && this.leftEnd) {
+    } else if (this.leftEnd) {
       this.moveRight();
       this.otherDirection = true;
     }

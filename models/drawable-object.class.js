@@ -8,6 +8,8 @@ class DrawableObject {
   offsetY = 0;
   offsetHeight = 0
   offsetWidth = 0
+  level_end_x = 5000;
+  angle = 0
 
   loadImage(path) {
     this.img = new Image();
@@ -15,12 +17,7 @@ class DrawableObject {
   }
 
   draw(ctx) {
-    if (this.img) {
       ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-  } else {
-      return console.error("Image not available for drawing:", this.img);
-      
-  }
   }
 
   loadImages(arr) {
