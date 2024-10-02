@@ -31,4 +31,31 @@ canvas{
     h1{
         display: none;
     }
+    button{
+        position: absolute;
+        bottom: 5%;
+    }
+    #left{
+        left: 5%;
+    }
+    #right{
+        left: 15%
+    }
+    #space{
+        right: 5%;
+    }
+    #d{
+        right: 15%;
+    }
+    #h{
+        right: 25%;
+    }
+    #fullscreen{
+        bottom:95%;
+        right:0;
+    }
+    #reload{
+        bottom: 95%;
+        right: 15%;
+    }
 }

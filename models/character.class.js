@@ -102,6 +102,7 @@ class Character extends MovableObject {
     setInterval(() => {
       this.InteractionAnimation();
       this.throwBottle();
+      this.heal();
     }, 1000 / 10);
 
     setInterval(() => {
@@ -118,18 +119,18 @@ class Character extends MovableObject {
   }
 
   characterMovement() {
-    if (this.world.keyboard.RIGHT && this.x < this.level_end_x) {
+    if (this.world.keyboard.RIGHT && this.x < this.level_end_x && !this.isDead()) {
       this.moveRight();
       this.otherDirection = false;
       this.walking_sound.play();
     }
-    if (this.world.keyboard.LEFT && this.x > -200) {
+    if (this.world.keyboard.LEFT && this.x > -200 && !this.isDead()) {
       this.moveLeft();
       this.otherDirection = true;
       this.walking_sound.play();
       this.idleTime = 0;
     }
-    if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+    if (this.world.keyboard.SPACE && !this.isAboveGround() && !this.isDead()) {
       this.jump(25);
       this.idleTime = 0;
     }
@@ -172,6 +173,16 @@ class Character extends MovableObject {
       }, 1000);
     }
   }
+
+  heal(){
+    if(this.world.keyboard.H && this.energy < 100 && this.coinAmount ==5){
+      this.energy = 100
+      world.coinBar.percentage -= 100
+      world.coinBar.setPercentage(world.coinBar.percentage)
+      world.healthBar.setPercentage(this.energy)
+    }
+  }
+
   idleAnimation() {
     if (!this.idleTime) {
       this.idleTime = new Date().getTime();
