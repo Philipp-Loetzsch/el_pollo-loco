@@ -18,6 +18,15 @@ body {
   background-position: center;
 }
 
+
+#fullscreen {
+    display: flex;
+    position: absolute;
+    top: 5%;
+    right: 0;
+    background-color: rgba(194, 199, 194, 0.575);
+  }
+
 button {
   display: none;
 }
@@ -84,12 +93,6 @@ canvas {
     }
   }
  
-  #fullscreen {
-    position: absolute;
-    top: 5%;
-    right: 0;
-    background-color: rgba(194, 199, 194, 0.575);
-  }
   #reload {
     position: absolute;
     top: 5%;

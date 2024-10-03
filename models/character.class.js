@@ -177,6 +177,7 @@ class Character extends MovableObject {
   heal(){
     if(this.world.keyboard.H && this.energy < 100 && this.coinAmount ==5){
       this.energy = 100
+      this.coinAmount = 0
       world.coinBar.percentage -= 100
       world.coinBar.setPercentage(world.coinBar.percentage)
       world.healthBar.setPercentage(this.energy)
