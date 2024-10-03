@@ -33,21 +33,35 @@
     <script src="./models/level.class.js"></script>
     <script src="./levels/level_1.js"></script>
   </head>
-  <body onload="init()">
+  <body onload="playMainTheme()">
     <h1>El pollo loco</h1>
     <div id="game">
+
+      <div id="mainMenu" class="menu d_none">
+        <button onclick="init()"><img src="./img/10_mobile_icons/start.png" alt=""></button>
+        <button onclick="toggleSettings()"><img src="./img/10_mobile_icons/settings.png" alt=""></button>
+        <button><img src="./img/10_mobile_icons/control.png" alt=""></button>
+      </div>
+      <div id="settings" class="d_none">
+        <span>Sound</span>
+        <button><img src="./img/10_mobile_icons/volume.png" alt=""></button>
+        <label for="volumeSlider">Volume: </label>
+        <input type="range" id="volumeSlider" class="slider" min="0" max="1" step="0.01" value="1">
+      </div>
+      <button id="fullscreen" onclick="openFullscreen()"><img src="./img/10_mobile_icons/full-screen.png" alt="FULLSCREEN"></button>
+      <button id="reload" onclick="reloadGame()"><img src="./img/10_mobile_icons/refresh.png" alt="RELOAD"></button>
     <canvas id="canvas" width="720" height="480"></canvas>
     <div id="movement">
       <button id="left"  ontouchstart="touchButton(id)" ontouchend="releaseButton(id)"><img src="./img/10_mobile_icons/left.png" alt="LEFT"></button>
       <button id="right" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)"><img src="./img/10_mobile_icons/right.png" alt="RIGHT"></button>
     </div>
-    <button id="fullscreen" onclick="openFullscreen()"><img src="./img/10_mobile_icons/full-screen.png" alt="FULLSCREEN"></button>
+    
     <div id="action">
       <button id="h" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)"><img src="./img/10_mobile_icons/heart.png" alt="HEAL"></button>
       <button id="d" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)"><img src="./img/10_mobile_icons/throw.png" alt="THROW"></button>
       <button id="space"  ontouchstart="touchButton(id)" ontouchend="releaseButton(id)"><img src="./img/10_mobile_icons/jump.png" alt="JUMP"></button>
     </div>
-    <button id="reload" onclick="reloadGame()"><img src="./img/10_mobile_icons/refresh.png" alt="RELOAD"></button>
+   
   </div>
   </body>
 </html>

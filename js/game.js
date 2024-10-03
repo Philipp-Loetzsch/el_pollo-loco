@@ -1,11 +1,27 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let mainTheme = new Audio('audio/main_menu.mp3')
+
+function playMainTheme(){
+  mainTheme.play().catch(error => {
+    console.error("Fehler beim Abspielen des Audios:", error);
+    mainTheme.load();  
+    setTimeout(() => {
+        playMainTheme();  
+    }, 1000); 
+  });
+  mainTheme.volume = 0.5
+}
 
 function init() {
+  mainTheme.pause()
+  document.getElementById('mainMenu').classList.remove("menu")
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
 }
+
+
 function openFullscreen() {
   let game = document.getElementById('game')
   if (game.requestFullscreen) {
@@ -21,8 +37,10 @@ function reloadGame(){
   location.reload();
 }
 
+function toggleSettings(){
+  document.getElementById('settings').classList.toggle('settings')
+}
 
-// Funktion, um Button gedrückt zu registrieren
 function touchButton(buttonId) {
   switch (buttonId) {
       case 'left':

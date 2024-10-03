@@ -3,6 +3,9 @@
   src: url("./fonts/Zabars.ttf") format("truetype");
 }
 
+.d_none{
+display: none;
+}
 body {
   display: flex;
   flex-direction: column;
@@ -18,23 +21,86 @@ body {
   background-position: center;
 }
 
+.menu{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex !important;
+    align-items: baseline;
+    padding-top: 5%;
+    box-sizing: border-box;
+    justify-content: space-around;
+    background-image: url('img/9_intro_outro_screens/start/startscreen_2.png');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 9999;
+    button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: orange;
+        border-radius: 50%;
+        border: none;
+        width: 90px;
+        height: 90px;
+        img{
+            width: 100%;
+        }
+    }
+}
+
+.settings{
+    position: absolute;
+    z-index: 10000;
+    background-color: rgba(206, 188, 88, 0.884);
+    width: 200px;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    gap: 30px;
+    padding: 10px 0;
+    border-radius: 20px;
+    button{
+        display: flex;
+        width: 40px;
+        background-color: transparent;
+        border-radius: 5px;
+        img{
+            width: 100%;
+        }
+    }
+   
+}
 
 #fullscreen {
-    display: flex;
-    position: absolute;
-    top: 5%;
-    right: 0;
-    background-color: rgba(194, 199, 194, 0.575);
+  display: flex;
+  position: absolute;
+  align-items: center;
+
+  bottom: 2%;
+  right: 1%;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(194, 199, 194, 0.575);
+  img {
+    width: 100%;
   }
+}
 
 button {
   display: none;
+  cursor: pointer;
 }
 
 #game {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 canvas {
@@ -42,9 +108,12 @@ canvas {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: scale-down;
+  object-fit: contain;
 }
-@media screen and (max-width: 770px), (max-height: 480px) {
+@media screen and (max-width: 770px), (max-height: 640px) {
+  #game {
+    width: 100%;
+  }
   canvas {
     width: 100%;
     height: 100vh;
@@ -61,42 +130,72 @@ canvas {
     border-radius: 50%;
     height: 60px;
     width: 60px;
-    img{
-        width: 100%;
+    img {
+      width: 100%;
     }
-   
   }
 
   #movement {
     position: absolute;
     display: flex;
     gap: 20px;
-    left: 5%;
+    left: 1%;
     bottom: 2%;
-    img{
-        width: 60px;
-        height: 60px;
+    img {
+      width: 60px;
+      height: 60px;
     }
   }
 
-  #action{
+  #action {
     display: flex;
     gap: 10px;
     position: absolute;
-    right: 5%;
+    right: 1%;
     bottom: 2%;
   }
-  #space{
-    img{
-        width: 60px;
-        height: 60px;
+  #space {
+    img {
+      width: 60px;
+      height: 60px;
     }
   }
- 
+
+  #fullscreen {
+    top: 5%;
+    height: 60px;
+    width: 60px;
+    bottom: unset;
+  }
   #reload {
     position: absolute;
     top: 5%;
     right: 10%;
     background-color: rgba(194, 199, 194, 0.575);
   }
+}
+
+@media screen and (max-height: 500px) {
+    button{
+        height: 40px;
+        width: 40px;
+    }
+
+    #movement{
+        img{
+            width: 40px;
+            height: 40px;
+        }
+    }
+    #space{
+        img{
+            width: 40px;
+            height: 40px;
+        }
+    }
+    #fullscreen{
+        height: 40px;
+        width: 40px;
+    }
+
 }
