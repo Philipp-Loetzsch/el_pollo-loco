@@ -7,12 +7,13 @@ function init() {
   world = new World(canvas, keyboard);
 }
 function openFullscreen() {
-  if (canvas.requestFullscreen) {
-    canvas.requestFullscreen();
-  } else if (canvas.webkitRequestFullscreen) {
-    canvas.webkitRequestFullscreen();
-  } else if (canvas.msRequestFullscreen) {
-    canvas.msRequestFullscreen();
+  let game = document.getElementById('game')
+  if (game.requestFullscreen) {
+    game.requestFullscreen();
+  } else if (game.webkitRequestFullscreen) {
+    game.webkitRequestFullscreen();
+  } else if (game.msRequestFullscreen) {
+    game.msRequestFullscreen();
   }
 }
 
@@ -20,14 +21,51 @@ function reloadGame(){
   location.reload();
 }
 
-function touchButton(action){
-  let newAction = action.toUpperCase()
-  keyboard[newAction] = true
+
+// Funktion, um Button gedrückt zu registrieren
+function touchButton(buttonId) {
+  switch (buttonId) {
+      case 'left':
+          keyboard.LEFT = true;
+          break;
+      case 'right':
+          keyboard.RIGHT = true;
+          break;
+      case 'h':
+          keyboard.H = true;
+          break;
+      case 'd':
+          keyboard.D = true;
+          break;
+      case 'space':
+          keyboard.SPACE = true;
+          break;
+      default:
+          console.log('Unbekannter Button: ' + buttonId);
+  }
 }
 
-function relaeseButton(action){
-  let newAction = action.toUpperCase()
-  keyboard[newAction] = false
+// Funktion, um das Loslassen eines Buttons zu registrieren
+function releaseButton(buttonId) {
+  switch (buttonId) {
+      case 'left':
+          keyboard.LEFT = false;
+          break;
+      case 'right':
+          keyboard.RIGHT = false;
+          break;
+      case 'h':
+          keyboard.H = false;
+          break;
+      case 'd':
+          keyboard.D = false;
+          break;
+      case 'space':
+          keyboard.SPACE = false;
+          break;
+      default:
+          console.log('Unbekannter Button: ' + buttonId);
+  }
 }
 
 
@@ -40,10 +78,7 @@ window.addEventListener("keydown", (e) => {
       keyboard.LEFT = true;
       break;
     case "ArrowUp":
-      keyboard.UP = true;
-      break;
-    case "ArrowDown":
-      keyboard.DOWN = true;
+      keyboard.SPACE = true;
       break;
     case " ":
       keyboard.SPACE = true;
@@ -68,10 +103,7 @@ window.addEventListener("keyup", (e) => {
       keyboard.LEFT = false;
       break;
     case "ArrowUp":
-      keyboard.UP = false;
-      break;
-    case "ArrowDown":
-      keyboard.DOWN = false;
+      keyboard.SPACE = false;
       break;
     case " ":
       keyboard.SPACE = false;

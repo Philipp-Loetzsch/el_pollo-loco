@@ -23,8 +23,7 @@ class World {
     
   }
 
-  playTheme(){
-  
+  playTheme(){  
     setInterval(() => {
       this.world_music.play()
     }, 1000/60);

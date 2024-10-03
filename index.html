@@ -35,18 +35,19 @@
   </head>
   <body onload="init()">
     <h1>El pollo loco</h1>
+    <div id="game">
     <canvas id="canvas" width="720" height="480"></canvas>
-    <div>
-      <button id="left" onmousedown="touchButton(id)" onmouseup="relaeseButton(id)" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)">left</button>
-      <button id="right" onmousedown="touchButton(id)" onmouseup="relaeseButton(id)" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)">right</button>
+    <div id="movement">
+      <button id="left"  ontouchstart="touchButton(id)" ontouchend="releaseButton(id)"><img src="./img/10_mobile_icons/left.png" alt="LEFT"></button>
+      <button id="right" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)"><img src="./img/10_mobile_icons/right.png" alt="RIGHT"></button>
     </div>
-    <button id="fullscreen" onclick="openFullscreen()">full screen</button>
-    <div>
-      <button id="space" onmousedown="touchButton(id)" onmouseup="relaeseButton(id)" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)">jump</button>
-      <button id="d" onmousedown="touchButton(id)" onmouseup="relaeseButton(id)" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)">throw</button>
-      <button id="h">heal</button>
+    <button id="fullscreen" onclick="openFullscreen()"><img src="./img/10_mobile_icons/full-screen.png" alt="FULLSCREEN"></button>
+    <div id="action">
+      <button id="h" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)"><img src="./img/10_mobile_icons/heart.png" alt="HEAL"></button>
+      <button id="d" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)"><img src="./img/10_mobile_icons/throw.png" alt="THROW"></button>
+      <button id="space"  ontouchstart="touchButton(id)" ontouchend="releaseButton(id)"><img src="./img/10_mobile_icons/jump.png" alt="JUMP"></button>
     </div>
-    <button id="reload" onclick="reloadGame()">reload</button>
-
+    <button id="reload" onclick="reloadGame()"><img src="./img/10_mobile_icons/refresh.png" alt="RELOAD"></button>
+  </div>
   </body>
 </html>

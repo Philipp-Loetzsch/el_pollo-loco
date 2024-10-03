@@ -1,61 +1,99 @@
 @font-face {
-    font-family: "zabars";
-    src: url('./fonts/Zabars.ttf') format('truetype');
+  font-family: "zabars";
+  src: url("./fonts/Zabars.ttf") format("truetype");
 }
 
-body{
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  font-family: "zabars", Arial, Helvetica, sans-serif;
+  font-size: 32px;
+  background-image: url("img/desert.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+button {
+  display: none;
+}
+
+#game {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  background-color: black;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+}
+@media screen and (max-width: 770px), (max-height: 480px) {
+  canvas {
+    width: 100%;
+    height: 100vh;
+    object-fit: contain;
+  }
+  h1 {
+    display: none;
+  }
+  button {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    margin: 0;
-    font-family: 'zabars', Arial, Helvetica, sans-serif;
-    font-size: 32px;
-    background-image: url('img/desert.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-
-}
-
-canvas{
-    background-color: black;
-    display: block;
-}
-@media screen and (max-width: 920px),(height: 480px)  {
-    canvas{
+    border: none;
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    img{
         width: 100%;
-        height: 100vh;
     }
-    h1{
-        display: none;
+   
+  }
+
+  #movement {
+    position: absolute;
+    display: flex;
+    gap: 20px;
+    left: 5%;
+    bottom: 2%;
+    img{
+        width: 60px;
+        height: 60px;
     }
-    button{
-        position: absolute;
-        bottom: 5%;
+  }
+
+  #action{
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    right: 5%;
+    bottom: 2%;
+  }
+  #space{
+    img{
+        width: 60px;
+        height: 60px;
     }
-    #left{
-        left: 5%;
-    }
-    #right{
-        left: 15%
-    }
-    #space{
-        right: 5%;
-    }
-    #d{
-        right: 15%;
-    }
-    #h{
-        right: 25%;
-    }
-    #fullscreen{
-        bottom:95%;
-        right:0;
-    }
-    #reload{
-        bottom: 95%;
-        right: 15%;
-    }
+  }
+ 
+  #fullscreen {
+    position: absolute;
+    top: 5%;
+    right: 0;
+    background-color: rgba(194, 199, 194, 0.575);
+  }
+  #reload {
+    position: absolute;
+    top: 5%;
+    right: 10%;
+    background-color: rgba(194, 199, 194, 0.575);
+  }
 }
