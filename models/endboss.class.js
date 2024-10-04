@@ -78,11 +78,16 @@ class Endboss extends MovableObject {
         this.bossWalking()
       }
     }, 1000 / 10);
+
+    setInterval(() => {
+      this.endFight()
+    }, 1000 / 60);
   }
 
   bossDied() {
     this.currentImage = 0;
     this.endSceneFrame = 0;
+    world.endbossBar.setPercentage(0)
     let hurtAnimation = setInterval(() => {
       this.playAnimation(this.IMAGES_HURT);
       this.endSceneFrame++;
@@ -105,6 +110,7 @@ class Endboss extends MovableObject {
     setTimeout(() => {
       this.damage = false;
     }, this.IMAGES_HURT.length * 200);
+    world.endbossBar.setPercentage(this.energy / 3)
   }
 
   bossWalking(){
@@ -116,6 +122,13 @@ class Endboss extends MovableObject {
     } else if (this.leftEnd) {
       this.moveRight();
       this.otherDirection = true;
+    }
+  }
+
+  endFight(){
+    if(world.character.x >= this.x - 500){
+      console.log("hallo");
+      
     }
   }
 }

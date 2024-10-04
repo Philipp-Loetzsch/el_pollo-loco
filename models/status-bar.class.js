@@ -1,7 +1,7 @@
 class Statusbar extends DrawableObject{
     width = 150
     height= 45
-
+    percentage = 100;
     setPercentage(percentage){
         if(percentage >= 100) percentage = 100
         this.percentage = percentage;

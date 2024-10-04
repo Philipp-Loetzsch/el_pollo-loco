@@ -40,9 +40,9 @@ class ChickenSmall extends MovableObject {
     }, 1000 / 60);
     setInterval(() => {
         if(!this.isAboveGround() && !this.isDead()){
-        this.jump(20)
+        this.jump(20 * Math.random())
         }
-    }, 2000);
+    }, 2000 * Math.random());
 
     let deadChicken = setInterval(() => {
       if (this.isDead()) {

@@ -8,6 +8,7 @@ class World {
   healthBar = new HealthBar();
   bottleBar = new BottleBar();
   coinBar = new CoinBar();
+  endbossBar = new EndbossBar();
   throwableObjects = [];
   collidingObject = new CollidingObject();
   world_music = new Audio ('audio/world_theme.mp3')
@@ -59,6 +60,7 @@ class World {
     this.addToMap(this.healthBar);
     this.addToMap(this.bottleBar);
     this.addToMap(this.coinBar);
+    this.addToMap(this.endbossBar);
   }
   addObjectsToMap(objects) {
     objects.forEach((o) => {
