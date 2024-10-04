@@ -25,9 +25,7 @@ class World {
   }
 
   playTheme(){  
-    setInterval(() => {
       this.world_music.play()
-    }, 1000/60);
   }
 
   setWorld() {

@@ -73,25 +73,29 @@ class Endboss extends MovableObject {
         this.bossDied();
         clearInterval(mainAnimation);
       } else if (this.damage) {
-        this.bossHurt()
-      } else {
-        this.bossWalking()
+        this.bossHurt();
+      } else if (!this.lastBattle) {
+        this.bossWalking();
       }
     }, 1000 / 10);
-
-    setInterval(() => {
-      this.endFight()
-    }, 1000 / 60);
+ 
+      setInterval(() => {
+        if (!world) return
+        if (world.character.x >= world.level.enemies[enemies.lenght].x - 500) {
+          this.endFight();
+        }
+      }, 1000 / 5);
+    
   }
 
   bossDied() {
     this.currentImage = 0;
     this.endSceneFrame = 0;
-    world.endbossBar.setPercentage(0)
+    world.endbossBar.setPercentage(0);
     let hurtAnimation = setInterval(() => {
       this.playAnimation(this.IMAGES_HURT);
       this.endSceneFrame++;
-      if (this.endSceneFrame === this.IMAGES_HURT.length* 5) {
+      if (this.endSceneFrame === this.IMAGES_HURT.length * 5) {
         clearInterval(hurtAnimation);
         this.endSceneFrame = 0;
         let deathAnimation = setInterval(() => {
@@ -105,15 +109,15 @@ class Endboss extends MovableObject {
     }, 100);
   }
 
-  bossHurt(){
+  bossHurt() {
     this.playAnimation(this.IMAGES_HURT);
     setTimeout(() => {
       this.damage = false;
     }, this.IMAGES_HURT.length * 200);
-    world.endbossBar.setPercentage(this.energy / 3)
+    world.endbossBar.setPercentage(this.energy / 3);
   }
 
-  bossWalking(){
+  bossWalking() {
     this.playAnimation(this.IMAGES_WALKING);
 
     if (!this.leftEnd) {
@@ -124,11 +128,8 @@ class Endboss extends MovableObject {
       this.otherDirection = true;
     }
   }
-
-  endFight(){
-    if(world.character.x >= this.x - 500){
-      console.log("hallo");
-      
-    }
+  endFight() {
+    this.lastBattle = true;
+    this.playAnimation(this.IMAGES_ALERT);
   }
 }

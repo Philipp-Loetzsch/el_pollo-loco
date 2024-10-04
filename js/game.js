@@ -12,6 +12,7 @@ function playMainTheme(){
     }, 1000); 
   });
   mainTheme.volume = 0.5
+  
 }
 
 function init() {

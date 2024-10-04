@@ -10,6 +10,8 @@ class MovableObject extends CollidingObject {
   damage = false
   currentThrow = false
   spawnPoint = 0
+  lastBattle = false
+
 
   isDead() {
     return this.energy == 0;
