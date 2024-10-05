@@ -21,7 +21,7 @@ class ThrowableObject extends MovableObject {
     "img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png",
   ];
 
-  constructor(x, y) {
+  constructor(x, y, oD) {
     super().loadImage("img/6_salsa_bottle/salsa_bottle.png");
     this.loadImages(this.IMAGE_ROTATE);
     this.loadImages(this.IMAGE_SPLASH);
@@ -29,10 +29,10 @@ class ThrowableObject extends MovableObject {
     this.y = y;
     this.width = 50;
     this.height = 60;
-    this.throw();
+    this.throw(oD);
   }
 
-  throw() {
+  throw(oD) {
      this.speedY = 20;
     this.applyGravaty();
     this.checkCollisions()
@@ -41,6 +41,7 @@ class ThrowableObject extends MovableObject {
     let checkPosition = setInterval(() => {
       if (this.y >= 350) {
         this.fallingDown = false
+        this.offsetY += 200
         this.currentImage = 0
         clearInterval(rotateInterval);   
         this.splash();        
@@ -60,7 +61,11 @@ class ThrowableObject extends MovableObject {
       }
     }, 100);
     rotateInterval = setInterval(() => {
-      this.x += 15;
+      if(oD){
+        this.x -= 15;
+      }
+      else{  this.x += 15;}
+    
       this.rotate();
     }, 1000 / 20);
   }

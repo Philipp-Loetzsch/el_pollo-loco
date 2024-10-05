@@ -1,7 +1,7 @@
 class Character extends MovableObject {
   height = 250;
   width = 100;
-  speed = 5;
+  speed = 50;
   offsetX = 20;
   offsetY = 100;
   offsetHeight = 110;
@@ -103,12 +103,14 @@ class Character extends MovableObject {
       this.InteractionAnimation();
       this.throwBottle();
       this.heal();
+      let length = world.level.enemies.length
+      if (this.x >= world.level.enemies[length-1].x - 500 && !this.isDead()) {
+        this.lastBattle = true
+      }
     }, 1000 / 10);
 
     setInterval(() => {
-      if (
-        !(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) &&
-        !this.isAboveGround()
+      if (!(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isAboveGround()
       ) {
         this.idleAnimation();
       } else if (this.isAboveGround()) {
@@ -119,18 +121,18 @@ class Character extends MovableObject {
   }
 
   characterMovement() {
-    if (this.world.keyboard.RIGHT && this.x < this.level_end_x && !this.isDead()) {
+    if (this.world.keyboard.RIGHT && this.x < this.level_end_x && !this.isDead() && !this.lastBattle) {
       this.moveRight();
       this.otherDirection = false;
       this.walking_sound.play();
     }
-    if (this.world.keyboard.LEFT && this.x > -200 && !this.isDead()) {
+    if (this.world.keyboard.LEFT && this.x > -200 && !this.isDead() && !this.lastBattle) {
       this.moveLeft();
       this.otherDirection = true;
       this.walking_sound.play();
       this.idleTime = 0;
     }
-    if (this.world.keyboard.SPACE && !this.isAboveGround() && !this.isDead()) {
+    if (this.world.keyboard.SPACE && !this.isAboveGround() && !this.isDead() && !this.lastBattle) {
       this.jump(25);
       this.idleTime = 0;
     }
@@ -150,10 +152,7 @@ class Character extends MovableObject {
     } else if (this.isHurt()) {
       this.hurt_sound.play();
       this.playAnimation(this.IMAGES_HURT);
-    } else if (
-      (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) &&
-      !this.isAboveGround()
-    ) {
+    } else if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isAboveGround() && !this.lastBattle) {
       this.playAnimation(this.IMAGES_WALKING);
       this.idleTime = 0;
     }
@@ -163,7 +162,7 @@ class Character extends MovableObject {
     if (this.world.keyboard.D && !this.currentThrow && this.bottleAmount > 0) {
       this.bottleAmount--;
       this.idleTime = 0;
-      let bottle = new ThrowableObject(this.x + 50, this.y + 50);
+      let bottle = new ThrowableObject(this.x + 50, this.y + 50, this.otherDirection);
       world.throwableObjects.push(bottle);
       this.currentThrow = true;
       world.bottleBar.percentage -= 20;
@@ -188,7 +187,7 @@ class Character extends MovableObject {
     if (!this.idleTime) {
       this.idleTime = new Date().getTime();
     }
-    if (this.longIdle()) {
+    if (this.longIdle() && !this.lastBattle) {
       return this.playAnimation(this.IMAGES_LONG_IDLE);
     } else {
       this.playAnimation(this.IMAGES_IDLE);

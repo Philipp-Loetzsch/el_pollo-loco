@@ -9,6 +9,7 @@ class Endboss extends MovableObject {
   energy = 300;
   speed = 5;
   endSceneFrame = 0;
+  alertCount =0
 
   IMAGES_WALKING = [
     "img/4_enemie_boss_chicken/1_walk/G1.png",
@@ -74,6 +75,7 @@ class Endboss extends MovableObject {
         clearInterval(mainAnimation);
       } else if (this.damage) {
         this.bossHurt();
+        this.x += 40
       } else if (!this.lastBattle) {
         this.bossWalking();
       }
@@ -81,8 +83,9 @@ class Endboss extends MovableObject {
  
       setInterval(() => {
         if (!world) return
-        if (world.character.x >= world.level.enemies[enemies.lenght].x - 500) {
-          this.endFight();
+        let length = world.level.enemies.length
+        if (world.character.x >= world.level.enemies[length-1].x - 550 && !this.isDead()) {
+           this.endFight();
         }
       }, 1000 / 5);
     
@@ -130,6 +133,20 @@ class Endboss extends MovableObject {
   }
   endFight() {
     this.lastBattle = true;
-    this.playAnimation(this.IMAGES_ALERT);
+    this.otherDirection = false
+    this.alertBoss()
+    
+  }
+
+  alertBoss(){
+    if(this.currentImage < this.IMAGES_ALERT.length){
+    setInterval(() => {
+      this.playAnimation(this.IMAGES_ALERT)
+    }, 500);
+  }
+    else{
+      console.log('animation beendet');
+      
+    }
   }
 }

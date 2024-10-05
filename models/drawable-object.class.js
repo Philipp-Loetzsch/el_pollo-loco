@@ -28,7 +28,7 @@ class DrawableObject {
     });
   }
   drawFrame(ctx) {
-    if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof CollactableObject) {
+    if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof CollactableObject || this instanceof ThrowableObject) {
       ctx.beginPath();
       ctx.lineWidth = "2";
       ctx.strokeStyle = "blue";
