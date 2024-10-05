@@ -10,6 +10,7 @@ class Character extends MovableObject {
   coinAmount = 0;
   bottleAmount = 0;
   deadFrame = 0;
+  startJumping = 0;
 
   IMAGES_IDLE = [
     "img/2_character_pepe/1_idle/idle/I-1.png",
@@ -103,56 +104,76 @@ class Character extends MovableObject {
       this.InteractionAnimation();
       this.throwBottle();
       this.heal();
-      let length = world.level.enemies.length
-      if (this.x >= world.level.enemies[length-1].x - 500 && !this.isDead()) {
-        this.lastBattle = true
+      let length = world.level.enemies.length;
+      if (this.x >= world.level.enemies[length - 1].x - 500 && !this.isDead()) {
+        this.lastBattle = true;
+        setTimeout(() => {
+          this.lastBattle = false;
+        }, 2000);
       }
     }, 1000 / 10);
 
     setInterval(() => {
-      if (!(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isAboveGround()
-      ) {
-        this.idleAnimation();
-      } else if (this.isAboveGround()) {
-        this.playAnimation(this.IMAGES_JUMPING);
-        this.idleTime = 0;
-      }
+      if ( !(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isAboveGround()) this.idleAnimation();
     }, 300);
+
+    setInterval(() => {
+      if (this.isAboveGround()) this.jumpAnimation();
+    }, 50);
   }
 
   characterMovement() {
-    if (this.world.keyboard.RIGHT && this.x < this.level_end_x && !this.isDead() && !this.lastBattle) {
+    if (
+      this.world.keyboard.RIGHT &&
+      this.x < this.level_end_x &&
+      !this.isDead() &&
+      !this.lastBattle
+    ) {
       this.moveRight();
       this.otherDirection = false;
       this.walking_sound.play();
     }
-    if (this.world.keyboard.LEFT && this.x > -200 && !this.isDead() && !this.lastBattle) {
+    if (
+      this.world.keyboard.LEFT &&
+      this.x > -200 &&
+      !this.isDead() &&
+      !this.lastBattle
+    ) {
       this.moveLeft();
       this.otherDirection = true;
       this.walking_sound.play();
       this.idleTime = 0;
     }
-    if (this.world.keyboard.SPACE && !this.isAboveGround() && !this.isDead() && !this.lastBattle) {
-      this.jump(25);
+    if (
+      this.world.keyboard.SPACE &&
+      !this.isAboveGround() &&
+      !this.isDead() &&
+      !this.lastBattle
+    ) {
       this.idleTime = 0;
+      this.startJumping = 1;
+      this.jump(25);
     }
   }
 
   InteractionAnimation() {
     if (this.isDead()) {
-  
       setInterval(() => {
-        this.dying()
+        this.dying();
         this.dying_sound.play();
-        this.deadFrame ++     
-        if(this.deadFrame >= this.IMAGES_DEAD.length){
-        this.clearAllIntervals()
-        }       
-      },500);
+        this.deadFrame++;
+        if (this.deadFrame >= this.IMAGES_DEAD.length) {
+          this.clearAllIntervals();
+        }
+      }, 500);
     } else if (this.isHurt()) {
       this.hurt_sound.play();
       this.playAnimation(this.IMAGES_HURT);
-    } else if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isAboveGround() && !this.lastBattle) {
+    } else if (
+      (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) &&
+      !this.isAboveGround() &&
+      !this.lastBattle
+    ) {
       this.playAnimation(this.IMAGES_WALKING);
       this.idleTime = 0;
     }
@@ -173,13 +194,13 @@ class Character extends MovableObject {
     }
   }
 
-  heal(){
-    if(this.world.keyboard.H && this.energy < 100 && this.coinAmount ==5){
-      this.energy = 100
-      this.coinAmount = 0
-      world.coinBar.percentage -= 100
-      world.coinBar.setPercentage(world.coinBar.percentage)
-      world.healthBar.setPercentage(this.energy)
+  heal() {
+    if (this.world.keyboard.H && this.energy < 100 && this.coinAmount == 5) {
+      this.energy = 100;
+      this.coinAmount = 0;
+      world.coinBar.percentage -= 100;
+      world.coinBar.setPercentage(world.coinBar.percentage);
+      world.healthBar.setPercentage(this.energy);
     }
   }
 
@@ -194,13 +215,26 @@ class Character extends MovableObject {
     }
   }
 
+  jumpAnimation() {
+    if (this.startJumping == 1) {
+      this.currentImage = 0;
+      this.startJumping = 0;
+    }   
+    else if(this.speedY > 0) this. currentImage = 3;
+    else if(this.speedY < -15 && this.y < 180) this.currentImage = 6;
+    else if(this.speedY < -10 && this.y < 180) this.currentImage = 5;
+    else if(this.speedY < 0 && this.y < 180) this.currentImage = 4;
+    this.loadImage(this.IMAGES_JUMPING[this.currentImage]);
+    this.playAnimation(this.IMAGES_JUMPING);
+  }
+
   longIdle() {
     let longIdle = new Date().getTime() - this.idleTime;
     longIdle = longIdle / 1000;
     return longIdle > 5;
   }
 
-  dying(){
+  dying() {
     this.playAnimation(this.IMAGES_DEAD);
   }
 

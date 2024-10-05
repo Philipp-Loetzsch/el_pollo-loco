@@ -146,7 +146,7 @@ class Endboss extends MovableObject {
     }, 500);
   }
     else{
-      console.log('animation beendet');
+      this.currentImage = 0
       
     }
   }
