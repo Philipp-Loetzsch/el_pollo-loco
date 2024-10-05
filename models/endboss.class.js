@@ -85,6 +85,7 @@ class Endboss extends MovableObject {
         if (!world) return
         let length = world.level.enemies.length
         if (world.character.x >= world.level.enemies[length-1].x - 550 && !this.isDead()) {
+          world.endbossBar.y = 20
            this.endFight();
         }
       }, 1000 / 5);
