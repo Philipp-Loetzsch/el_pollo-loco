@@ -10,7 +10,7 @@ class Character extends MovableObject {
   coinAmount = 0;
   bottleAmount = 0;
   deadFrame = 0;
-  startJumping = 0;
+  startJumping = false;
 
   IMAGES_IDLE = [
     "img/2_character_pepe/1_idle/idle/I-1.png",
@@ -123,35 +123,20 @@ class Character extends MovableObject {
   }
 
   characterMovement() {
-    if (
-      this.world.keyboard.RIGHT &&
-      this.x < this.level_end_x &&
-      !this.isDead() &&
-      !this.lastBattle
-    ) {
+    if ( this.world.keyboard.RIGHT && this.x < this.level_end_x && !this.isDead() && !this.lastBattle) {
       this.moveRight();
       this.otherDirection = false;
       this.walking_sound.play();
     }
-    if (
-      this.world.keyboard.LEFT &&
-      this.x > -200 &&
-      !this.isDead() &&
-      !this.lastBattle
-    ) {
+    if (this.world.keyboard.LEFT && this.x > -200 && !this.isDead() && !this.lastBattle) {
       this.moveLeft();
       this.otherDirection = true;
       this.walking_sound.play();
       this.idleTime = 0;
     }
-    if (
-      this.world.keyboard.SPACE &&
-      !this.isAboveGround() &&
-      !this.isDead() &&
-      !this.lastBattle
-    ) {
+    if ( this.world.keyboard.SPACE && !this.isAboveGround() && !this.isDead() && !this.lastBattle) {
       this.idleTime = 0;
-      this.startJumping = 1;
+      this.startJumping = true;
       this.jump(25);
     }
   }
@@ -216,13 +201,15 @@ class Character extends MovableObject {
   }
 
   jumpAnimation() {
-    if (this.startJumping == 1) {
+    if (this.startJumping) {
       this.currentImage = 0;
-      this.startJumping = 0;
+      this.startJumping = false;
     }   
     else if(this.speedY > 0) this. currentImage = 3;
+    else if(this.speedY < -30 && this.y < 180) this.currentImage = 8;
+    else if(this.speedY < -20 && this.y < 180) this.currentImage = 7;
     else if(this.speedY < -15 && this.y < 180) this.currentImage = 6;
-    else if(this.speedY < -10 && this.y < 180) this.currentImage = 5;
+    else if(this.speedY < -5 && this.y < 180) this.currentImage = 5;
     else if(this.speedY < 0 && this.y < 180) this.currentImage = 4;
     this.loadImage(this.IMAGES_JUMPING[this.currentImage]);
     this.playAnimation(this.IMAGES_JUMPING);

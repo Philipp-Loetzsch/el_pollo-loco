@@ -32,7 +32,7 @@ class CollidingObject extends DrawableObject {
         if (this.isColliding(enemie)) {
           if (this.isAttack(enemie)) {
             this.attack(enemie);
-          } else {
+          } else{
             this.hit(20);
             world.healthBar.setPercentage(world.character.energy);
           }
