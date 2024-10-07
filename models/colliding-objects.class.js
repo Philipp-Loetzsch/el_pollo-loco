@@ -2,7 +2,7 @@ class CollidingObject extends DrawableObject {
   fallingDown = false;
   lastAttack = false;
   collect = false;
-  
+  collectCoin = new Audio('audio/collect_coin.mp3')
 
   isAboveGround() {
     if (this instanceof ThrowableObject || this instanceof ChickenSmall) {
@@ -45,8 +45,7 @@ class CollidingObject extends DrawableObject {
     return (
       this.x - this.offsetX + this.width >= obj.x + this.offsetX &&
       this.x + this.offsetX <= obj.x + obj.width &&
-      this.y + this.offsetY + this.offsetHeight >=
-        obj.y - obj.height / 2.5 + obj.offsetY &&
+      this.y + this.offsetY + this.offsetHeight >= obj.y - obj.height / 2.5 + obj.offsetY &&
       this.y + this.offsetY <= obj.y + obj.height - obj.offsetHeight
     );
   }
@@ -93,7 +92,8 @@ class CollidingObject extends DrawableObject {
             this.removeItem(co);
             world.coinBar.percentage += 20;
             world.coinBar.setPercentage(world.coinBar.percentage);
-            this.coinAmount ++           
+            this.coinAmount ++ 
+            this.collectCoin.play()
           } else if (co instanceof Bottle && this.bottleAmount < 5) {
             this.removeItem(co);
             world.bottleBar.percentage += 20;
