@@ -115,11 +115,12 @@ class Endboss extends MovableObject {
       if (this.endSceneFrame === this.IMAGES_HURT.length * 5) {
         clearInterval(hurtAnimation);
         this.endSceneFrame = 0;
-        let deathAnimation = setInterval(() => {
+        setInterval(() => {
           this.playAnimation(this.IMAGES_DEAD);
           this.endSceneFrame++;
           if (this.endSceneFrame === this.IMAGES_DEAD.length) {
-            clearInterval(deathAnimation);
+           this.clearAllIntervals()
+           world.endGame('win')
           }
         }, 200);
       }
@@ -170,10 +171,10 @@ class Endboss extends MovableObject {
       this.alertBoss();
     } else{
     setInterval(() => {
-      if (world.character.x + world.character.width/2 <= this.x && this.lastBattle && this.enableAttack) {
+      if (world.character.x + world.character.width/2 <= this.x && this.lastBattle && this.enableAttack && !this.isDead()) {
         this.speed = 10;
         this.moveLeft();
-      } else if(this.lastBattle) {
+      } else if(this.lastBattle && !this.isDead()) {
         this.enableAttack = false
         this.speed = 20;
         this.moveRight();
@@ -185,9 +186,9 @@ class Endboss extends MovableObject {
   
 
     setInterval(() => {
-      if (world.character.x + world.character.width <= this.x && this.lastBattle) {
+      if (world.character.x + world.character.width <= this.x && this.lastBattle && !this.damage) {
         this.playAnimation(this.IMAGES_WALKING);
-      } else if(this.lastBattle){
+      } else if(this.lastBattle && !this.damage){
         this.playAnimation(this.IMAGES_ATTACK);
       }
     },1000 / 10); 

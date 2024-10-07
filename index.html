@@ -36,12 +36,12 @@
   </head>
   <body onload="playMainTheme()">
     <h1>El pollo loco</h1>
-    <div id="game">
+    <div id="gameScreen">
 
       <div id="mainMenu" class="menu d_none">
         <button onclick="init()"><img src="./img/10_mobile_icons/start.png" alt=""></button>
         <button onclick="toggleSettings()"><img src="./img/10_mobile_icons/settings.png" alt=""></button>
-        <button><img src="./img/10_mobile_icons/control.png" alt=""></button>
+        <button onclick="toggleControl()"><img src="./img/10_mobile_icons/control.png" alt=""></button>
       </div>
       <div id="settings" class="d_none">
         <span>Sound</span>
@@ -49,7 +49,13 @@
         <label for="volumeSlider">Volume: </label>
         <input type="range" id="volumeSlider" class="slider" min="0" max="1" step="0.01" value="1">
       </div>
-      <button id="fullscreen" onclick="openFullscreen()"><img src="./img/10_mobile_icons/full-screen.png" alt="FULLSCREEN"></button>
+      <div id ="controls" class="d_none">
+          <div class="interactions">
+            <img src="./img/2_character_pepe/2_walk/W-24.png" alt="">
+            <span>Arrow Left or Right</span>
+          </div>
+      </div>
+      <button id="fullscreen" onclick="openFullscreen()"><img id="imgFullscreen" src="./img/10_mobile_icons/full-screen.png" alt="FULLSCREEN"></button>
       <button id="reload" onclick="reloadGame()"><img src="./img/10_mobile_icons/refresh.png" alt="RELOAD"></button>
     <canvas id="canvas" width="720" height="480"></canvas>
     <div id="movement">
@@ -62,7 +68,10 @@
       <button id="d" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)"><img src="./img/10_mobile_icons/throw.png" alt="THROW"></button>
       <button id="space"  ontouchstart="touchButton(id)" ontouchend="releaseButton(id)"><img src="./img/10_mobile_icons/jump.png" alt="JUMP"></button>
     </div>
-   
+    <div id="gameEnd" class="d_none">
+      <img src="./img/9_intro_outro_screens/win/win_1.png" alt="">
+      <button onclick="reloadGame()"><img src="./img/10_mobile_icons/refresh.png" alt="RELOAD"></button>
+    </div>
   </div>
   </body>
 </html>

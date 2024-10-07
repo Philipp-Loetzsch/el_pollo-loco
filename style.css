@@ -3,8 +3,8 @@
   src: url("./fonts/Zabars.ttf") format("truetype");
 }
 
-.d_none{
-display: none;
+.d_none {
+  display: none;
 }
 body {
   display: flex;
@@ -21,57 +21,102 @@ body {
   background-position: center;
 }
 
-.menu{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex !important;
-    align-items: baseline;
-    padding-top: 5%;
-    box-sizing: border-box;
-    justify-content: space-around;
-    background-image: url('img/9_intro_outro_screens/start/startscreen_2.png');
-    background-size: 100% 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: 9999;
-    button{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: orange;
-        border-radius: 50%;
-        border: none;
-        width: 90px;
-        height: 90px;
-        img{
-            width: 100%;
-        }
+.menu {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex !important;
+  align-items: baseline;
+  padding-top: 5%;
+  box-sizing: border-box;
+  justify-content: space-around;
+  background-image: url("img/9_intro_outro_screens/start/startscreen_2.png");
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 9999;
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: orange;
+    border-radius: 50%;
+    border: none;
+    width: 90px;
+    height: 90px;
+    img {
+      width: 100%;
     }
+  }
 }
 
-.settings{
-    position: absolute;
-    z-index: 10000;
-    background-color: rgba(206, 188, 88, 0.884);
-    width: 200px;
-    display: flex !important;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    gap: 30px;
-    padding: 10px 0;
-    border-radius: 20px;
-    button{
-        display: flex;
-        width: 40px;
-        background-color: transparent;
-        border-radius: 5px;
-        img{
-            width: 100%;
-        }
+.settings {
+  position: absolute;
+  z-index: 10000;
+  background-color: rgba(206, 188, 88, 0.884);
+  width: 200px;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 30px;
+  padding: 10px 0;
+  border-radius: 20px;
+  button {
+    display: flex;
+    width: 40px;
+    background-color: transparent;
+    border-radius: 5px;
+    img {
+      width: 100%;
     }
-   
+  }
+}
+
+.control{
+  position: absolute;
+  z-index: 10000;
+  width: 100%;
+  height: 100%;
+  display: flex !important;
+ 
+}
+.interactions{
+  align-items: center;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  top: -50px;
+  img{
+    object-fit: cover;
+    height: 100%;
+  }
+}
+
+.game-ending {
+  position: absolute;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  z-index: 500;
+  background-color: rgba(78, 76, 76, 0.301);
+  img {
+    width: 100%;
+    height: 100%;
+  }
+  button {
+    position: absolute;
+    bottom: 40px;
+    display: flex;
+    width: 50px;
+    background-color: rgba(110, 116, 102, 0.4);
+    img {
+      width: 100%;
+    }
+  }
 }
 
 #fullscreen {
@@ -96,7 +141,7 @@ button {
   cursor: pointer;
 }
 
-#game {
+#gameScreen {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -111,7 +156,7 @@ canvas {
   object-fit: contain;
 }
 @media screen and (max-width: 770px), (max-height: 640px) {
-  #game {
+  #gameScreen {
     width: 100%;
   }
   canvas {
@@ -176,26 +221,25 @@ canvas {
 }
 
 @media screen and (max-height: 400px) {
-    button{
-        height: 40px;
-        width: 40px;
-    }
+  button {
+    height: 40px;
+    width: 40px;
+  }
 
-    #movement{
-        img{
-            width: 40px;
-            height: 40px;
-        }
+  #movement {
+    img {
+      width: 40px;
+      height: 40px;
     }
-    #space{
-        img{
-            width: 40px;
-            height: 40px;
-        }
+  }
+  #space {
+    img {
+      width: 40px;
+      height: 40px;
     }
-    #fullscreen{
-        height: 40px;
-        width: 40px;
-    }
-
+  }
+  #fullscreen {
+    height: 40px;
+    width: 40px;
+  }
 }

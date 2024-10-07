@@ -11,7 +11,7 @@ class World {
   endbossBar = new EndbossBar();
   throwableObjects = [];
   collidingObject = new CollidingObject();
-  world_music = new Audio ('audio/world_theme.mp3')
+  world_music = new Audio("audio/world_theme.mp3");
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -21,17 +21,15 @@ class World {
     this.drawWorld();
     this.setWorld();
     this.playTheme();
-    
   }
 
-  playTheme(){  
-      this.world_music.play()
+  playTheme() {
+    this.world_music.play();
   }
 
   setWorld() {
     this.character.world = this;
   }
-
 
   drawWorld() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -50,7 +48,7 @@ class World {
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.clouds);
-    this.addObjectsToMap(this.level.collectableObjects)
+    this.addObjectsToMap(this.level.collectableObjects);
     this.addObjectsToMap(this.throwableObjects);
   }
 
@@ -86,4 +84,21 @@ class World {
     mo.x = mo.x * -1;
     this.ctx.restore();
   }
+
+  endGame(ending) {
+    let endGame = document.getElementById('gameEnd');
+    endGame.classList.add('game-ending');
+
+    // Angenommen, es gibt ein einzelnes img-Element innerhalb von 'gameEnd'
+    let imageEnding = endGame.querySelector('img'); 
+
+    if (ending == "win") {
+        console.log("you win");
+        imageEnding.src = './img/9_intro_outro_screens/win/win_2.png'; // Bildquelle setzen
+    } else {
+        console.log("you lose");
+        imageEnding.src = './img/9_intro_outro_screens/game_over/oh no you lost!.png'; // Bildquelle setzen (keine Leerzeichen im Dateinamen)
+    }
+}
+
 }

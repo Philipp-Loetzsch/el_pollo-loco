@@ -149,6 +149,7 @@ class Character extends MovableObject {
         this.deadFrame++;
         if (this.deadFrame >= this.IMAGES_DEAD.length) {
           this.clearAllIntervals();
+          world.endGame('loose')
         }
       }, 500);
     } else if (this.isHurt()) {
@@ -225,7 +226,5 @@ class Character extends MovableObject {
     this.playAnimation(this.IMAGES_DEAD);
   }
 
-  clearAllIntervals() {
-    for (let i = 1; i < 9999; i++) window.clearInterval(i);
-  }
+
 }

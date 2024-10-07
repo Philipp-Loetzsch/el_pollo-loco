@@ -22,17 +22,32 @@ function init() {
   world = new World(canvas, keyboard);
 }
 
-
 function openFullscreen() {
-  let game = document.getElementById('game')
-  if (game.requestFullscreen) {
-    game.requestFullscreen();
-  } else if (game.webkitRequestFullscreen) {
-    game.webkitRequestFullscreen();
-  } else if (game.msRequestFullscreen) {
-    game.msRequestFullscreen();
+  let game = document.getElementById('gameScreen');
+  let imgFullscreen = document.getElementById('imgFullscreen')
+  if (!document.fullscreenElement &&  
+      !document.webkitFullscreenElement &&
+      !document.msFullscreenElement) {    
+    if (game.requestFullscreen) {
+      game.requestFullscreen();
+    } else if (game.webkitRequestFullscreen) { 
+      game.webkitRequestFullscreen();
+    } else if (game.msRequestFullscreen) { 
+      game.msRequestFullscreen();
+    }
+    imgFullscreen.src = 'img/10_mobile_icons/normal_screen.png'
+  } else {
+      if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { 
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+       imgFullscreen.src = 'img/10_mobile_icons/full-screen.png'
   }
 }
+
 
 function reloadGame(){
   location.reload();
@@ -40,6 +55,12 @@ function reloadGame(){
 
 function toggleSettings(){
   document.getElementById('settings').classList.toggle('settings')
+  document.getElementById('controls').classList.remove('control')
+}
+
+function toggleControl(){
+  document.getElementById('controls').classList.toggle('control')
+  document.getElementById('settings').classList.remove('settings')
 }
 
 function touchButton(buttonId) {
