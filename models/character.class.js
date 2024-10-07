@@ -11,6 +11,8 @@ class Character extends MovableObject {
   bottleAmount = 0;
   deadFrame = 0;
   startJumping = false;
+  noWayBack = -200;
+  enableMove = true;
 
   IMAGES_IDLE = [
     "img/2_character_pepe/1_idle/idle/I-1.png",
@@ -105,16 +107,22 @@ class Character extends MovableObject {
       this.throwBottle();
       this.heal();
       let length = world.level.enemies.length;
-      if (this.x >= world.level.enemies[length - 1].x - 500 && !this.isDead()) {
+      if (this.startLastBattle(length)) {
+        this.enableMove = false;
         this.lastBattle = true;
+        this.blockLeft();
         setTimeout(() => {
-          this.lastBattle = false;
+          this.enableMove = true;
         }, 2000);
       }
     }, 1000 / 10);
 
     setInterval(() => {
-      if ( !(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isAboveGround()) this.idleAnimation();
+      if (
+        !(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) &&
+        !this.isAboveGround()
+      )
+        this.idleAnimation();
     }, 300);
 
     setInterval(() => {
@@ -123,18 +131,23 @@ class Character extends MovableObject {
   }
 
   characterMovement() {
-    if ( this.world.keyboard.RIGHT && this.x < this.level_end_x && !this.isDead() && !this.lastBattle) {
+    if (this.enableMoveRight()) {
       this.moveRight();
       this.otherDirection = false;
       this.walking_sound.play();
     }
-    if (this.world.keyboard.LEFT && this.x > -200 && !this.isDead() && !this.lastBattle) {
+    if (this.enableMoveLeft()) {
       this.moveLeft();
       this.otherDirection = true;
       this.walking_sound.play();
       this.idleTime = 0;
     }
-    if ( this.world.keyboard.SPACE && !this.isAboveGround() && !this.isDead() && !this.lastBattle) {
+    if (
+      this.world.keyboard.SPACE &&
+      !this.isAboveGround() &&
+      !this.isDead() &&
+      this.enableMove
+    ) {
       this.idleTime = 0;
       this.startJumping = true;
       this.jump(25);
@@ -149,27 +162,27 @@ class Character extends MovableObject {
         this.deadFrame++;
         if (this.deadFrame >= this.IMAGES_DEAD.length) {
           this.clearAllIntervals();
-          world.endGame('loose')
+          world.endGame("loose");
         }
       }, 500);
     } else if (this.isHurt()) {
       this.hurt_sound.play();
       this.playAnimation(this.IMAGES_HURT);
-    } else if (
-      (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) &&
-      !this.isAboveGround() &&
-      !this.lastBattle
-    ) {
+    } else if (this.isWalkung()) {
       this.playAnimation(this.IMAGES_WALKING);
       this.idleTime = 0;
     }
   }
 
   throwBottle() {
-    if (this.world.keyboard.D && !this.currentThrow && this.bottleAmount > 0) {
+    if (this.enabelThrow()) {
       this.bottleAmount--;
       this.idleTime = 0;
-      let bottle = new ThrowableObject(this.x + 50, this.y + 50, this.otherDirection);
+      let bottle = new ThrowableObject(
+        this.x + 50,
+        this.y + 50,
+        this.otherDirection
+      );
       world.throwableObjects.push(bottle);
       this.currentThrow = true;
       world.bottleBar.percentage -= 20;
@@ -194,7 +207,7 @@ class Character extends MovableObject {
     if (!this.idleTime) {
       this.idleTime = new Date().getTime();
     }
-    if (this.longIdle() && !this.lastBattle) {
+    if (this.longIdle() && this.enableMove) {
       return this.playAnimation(this.IMAGES_LONG_IDLE);
     } else {
       this.playAnimation(this.IMAGES_IDLE);
@@ -205,13 +218,12 @@ class Character extends MovableObject {
     if (this.startJumping) {
       this.currentImage = 0;
       this.startJumping = false;
-    }   
-    else if(this.speedY > 0) this. currentImage = 3;
-    else if(this.speedY < -30 && this.y < 180) this.currentImage = 8;
-    else if(this.speedY < -20 && this.y < 180) this.currentImage = 7;
-    else if(this.speedY < -15 && this.y < 180) this.currentImage = 6;
-    else if(this.speedY < -5 && this.y < 180) this.currentImage = 5;
-    else if(this.speedY < 0 && this.y < 180) this.currentImage = 4;
+    } else if (this.speedY > 0) this.currentImage = 3;
+    else if (this.speedY < -30 && this.y < 180) this.currentImage = 8;
+    else if (this.speedY < -20 && this.y < 180) this.currentImage = 7;
+    else if (this.speedY < -15 && this.y < 180) this.currentImage = 6;
+    else if (this.speedY < -5 && this.y < 180) this.currentImage = 5;
+    else if (this.speedY < 0 && this.y < 180) this.currentImage = 4;
     this.loadImage(this.IMAGES_JUMPING[this.currentImage]);
     this.playAnimation(this.IMAGES_JUMPING);
   }
@@ -226,5 +238,47 @@ class Character extends MovableObject {
     this.playAnimation(this.IMAGES_DEAD);
   }
 
+  enableMoveRight() {
+    return (
+      this.world.keyboard.RIGHT &&
+      this.x < this.level_end_x &&
+      !this.isDead() &&
+      this.enableMove
+    );
+  }
 
+  enableMoveLeft() {
+    return (
+      this.world.keyboard.LEFT &&
+      this.x > -200 &&
+      !this.isDead() &&
+      this.x >= this.noWayBack
+    );
+  }
+
+  isWalkung() {
+    return (
+      (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) &&
+      !this.isAboveGround() &&
+      this.enableMove
+    );
+  }
+  enabelThrow() {
+    return (
+      this.world.keyboard.D &&
+      !this.currentThrow &&
+      this.bottleAmount > 0 &&
+      this.enableMove
+    );
+  }
+  startLastBattle(length) {
+    return (
+      this.x >= world.level.enemies[length - 1].x - 500 &&
+      !this.isDead() &&
+      !this.lastBattle
+    );
+  }
+  blockLeft() {
+    if (this.lastBattle) this.noWayBack = this.x;
+  }
 }
