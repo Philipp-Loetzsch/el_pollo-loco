@@ -4,6 +4,9 @@ class ThrowableObject extends MovableObject {
   offsetWidth = 20
   offsetX = 10
   offsetY = 10
+  splashSound = new Audio('audio/broken-bottle.mp3')
+  spinningSound = new Audio('audio/Throw_spinning_Object.mp3')
+
   IMAGE_ROTATE = [
     "img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png",
     "img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png",
@@ -40,6 +43,8 @@ class ThrowableObject extends MovableObject {
 
     let checkPosition = setInterval(() => {
       if (this.y >= 350) {
+        this.splashSound.play()
+        this.splashSound.volume = 0.2
         this.fallingDown = false
         this.offsetY += 200
         this.currentImage = 0
@@ -72,6 +77,8 @@ class ThrowableObject extends MovableObject {
 
   rotate() {
     this.playAnimation(this.IMAGE_ROTATE);
+    this.spinningSound.play()
+    this.spinningSound.volume = 0.2
   }
 
   splash() {
