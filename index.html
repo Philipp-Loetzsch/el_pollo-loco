@@ -37,7 +37,7 @@
   <body onload="playMainTheme()">
     <h1>El pollo loco</h1>
     <div id="gameScreen">
-
+      <div id="startScreen" class="start-screen d_none"><img src="img/9_intro_outro_screens/start/startscreen_2.png" alt=""></div>
       <div id="mainMenu" class="menu d_none">
         <button onclick="init()"><img src="./img/10_mobile_icons/start.png" alt=""></button>
         <button onclick="toggleSettings()"><img src="./img/10_mobile_icons/settings.png" alt=""></button>
@@ -45,14 +45,30 @@
       </div>
       <div id="settings" class="d_none">
         <span>Sound</span>
-        <button><img src="./img/10_mobile_icons/volume.png" alt=""></button>
+        <button onclick="muteVolume()"><img id="muteVolumeImg" src="./img/10_mobile_icons/volume.png" alt=""></button>
         <label for="volumeSlider">Volume: </label>
         <input type="range" id="volumeSlider" class="slider" min="0" max="1" step="0.01" value="1">
       </div>
       <div id ="controls" class="d_none">
           <div class="interactions">
             <img src="./img/2_character_pepe/2_walk/W-24.png" alt="">
+            <span>MOVE</span>
             <span>Arrow Left or Right</span>
+          </div>
+          <div class="interactions">
+            <img src="./img/2_character_pepe/3_jump/J-34.png" alt="">
+            <span>JUMP</span>
+            <span>Arrow UP or SPACE</span>
+          </div>
+          <div class="interactions">
+            <img src="./img/control_throw.png" alt="">
+            <span>TRHROW</span>
+            <span>D</span>
+          </div>
+          <div class="interactions">
+            <img src="./img/11_healing/healing.png" alt="">
+            <span>HEALING</span>
+            <span>H</span>
           </div>
       </div>
       <button id="fullscreen" onclick="openFullscreen()"><img id="imgFullscreen" src="./img/10_mobile_icons/full-screen.png" alt="FULLSCREEN"></button>

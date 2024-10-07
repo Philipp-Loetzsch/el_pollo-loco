@@ -2,7 +2,7 @@ let level1 = new Level(
   createEnemies(15, 200), 
   createClouds(10),  
   duplicateBackground(), 
-  createCollectableObjects(20, 200) 
+  createCollectableObjects(16, 200) 
 );
 
 function createEnemies(count, minDistance) {

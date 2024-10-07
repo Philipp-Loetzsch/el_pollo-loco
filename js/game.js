@@ -2,6 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let mainTheme = new Audio('audio/main_menu.mp3')
+let isMuted = false
 
 function playMainTheme(){
   mainTheme.play().catch(error => {
@@ -18,6 +19,9 @@ function playMainTheme(){
 function init() {
   mainTheme.pause()
   document.getElementById('mainMenu').classList.remove("menu")
+  document.getElementById('startScreen').classList.remove("start-screen")
+  document.getElementById('controls').classList.remove('control')
+  document.getElementById('settings').classList.remove('settings')
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
 }
@@ -61,6 +65,20 @@ function toggleSettings(){
 function toggleControl(){
   document.getElementById('controls').classList.toggle('control')
   document.getElementById('settings').classList.remove('settings')
+}
+
+function muteVolume(){
+  let mediaElements = document.querySelectorAll('audio, video');
+  isMuted = !isMuted;
+  mediaElements.forEach(element => {
+    element.muted = isMuted;
+  });
+  if(isMuted){
+    document.getElementById('muteVolumeImg').src = 'img/10_mobile_icons/mute.png';
+  }
+  else{
+    document.getElementById('muteVolumeImg').src = 'img/10_mobile_icons/volume.png';
+  }
 }
 
 function touchButton(buttonId) {

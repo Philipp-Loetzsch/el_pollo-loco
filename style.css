@@ -21,20 +21,28 @@ body {
   background-position: center;
 }
 
+.start-screen {
+  display: flex !important;
+  position: absolute;
+  z-index: 997;
+  width: 100%;
+  height: 100%;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
 .menu {
   position: absolute;
   width: 100%;
   height: 100%;
   display: flex !important;
   align-items: baseline;
-  padding-top: 5%;
+  padding-top: 2%;
   box-sizing: border-box;
   justify-content: space-around;
-  background-image: url("img/9_intro_outro_screens/start/startscreen_2.png");
-  background-size: 100% 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: 9999;
+  z-index: 999;
   button {
     display: flex;
     align-items: center;
@@ -52,8 +60,8 @@ body {
 
 .settings {
   position: absolute;
-  z-index: 10000;
-  background-color: rgba(206, 188, 88, 0.884);
+  z-index: 1000;
+  background-color: rgba(206, 188, 88, 0.85);
   width: 200px;
   display: flex !important;
   flex-direction: column;
@@ -73,23 +81,26 @@ body {
   }
 }
 
-.control{
+.control {
   position: absolute;
-  z-index: 10000;
+  z-index: 998;
   width: 100%;
   height: 100%;
   display: flex !important;
- 
+  justify-content: space-around;
+  background-color: rgba(206, 188, 88, 0.85);
 }
-.interactions{
+.interactions {
   align-items: center;
   display: flex;
-  position: relative;
   flex-direction: column;
-  top: -50px;
-  img{
-    object-fit: cover;
-    height: 100%;
+  justify-content: center;
+  text-align: center;
+  width: 25%;
+  img {
+    object-fit: contain;
+    height: 80%;
+    width: 100%;
   }
 }
 
