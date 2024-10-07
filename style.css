@@ -70,6 +70,7 @@ body {
   gap: 30px;
   padding: 10px 0;
   border-radius: 20px;
+  bottom: 10%;
   button {
     display: flex;
     width: 40px;
@@ -118,15 +119,18 @@ body {
     width: 100%;
     height: 100%;
   }
-  button {
-    position: absolute;
-    bottom: 40px;
-    display: flex;
-    width: 50px;
-    background-color: rgba(110, 116, 102, 0.4);
-    img {
-      width: 100%;
-    }
+}
+.game-ending button {
+  position: absolute;
+  bottom: 40px;
+  display: flex;
+  background-color: orange !important;
+  padding: 10px;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(110, 116, 102, 0.4);
+  img {
+    width: 100%;
   }
 }
 
@@ -157,6 +161,7 @@ button {
   justify-content: center;
   align-items: center;
   position: relative;
+  overflow: hidden;
 }
 
 canvas {
@@ -219,6 +224,7 @@ canvas {
 
   #fullscreen {
     top: 5%;
+    right: 2%;
     height: 60px;
     width: 60px;
     bottom: unset;
@@ -229,12 +235,18 @@ canvas {
     right: 10%;
     background-color: rgba(194, 199, 194, 0.575);
   }
+  .menu {
+    top: 2%;
+    left: 5%;
+    justify-content: flex-start;
+    gap: 30px;
+  }
 }
 
 @media screen and (max-height: 400px) {
   button {
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
   }
 
   #movement {
@@ -252,5 +264,15 @@ canvas {
   #fullscreen {
     height: 40px;
     width: 40px;
+  }
+  .interactions {
+    font-size: 20px;
+  }
+
+  .menu {
+    button {
+      width: 50px;
+      height: 50px;
+    }
   }
 }

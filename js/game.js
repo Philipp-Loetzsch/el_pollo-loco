@@ -3,20 +3,27 @@ let world;
 let keyboard = new Keyboard();
 let mainTheme = new Audio('audio/main_menu.mp3')
 let isMuted = false
+let mediaElements = [mainTheme]
+let intervalMain
+
 
 function playMainTheme(){
+  intervalMain = setInterval(() => {
   mainTheme.play().catch(error => {
-    console.error("Fehler beim Abspielen des Audios:", error);
-    mainTheme.load();  
-    setTimeout(() => {
-        playMainTheme();  
-    }, 1000); 
-  });
+      console.error("Fehler beim Abspielen des Audios:", error);
+      mainTheme.load();  
+      setTimeout(() => {
+          playMainTheme();  
+      }, 1000); 
+    });
+  }, 1000);
   mainTheme.volume = 0.5
   
 }
 
+
 function init() {
+  clearInterval(intervalMain)
   mainTheme.pause()
   document.getElementById('mainMenu').classList.remove("menu")
   document.getElementById('startScreen').classList.remove("start-screen")
@@ -68,7 +75,6 @@ function toggleControl(){
 }
 
 function muteVolume(){
-  let mediaElements = document.querySelectorAll('audio, video');
   isMuted = !isMuted;
   mediaElements.forEach(element => {
     element.muted = isMuted;
