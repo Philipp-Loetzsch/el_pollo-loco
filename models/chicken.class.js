@@ -2,7 +2,7 @@ class Chicken extends MovableObject {
   height = 90;
   width = 55; 
   y = 335;
-  killChickenAudio = new Audio("audio/kill_chicken.mp3") 
+
 
   IMAGES_WALKING = [
     "img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",

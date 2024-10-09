@@ -1,8 +1,8 @@
-class CollidingObject extends DrawableObject {
+class CollidingObject extends AudioObjects {
   fallingDown = false;
   lastAttack = false;
   collect = false;
-  collectCoin = new Audio('audio/collect_coin.mp3')
+
 
   isAboveGround() {
     if (this instanceof ThrowableObject || this instanceof ChickenSmall) {

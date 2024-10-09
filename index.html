@@ -14,6 +14,7 @@
     <script src="./js/game.js"></script>
     <script src="./models/world.class.js"></script>
     <script src="./models/drawable-object.class.js"></script>
+    <script src="./models/audio_objects.class.js"></script>
     <script src="./models/status-bar.class.js"></script>
     <script src="./models/health-bar.class.js"></script>
     <script src="./models/bottle-bar.class.js"></script>
@@ -98,6 +99,7 @@
         </table>
       </div>
       <button id="fullscreen" onclick="openFullscreen()"><img id="imgFullscreen" src="./img/10_mobile_icons/full-screen.png" alt="FULLSCREEN"></button>
+      <button id="mute" onclick="muteVolume()"><img id="muteVolumeImg" src="./img/10_mobile_icons/volume.png" alt=""></button>
       <canvas id="canvas" width="720" height="480"></canvas>
     <div id="movement">
       <button id="left"  ontouchstart="touchButton(id)" ontouchend="releaseButton(id)"><img src="./img/10_mobile_icons/left.png" alt="LEFT"></button>

@@ -2,8 +2,9 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let mainTheme = new Audio('audio/main_menu.mp3')
+let world_music = new Audio("audio/world_theme.mp3");
 let isMuted = false
-let mediaElements = [mainTheme]
+let mediaElements = [mainTheme, world_music]
 let intervalMain
 let gameStart = false
 
@@ -28,13 +29,13 @@ function playMainTheme(){
     });
   }, 1000);
   mainTheme.volume = 0.5
-  
 }
 
 
 function init() {
   gameStart = true
   mainTheme.pause()
+  world_music.play()
   document.getElementById('mainMenu').classList.remove("menu")
   document.getElementById('startScreen').classList.remove("start-screen")
   document.getElementById('controls').classList.remove('control')

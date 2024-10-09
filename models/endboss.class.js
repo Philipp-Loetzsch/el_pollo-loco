@@ -12,7 +12,6 @@ class Endboss extends MovableObject {
   alertCount = 0;
   firstAlert = false;
   enableAttack = true;
-  winnningTheme = new Audio("audio/winning_theme.mp3")
 
   IMAGES_WALKING = [
     "img/4_enemie_boss_chicken/1_walk/G1.png",

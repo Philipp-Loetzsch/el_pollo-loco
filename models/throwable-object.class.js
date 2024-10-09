@@ -5,8 +5,7 @@ class ThrowableObject extends MovableObject {
   offsetX = 10
   offsetY = 10
   rotateInterval;
-  splashSound = new Audio('audio/broken-bottle.mp3')
-  spinningSound = new Audio('audio/Throw_spinning_Object.mp3')
+
 
   IMAGE_ROTATE = [
     "img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png",

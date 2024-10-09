@@ -76,11 +76,7 @@ class Character extends MovableObject {
     "img/2_character_pepe/5_dead/D-57.png",
   ];
   world;
-  walking_sound = new Audio("audio/running.mp3");
-  hurt_sound = new Audio("audio/char_hit.mp3");
-  healing_sound = new Audio("audio/heal_up.mp3")
-  dying_sound = new Audio("audio/char_dye.mp3");
-  gameOver_theme = new Audio("audio/gameover_theme.mp3")
+
 
 
   constructor() {

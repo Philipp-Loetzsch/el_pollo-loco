@@ -171,6 +171,23 @@ h2{
   }
 }
 
+#mute{
+  display: flex;
+  position: absolute;
+  align-items: center;
+  z-index: 10001;
+  bottom: 2%;
+  right: 10%;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(194, 199, 194, 0.575);
+  img {
+    width: 100%;
+  }
+}
+
 button {
   display: none;
   cursor: pointer;
@@ -250,6 +267,15 @@ canvas {
     width: 60px;
     bottom: unset;
   }
+
+  #mute{
+    top: 5%;
+    right: 10%;
+    height: 60px;
+    width: 60px;
+    bottom: unset; 
+  }
+
   #reload {
     position: absolute;
     top: 5%;
@@ -282,10 +308,12 @@ canvas {
       height: 40px;
     }
   }
-  #fullscreen {
+  #fullscreen, #mute {
     height: 40px;
     width: 40px;
   }
+
+
   .interactions {
     font-size: 20px;
   }
