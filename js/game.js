@@ -3,6 +3,7 @@ let world;
 let keyboard = new Keyboard();
 let mainTheme = new Audio('audio/main_menu.mp3')
 let isMuted = false
+let mediaElements = [mainTheme]
 let intervalMain
 let gameStart = false
 
@@ -83,6 +84,18 @@ function toggleControl(){
   document.getElementById('settings').classList.remove('settings')
 }
 
+function muteVolume(){
+  isMuted = !isMuted;
+  mediaElements.forEach(element => {
+    element.muted = isMuted;
+  });
+  if(isMuted){
+    document.getElementById('muteVolumeImg').src = 'img/10_mobile_icons/mute.png';
+  }
+  else{
+    document.getElementById('muteVolumeImg').src = 'img/10_mobile_icons/volume.png';
+  }
+}
 
 function touchButton(buttonId) {
   switch (buttonId) {

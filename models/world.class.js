@@ -25,7 +25,7 @@ class World {
   }
 
   playTheme() {
-     this.world_music.play();
+    this.world_music.play();
   }
 
   setWorld() {

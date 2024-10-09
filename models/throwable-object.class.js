@@ -4,6 +4,7 @@ class ThrowableObject extends MovableObject {
   offsetWidth = 20
   offsetX = 10
   offsetY = 10
+  rotateInterval;
   splashSound = new Audio('audio/broken-bottle.mp3')
   spinningSound = new Audio('audio/Throw_spinning_Object.mp3')
 
@@ -39,16 +40,31 @@ class ThrowableObject extends MovableObject {
      this.speedY = 20;
     this.applyGravaty();
     this.checkCollisions()
-    let rotateInterval;
+    this.splashBottle()
+    this.rotateInterval = setInterval(() => {
+      if(oD){
+        this.x -= 15;
+      }
+      else{  this.x += 15;}
+      this.rotate();
+    }, 1000 / 20);
+  }
 
+  rotate() {
+    this.playAnimation(this.IMAGE_ROTATE);
+    this.spinningSound.play()
+    this.spinningSound.volume = 0.2
+  }
+
+  splashBottle(){
     let checkPosition = setInterval(() => {
-      if (this.y >= 350) {
+      if (this.y >= 350 || this.lastAttack) {
         this.splashSound.play()
         this.splashSound.volume = 0.2
         this.fallingDown = false
         this.offsetY += 200
         this.currentImage = 0
-        clearInterval(rotateInterval);   
+        clearInterval(this.rotateInterval);   
         this.splash();        
         let splashBottle = setInterval(() => {
           this.x += 0; 
@@ -65,20 +81,6 @@ class ThrowableObject extends MovableObject {
         clearInterval(checkPosition);
       }
     }, 100);
-    rotateInterval = setInterval(() => {
-      if(oD){
-        this.x -= 15;
-      }
-      else{  this.x += 15;}
-    
-      this.rotate();
-    }, 1000 / 20);
-  }
-
-  rotate() {
-    this.playAnimation(this.IMAGE_ROTATE);
-    this.spinningSound.play()
-    this.spinningSound.volume = 0.2
   }
 
   splash() {
