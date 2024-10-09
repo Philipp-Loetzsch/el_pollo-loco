@@ -202,6 +202,11 @@ class Character extends MovableObject {
       world.coinBar.setPercentage(world.coinBar.percentage);
       world.healthBar.setPercentage(this.energy);
       this.healing_sound.play()
+      let healChar = new Healing(
+        this.x,
+        this.y
+      )
+      this.world.healingObjects.push(healChar)
     }
   }
 

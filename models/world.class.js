@@ -10,6 +10,7 @@ class World {
   coinBar = new CoinBar();
   endbossBar = new EndbossBar();
   throwableObjects = [];
+  healingObjects = [];
   collidingObject = new CollidingObject();
   world_music = new Audio("audio/world_theme.mp3");
 
@@ -50,6 +51,8 @@ class World {
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.collectableObjects);
     this.addObjectsToMap(this.throwableObjects);
+    this.addObjectsToMap(this.healingObjects);
+
   }
 
   addStatusbar() {

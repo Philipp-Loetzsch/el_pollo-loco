@@ -28,14 +28,15 @@
     <script src="./models/background-object.class.js"></script>
     <script src="./models/endboss.class.js"></script>
     <script src="./models/throwable-object.class.js"></script>
+    <script src="./models/healing.class.js"></script>
     <script src="./models/collactable-object.class.js"></script>
     <script src="./models/coin.class.js"></script>
     <script src="./models/bottle.class.js"></script>
     <script src="./models/level.class.js"></script>
     <script src="./levels/level_1.js"></script>
   </head>
-  <body>
-    <h1>El pollo loco</h1>
+  <body >
+    <h1 translate="no">El pollo loco</h1>
     <div id="gameScreen">
       <div id="startScreen" class="start-screen d_none"><img src="img/9_intro_outro_screens/start/startscreen_2.png" alt=""></div>
       <div id="mainMenu" class="menu d_none">
@@ -44,12 +45,12 @@
         <button onclick="toggleControl()"><img src="./img/10_mobile_icons/control.png" alt=""></button>
       </div>
       <div id="settings" class="d_none">
-        <span>Sound</span>
+        <span translate="no">Sound</span>
         <button onclick="muteVolume()"><img id="muteVolumeImg" src="./img/10_mobile_icons/volume.png" alt=""></button>
-        <label for="volumeSlider">Volume: </label>
+        <label for="volumeSlider" translate="no">Volume: </label>
         <input type="range" id="volumeSlider" class="slider" min="0" max="1" step="0.01" value="1">
       </div>
-      <div id ="controls" class="d_none">
+      <div id ="controls" class="d_none" translate="no">
           <div class="interactions">
             <img src="./img/2_character_pepe/2_walk/W-24.png" alt="">
             <span>MOVE</span>
@@ -62,7 +63,7 @@
           </div>
           <div class="interactions">
             <img src="./img/control_throw.png" alt="">
-            <span>TRHROW</span>
+            <span>THROW</span>
             <span>D</span>
           </div>
           <div class="interactions">

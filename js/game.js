@@ -7,21 +7,18 @@ let mediaElements = [mainTheme]
 let intervalMain
 let gameStart = false
 
-
-// Event-Listener für Benutzerinteraktionen (z.B. Klick oder Tastendruck)
 function enableAudioOnInteraction() {
-  window.removeEventListener('click', enableAudioOnInteraction); // Entferne den Listener nach der ersten Interaktion
-  window.removeEventListener('keydown', enableAudioOnInteraction); // Entferne den Listener nach der ersten Tastendruck
-  playMainTheme(); // Starte die Musik nach Interaktion
+  window.removeEventListener('click', enableAudioOnInteraction); 
+  window.removeEventListener('keydown', enableAudioOnInteraction); 
+  playMainTheme();
 }
 
-// Füge Event-Listener für Klick und Tastendruck hinzu
 window.addEventListener('click', enableAudioOnInteraction);
 window.addEventListener('keydown', enableAudioOnInteraction);
 
 function playMainTheme(){
-  if(gameStart) return  clearInterval(intervalMain)
   intervalMain = setInterval(() => {
+  if(gameStart) return  clearInterval(intervalMain)
   mainTheme.play().catch(error => {
       console.error("Fehler beim Abspielen des Audios:", error);
       mainTheme.load();  
