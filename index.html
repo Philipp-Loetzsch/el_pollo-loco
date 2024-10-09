@@ -41,14 +41,8 @@
       <div id="startScreen" class="start-screen d_none"><img src="img/9_intro_outro_screens/start/startscreen_2.png" alt=""></div>
       <div id="mainMenu" class="menu d_none">
         <button onclick="init()"><img src="./img/10_mobile_icons/start.png" alt=""></button>
-        <button onclick="toggleSettings()"><img src="./img/10_mobile_icons/settings.png" alt=""></button>
         <button onclick="toggleControl()"><img src="./img/10_mobile_icons/control.png" alt=""></button>
-      </div>
-      <div id="settings" class="d_none">
-        <span translate="no">Sound</span>
-        <button onclick="muteVolume()"><img id="muteVolumeImg" src="./img/10_mobile_icons/volume.png" alt=""></button>
-        <label for="volumeSlider" translate="no">Volume: </label>
-        <input type="range" id="volumeSlider" class="slider" min="0" max="1" step="0.01" value="1">
+        <button onclick="toggleSettings()"><img src="./img/10_mobile_icons/info.png" alt=""></button>
       </div>
       <div id ="controls" class="d_none" translate="no">
           <div class="interactions">
@@ -71,6 +65,37 @@
             <span>HEALING</span>
             <span>H</span>
           </div>
+      </div>
+      <div id="settings" class="d_none">
+        <h2>Cedits</h2>
+        <table>
+          <tr>
+            <td>Programming</td>
+            <td>Philipp Lötzsch</td>
+          </tr>
+          <tr>
+            <th>Voice Acting:</th>
+          </tr>
+          <tr>            
+            <td>Pepe</td>
+            <td>Philipp Lötzsch</td>
+          </tr>
+          <tr>
+            <td>Chicken</td>
+             <td>Jennifer Lötzsch</td>
+          </tr>
+          <tr>
+            <td>Design:</td>
+            <td>Developer Akademie</td>
+          </tr>
+          <tr>
+            <th>Sounds and Icons:</th>
+          </tr>
+          <tr>
+            <td>Pixaby.com and flaticon.com</td>
+           </tr>
+      
+        </table>
       </div>
       <button id="fullscreen" onclick="openFullscreen()"><img id="imgFullscreen" src="./img/10_mobile_icons/full-screen.png" alt="FULLSCREEN"></button>
       <canvas id="canvas" width="720" height="480"></canvas>

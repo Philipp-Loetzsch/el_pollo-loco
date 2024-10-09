@@ -1,6 +1,6 @@
 @font-face {
   font-family: "zabars";
-  src: url("./fonts/Zabars.ttf") format("truetype");
+  src: url("./fonts/Texas.otf") format("opentype");
 }
 
 .d_none {
@@ -14,13 +14,23 @@ body {
   height: 100vh;
   margin: 0;
   font-family: "zabars", Arial, Helvetica, sans-serif;
-  font-size: 32px;
+  font-size: 20px;
   background-image: url("img/desert.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
 }
-
+h1{
+  background-color: rgb(230, 103, 44);
+  border: 2px solid brown;
+  text-shadow: 2px 1px 2px rgb(255, 218, 7);
+  box-shadow: 2px 1px 5px yellow;
+  border-radius: 50% 50% 5px 5px ;
+  padding: 20px 20px 0 20px;
+}
+h2{
+  margin: 0;
+}
 .start-screen {
   display: flex !important;
   position: absolute;
@@ -36,9 +46,9 @@ body {
 .menu {
   position: absolute;
   width: 100%;
-  height: 100%;
+  top: 0;
   display: flex !important;
-  align-items: baseline;
+  align-items: start;
   padding-top: 2%;
   box-sizing: border-box;
   justify-content: space-around;
@@ -60,17 +70,16 @@ body {
 
 .settings {
   position: absolute;
-  z-index: 1000;
+  z-index: 998;
   background-color: rgba(206, 188, 88, 0.85);
-  width: 200px;
+  width: 100%;
+  height: 100%;
   display: flex !important;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  gap: 30px;
-  padding: 10px 0;
-  border-radius: 20px;
-  bottom: 10%;
+  padding-top: 20%;
+  box-sizing: border-box;
+  overflow: auto;
   button {
     display: flex;
     width: 40px;
@@ -79,6 +88,16 @@ body {
     img {
       width: 100%;
     }
+  }
+  table{
+    width: 100%;
+    padding: 20px 20px 0 20px;
+    
+  }
+  tr{
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
   }
 }
 
@@ -91,6 +110,7 @@ body {
   justify-content: space-around;
   background-color: rgba(206, 188, 88, 0.85);
 }
+
 .interactions {
   align-items: center;
   display: flex;
@@ -154,6 +174,8 @@ body {
 button {
   display: none;
   cursor: pointer;
+  font-family: zabars, Arial, Helvetica, sans-serif;
+  font-size: 24px;
 }
 
 #gameScreen {
@@ -161,7 +183,6 @@ button {
   justify-content: center;
   align-items: center;
   position: relative;
-  overflow: hidden;
 }
 
 canvas {
@@ -236,8 +257,7 @@ canvas {
     background-color: rgba(194, 199, 194, 0.575);
   }
   .menu {
-    top: 2%;
-    left: 5%;
+   padding: 2% 0 0 5%;
     justify-content: flex-start;
     gap: 30px;
   }
@@ -247,6 +267,7 @@ canvas {
   button {
     height: 30px;
     width: 30px;
+    font-size: 14px;
   }
 
   #movement {
