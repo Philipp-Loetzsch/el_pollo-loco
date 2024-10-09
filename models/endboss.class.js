@@ -12,6 +12,7 @@ class Endboss extends MovableObject {
   alertCount = 0;
   firstAlert = false;
   enableAttack = true;
+  winnningTheme = new Audio("audio/winning_theme.mp3")
 
   IMAGES_WALKING = [
     "img/4_enemie_boss_chicken/1_walk/G1.png",
@@ -120,7 +121,9 @@ class Endboss extends MovableObject {
           this.endSceneFrame++;
           if (this.endSceneFrame === this.IMAGES_DEAD.length) {
            this.clearAllIntervals()
-           world.endGame('win')
+           world.endGame('win');
+           world.world_music.pause()
+           this.winnningTheme.play();
           }
         }, 200);
       }

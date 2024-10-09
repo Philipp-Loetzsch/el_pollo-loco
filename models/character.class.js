@@ -78,7 +78,10 @@ class Character extends MovableObject {
   world;
   walking_sound = new Audio("audio/running.mp3");
   hurt_sound = new Audio("audio/char_hit.mp3");
+  healing_sound = new Audio("audio/heal_up.mp3")
   dying_sound = new Audio("audio/char_dye.mp3");
+  gameOver_theme = new Audio("audio/gameover_theme.mp3")
+
 
   constructor() {
     super().loadImage(this.IMAGES_IDLE[0]);
@@ -142,12 +145,7 @@ class Character extends MovableObject {
       this.walking_sound.play();
       this.idleTime = 0;
     }
-    if (
-      this.world.keyboard.SPACE &&
-      !this.isAboveGround() &&
-      !this.isDead() &&
-      this.enableMove
-    ) {
+    if (this.enableJump()) {
       this.idleTime = 0;
       this.startJumping = true;
       this.jump(25);
@@ -163,6 +161,9 @@ class Character extends MovableObject {
         if (this.deadFrame >= this.IMAGES_DEAD.length) {
           this.clearAllIntervals();
           world.endGame("loose");
+          world.world_music.pause()
+          this.gameOver_theme.play();
+          this.gameOver_theme.volume = 0.2
         }
       }, 500);
     } else if (this.isHurt()) {
@@ -200,6 +201,7 @@ class Character extends MovableObject {
       world.coinBar.percentage -= 100;
       world.coinBar.setPercentage(world.coinBar.percentage);
       world.healthBar.setPercentage(this.energy);
+      this.healing_sound.play()
     }
   }
 
@@ -253,6 +255,15 @@ class Character extends MovableObject {
       this.x > -200 &&
       !this.isDead() &&
       this.x >= this.noWayBack
+    );
+  }
+
+  enableJump() {
+    return (
+      this.world.keyboard.SPACE &&
+      !this.isAboveGround() &&
+      !this.isDead() &&
+      this.enableMove
     );
   }
 

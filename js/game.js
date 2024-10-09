@@ -5,9 +5,22 @@ let mainTheme = new Audio('audio/main_menu.mp3')
 let isMuted = false
 let mediaElements = [mainTheme]
 let intervalMain
+let gameStart = false
 
+
+// Event-Listener für Benutzerinteraktionen (z.B. Klick oder Tastendruck)
+function enableAudioOnInteraction() {
+  window.removeEventListener('click', enableAudioOnInteraction); // Entferne den Listener nach der ersten Interaktion
+  window.removeEventListener('keydown', enableAudioOnInteraction); // Entferne den Listener nach der ersten Tastendruck
+  playMainTheme(); // Starte die Musik nach Interaktion
+}
+
+// Füge Event-Listener für Klick und Tastendruck hinzu
+window.addEventListener('click', enableAudioOnInteraction);
+window.addEventListener('keydown', enableAudioOnInteraction);
 
 function playMainTheme(){
+  if(gameStart) return  clearInterval(intervalMain)
   intervalMain = setInterval(() => {
   mainTheme.play().catch(error => {
       console.error("Fehler beim Abspielen des Audios:", error);
@@ -23,7 +36,7 @@ function playMainTheme(){
 
 
 function init() {
-  clearInterval(intervalMain)
+  gameStart = true
   mainTheme.pause()
   document.getElementById('mainMenu').classList.remove("menu")
   document.getElementById('startScreen').classList.remove("start-screen")
