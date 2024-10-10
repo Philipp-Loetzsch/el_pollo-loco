@@ -121,7 +121,7 @@ class Endboss extends MovableObject {
           if (this.endSceneFrame === this.IMAGES_DEAD.length) {
            this.clearAllIntervals()
            world.endGame('win');
-           world.world_music.pause()
+           world_music.pause()
            this.winnningTheme.play();
           }
         }, 200);

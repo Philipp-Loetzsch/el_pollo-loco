@@ -157,7 +157,7 @@ class Character extends MovableObject {
         if (this.deadFrame >= this.IMAGES_DEAD.length) {
           this.clearAllIntervals();
           world.endGame("loose");
-          world.world_music.pause()
+          world_music.pause()
           this.gameOver_theme.play();
           this.gameOver_theme.volume = 0.2
         }

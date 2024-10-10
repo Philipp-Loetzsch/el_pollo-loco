@@ -36,6 +36,7 @@ function init() {
   gameStart = true
   mainTheme.pause()
   world_music.play()
+  world_music.volume = 0.15
   document.getElementById('mainMenu').classList.remove("menu")
   document.getElementById('startScreen').classList.remove("start-screen")
   document.getElementById('controls').classList.remove('control')
@@ -47,9 +48,7 @@ function init() {
 function openFullscreen() {
   let game = document.getElementById('gameScreen');
   let imgFullscreen = document.getElementById('imgFullscreen')
-  if (!document.fullscreenElement &&  
-      !document.webkitFullscreenElement &&
-      !document.msFullscreenElement) {    
+  if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {    
     if (game.requestFullscreen) {
       game.requestFullscreen();
     } else if (game.webkitRequestFullscreen) { 
@@ -90,12 +89,9 @@ function muteVolume(){
   mediaElements.forEach(element => {
     element.muted = isMuted;
   });
-  if(isMuted){
-    document.getElementById('muteVolumeImg').src = 'img/10_mobile_icons/mute.png';
-  }
-  else{
-    document.getElementById('muteVolumeImg').src = 'img/10_mobile_icons/volume.png';
-  }
+  if(isMuted) document.getElementById('muteVolumeImg').src = 'img/10_mobile_icons/mute.png';
+  else document.getElementById('muteVolumeImg').src = 'img/10_mobile_icons/volume.png';
+  
 }
 
 function touchButton(buttonId) {
