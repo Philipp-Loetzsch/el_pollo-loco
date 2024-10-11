@@ -1,38 +1,54 @@
 class AudioObjects extends DrawableObject {
-  walking_sound = new Audio("audio/running.mp3");
-  hurt_sound = new Audio("audio/char_hit.mp3");
-  healing_sound = new Audio("audio/heal_up.mp3");
-  dying_sound = new Audio("audio/char_dye.mp3");
-  gameOver_theme = new Audio("audio/gameover_theme.mp3");
-  winnningTheme = new Audio("audio/winning_theme.mp3");
-  collectCoin = new Audio("audio/collect_coin.mp3");
-  killChickenAudio = new Audio("audio/kill_chicken.mp3");
-  killChickenSmallAudio = new Audio("audio/kill_chicken_small.mp3");
-  splashSound = new Audio("audio/broken-bottle.mp3");
-  spinningSound = new Audio("audio/Throw_spinning_Object.mp3");
+  
+  audioPaths = {
+    walkingSound: "audio/running.mp3",
+    hurtSound: "audio/char_hit.mp3",
+    healingSound: "audio/heal_up.mp3",
+    dyingSound: "audio/char_die.mp3",
+    gameOverTheme: "audio/gameover_theme.mp3",
+    winningTheme: "audio/winning_theme.mp3",
+    collectCoin: "audio/collect_coin.mp3",
+    collectBottle: "audio/collect_bottle.mp3",
+    killChicken: "audio/kill_chicken.mp3",
+    killChickenSmall: "audio/kill_chicken_small.mp3",
+    splashSound: "audio/broken-bottle.mp3",
+    spinningSound: "audio/Throw_spinning_Object.mp3",
+    snoringSound: "audio/snoring.mp3",
+    bossDyingSound: "audio/boss_die.mp3",
+    bossWalkingSound: "audio/boss_walking.mp3",
+    bossHurtSound: "audio/boss_hurt.mp3",
+    bossAttackSound: "audio/boss_attack.mp3"
+  };
 
-  SOUNDS = [
-    this.walking_sound,
-    this.hurt_sound,
-    this.healing_sound,
-    this.dying_sound,
-    this.gameOver_theme,
-    this.winnningTheme,
-    this.collectCoin,
-    this.killChickenAudio,
-    this.killChickenSmallAudio,
-    this.splashSound,
-    this.spinningSound,
-  ];
+  audioInstances = {};
 
   constructor() {
     super();
-    this.muteAudio();
+    this.muteAll();
   }
-  muteAudio() {
+
+  loadSound(soundName) {
+    if (!this.audioInstances[soundName]) {
+      this.audioInstances[soundName] = new Audio(this.audioPaths[soundName]);
+    }
+    return this.audioInstances[soundName];
+  }
+
+  playSound(soundName, volume) {
+    let sound = this.loadSound(soundName);
+    sound.play();
+    sound.volume = volume
+  }
+
+  pauseSound(soundName) {
+    let sound = this.loadSound(soundName);
+    sound.pause();
+  }
+
+  muteAll() {
     setInterval(() => {
-      this.SOUNDS.forEach((element) => {
-        element.muted = isMuted;
+      Object.values(this.audioInstances).forEach((sound) => {
+        sound.muted = isMuted;
       });
     }, 100);
   }

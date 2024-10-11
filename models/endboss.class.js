@@ -81,13 +81,12 @@ class Endboss extends MovableObject {
       } else if (!this.lastBattle) {
         this.bossWalking();
       }
-   
-    }, 1000 / 10);
+    }, 1000 / 11);
 
     let boss = setInterval(() => {
       if (world && this.lastBattle) {
         this.bossFight();
-        clearInterval(boss)
+        clearInterval(boss);
       }
     }, 1000 / 10);
 
@@ -102,7 +101,6 @@ class Endboss extends MovableObject {
         this.endFight();
       }
     }, 400);
-    
   }
 
   bossDied() {
@@ -111,19 +109,16 @@ class Endboss extends MovableObject {
     world.endbossBar.setPercentage(0);
     let hurtAnimation = setInterval(() => {
       this.playAnimation(this.IMAGES_HURT);
+      this.playSound("bossHurtSound", 0.2);
       this.endSceneFrame++;
       if (this.endSceneFrame === this.IMAGES_HURT.length * 5) {
         clearInterval(hurtAnimation);
         this.endSceneFrame = 0;
         setInterval(() => {
           this.playAnimation(this.IMAGES_DEAD);
+          this.playSound("bossDyingSound", 1);
           this.endSceneFrame++;
-          if (this.endSceneFrame === this.IMAGES_DEAD.length) {
-           this.clearAllIntervals()
-           world.endGame('win');
-           world_music.pause()
-           this.winnningTheme.play();
-          }
+          if (this.endSceneFrame === this.IMAGES_DEAD.length) this.winGame();
         }, 200);
       }
     }, 100);
@@ -131,6 +126,7 @@ class Endboss extends MovableObject {
 
   bossHurt() {
     this.playAnimation(this.IMAGES_HURT);
+    this.playSound("bossHurtSound", 0.2);
     setTimeout(() => {
       this.damage = false;
     }, this.IMAGES_HURT.length * 200);
@@ -151,7 +147,6 @@ class Endboss extends MovableObject {
   endFight() {
     this.lastBattle = true;
     this.otherDirection = false;
-   
   }
 
   alertBoss() {
@@ -163,7 +158,7 @@ class Endboss extends MovableObject {
       if (this.currentImage >= this.IMAGES_ALERT.length) {
         clearInterval(alertAnimation);
         this.firstAlert = true;
-        this.bossFight()
+        this.bossFight();
       }
     }, 200);
   }
@@ -171,30 +166,35 @@ class Endboss extends MovableObject {
   bossFight() {
     if (!this.firstAlert) {
       this.alertBoss();
-    } else{
+    } else {
+      this.endbossWalking();
+    }
+  }
+
+  endbossWalking() {
     setInterval(() => {
-      if (world.character.x + world.character.width/2 <= this.x && this.lastBattle && this.enableAttack && !this.isDead()) {
+      if ( world.character.x + world.character.width / 2 <= this.x && this.lastBattle && this.enableAttack && !this.isDead()) {
         this.speed = 10;
         this.moveLeft();
-      } else if(this.lastBattle && !this.isDead()) {
-        this.enableAttack = false
+        this.playAnimation(this.IMAGES_WALKING);
+        this.playSound("bossWalkingSound", 0.5);
+      } else if (this.lastBattle && !this.isDead()) {
+        this.enableAttack = false;
         this.speed = 20;
         this.moveRight();
-        if(this.x >= world.character.x + 300){
-          this.enableAttack = true
+        this.playAnimation(this.IMAGES_ATTACK);
+        this.playSound("bossAttackSound", 0.2);
+        if (this.x >= world.character.x + 300) {
+          this.enableAttack = true;
         }
       }
-    }, 1000 / 10); 
-  
-
-    setInterval(() => {
-      if (world.character.x + world.character.width <= this.x && this.lastBattle && !this.damage) {
-        this.playAnimation(this.IMAGES_WALKING);
-      } else if(this.lastBattle && !this.damage){
-        this.playAnimation(this.IMAGES_ATTACK);
-      }
-    },1000 / 10); 
-   }
+    }, 1000 / 10);
   }
-  
+
+  winGame() {
+    this.clearAllIntervals();
+    world.endGame("win");
+    world_music.pause();
+    this.playSound("winningTheme", 0.2);
+  }
 }

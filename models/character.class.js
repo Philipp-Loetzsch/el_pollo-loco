@@ -91,12 +91,11 @@ class Character extends MovableObject {
     this.applyGravaty();
     this.checkCollisions();
     this.checkCollactable();
-    this.hurt_sound.volume = 0.4;
   }
 
   animate() {
     setInterval(() => {
-      this.walking_sound.pause();
+      this.pauseSound("walkingSound", 0)
       this.characterMovement();
       this.world.camera_x = -this.x + 50;
     }, 1000 / 60);
@@ -117,10 +116,8 @@ class Character extends MovableObject {
     }, 1000 / 10);
 
     setInterval(() => {
-      if (
-        !(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) &&
-        !this.isAboveGround()
-      )
+    this.pauseSound("snoringSound", 0)
+      if (!(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isAboveGround())
         this.idleAnimation();
     }, 300);
 
@@ -133,12 +130,12 @@ class Character extends MovableObject {
     if (this.enableMoveRight()) {
       this.moveRight();
       this.otherDirection = false;
-      this.walking_sound.play();
+      this.playSound("walkingSound", 1);
     }
     if (this.enableMoveLeft()) {
       this.moveLeft();
       this.otherDirection = true;
-      this.walking_sound.play();
+      this.playSound("walkingSound", 1);
       this.idleTime = 0;
     }
     if (this.enableJump()) {
@@ -152,18 +149,17 @@ class Character extends MovableObject {
     if (this.isDead()) {
       setInterval(() => {
         this.dying();
-        this.dying_sound.play();
+        this.playSound("dyingSound", 0.5)
         this.deadFrame++;
         if (this.deadFrame >= this.IMAGES_DEAD.length) {
           this.clearAllIntervals();
           world.endGame("loose");
           world_music.pause()
-          this.gameOver_theme.play();
-          this.gameOver_theme.volume = 0.2
+          this.playSound("gameOverTheme", 0.1)
         }
       }, 500);
     } else if (this.isHurt()) {
-      this.hurt_sound.play();
+      this.playSound("hurtSound", 0.3)
       this.playAnimation(this.IMAGES_HURT);
     } else if (this.isWalkung()) {
       this.playAnimation(this.IMAGES_WALKING);
@@ -197,7 +193,7 @@ class Character extends MovableObject {
       world.coinBar.percentage -= 100;
       world.coinBar.setPercentage(world.coinBar.percentage);
       world.healthBar.setPercentage(this.energy);
-      this.healing_sound.play()
+      this.playSound("healingSound", 0.6)
       let healChar = new Healing(
         this.x,
         this.y
@@ -211,7 +207,9 @@ class Character extends MovableObject {
       this.idleTime = new Date().getTime();
     }
     if (this.longIdle() && this.enableMove) {
-      return this.playAnimation(this.IMAGES_LONG_IDLE);
+    this.playAnimation(this.IMAGES_LONG_IDLE);
+    this.playSound("snoringSound", 0.5)
+    return  
     } else {
       this.playAnimation(this.IMAGES_IDLE);
     }

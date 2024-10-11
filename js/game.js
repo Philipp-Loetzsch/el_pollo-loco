@@ -36,7 +36,7 @@ function init() {
   gameStart = true
   mainTheme.pause()
   world_music.play()
-  world_music.volume = 0.15
+  world_music.volume = 0.1
   document.getElementById('mainMenu').classList.remove("menu")
   document.getElementById('startScreen').classList.remove("start-screen")
   document.getElementById('controls').classList.remove('control')

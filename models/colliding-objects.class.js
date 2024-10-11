@@ -3,7 +3,6 @@ class CollidingObject extends AudioObjects {
   lastAttack = false;
   collect = false;
 
-
   isAboveGround() {
     if (this instanceof ThrowableObject || this instanceof ChickenSmall) {
       return this.y < 350;
@@ -32,7 +31,7 @@ class CollidingObject extends AudioObjects {
         if (this.isColliding(enemie)) {
           if (this.isAttack(enemie)) {
             this.attack(enemie);
-          } else{
+          } else {
             this.hit(20);
             world.healthBar.setPercentage(world.character.energy);
           }
@@ -45,7 +44,8 @@ class CollidingObject extends AudioObjects {
     return (
       this.x - this.offsetX + this.width >= obj.x + this.offsetX &&
       this.x + this.offsetX <= obj.x + obj.width &&
-      this.y + this.offsetY + this.offsetHeight >= obj.y - obj.height / 2.5 + obj.offsetY &&
+      this.y + this.offsetY + this.offsetHeight >=
+        obj.y - obj.height / 2.5 + obj.offsetY &&
       this.y + this.offsetY <= obj.y + obj.height - obj.offsetHeight
     );
   }
@@ -92,13 +92,14 @@ class CollidingObject extends AudioObjects {
             this.removeItem(co);
             world.coinBar.percentage += 20;
             world.coinBar.setPercentage(world.coinBar.percentage);
-            this.coinAmount ++ 
-            this.collectCoin.play()
+            this.coinAmount++;
+            this.playSound("collectCoin", 0.2)
           } else if (co instanceof Bottle && this.bottleAmount < 5) {
             this.removeItem(co);
             world.bottleBar.percentage += 20;
             world.bottleBar.setPercentage(world.bottleBar.percentage);
-            this.bottleAmount ++
+            this.bottleAmount++;
+            this.playSound("collectBottle", 1)
           }
         }
       });
@@ -111,13 +112,13 @@ class CollidingObject extends AudioObjects {
       world.level.collectableObjects.splice(index, 1);
     }
   }
-  removeEnemie(enemie){
+  removeEnemie(enemie) {
     let index = world.level.enemies.indexOf(enemie);
     if (index > -1) {
       world.level.enemies.splice(index, 1);
     }
   }
-  removeThrownObject(to){
+  removeThrownObject(to) {
     let index = world.throwableObjects.indexOf(to);
     if (index > -1) {
       world.throwableObjects.splice(index, 1);

@@ -51,15 +51,13 @@ class ThrowableObject extends MovableObject {
 
   rotate() {
     this.playAnimation(this.IMAGE_ROTATE);
-    this.spinningSound.play()
-    this.spinningSound.volume = 0.2
+    this.playSound("spinningSound", 0.15)
   }
 
   splashBottle(){
     let checkPosition = setInterval(() => {
       if (this.y >= 350 || this.lastAttack) {
-        this.splashSound.play()
-        this.splashSound.volume = 0.2
+        this.playSound("splashSound",0.15)
         this.fallingDown = false
         this.offsetY += 200
         this.currentImage = 0

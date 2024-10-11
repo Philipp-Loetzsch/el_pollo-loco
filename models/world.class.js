@@ -64,7 +64,7 @@ class World {
       this.flipImage(mo);
     }
     mo.draw(this.ctx);
-    /* mo.drawFrame(this.ctx); */
+    mo.drawFrame(this.ctx);
     if (mo.otherDirection) this.flipImageBack(mo);
   }
 
@@ -83,17 +83,12 @@ class World {
   endGame(ending) {
     let endGame = document.getElementById("gameEnd");
     endGame.classList.add("game-ending");
-
-    // Angenommen, es gibt ein einzelnes img-Element innerhalb von 'gameEnd'
     let imageEnding = endGame.querySelector("img");
-
     if (ending == "win") {
-      console.log("you win");
-      imageEnding.src = "./img/9_intro_outro_screens/win/win_2.png"; // Bildquelle setzen
+        imageEnding.src = "./img/9_intro_outro_screens/win/win_2.png";
     } else {
-      console.log("you lose");
-      imageEnding.src =
-        "./img/9_intro_outro_screens/game_over/oh no you lost!.png"; // Bildquelle setzen (keine Leerzeichen im Dateinamen)
+    
+      imageEnding.src ="./img/9_intro_outro_screens/game_over/oh no you lost!.png";
     }
   }
 }

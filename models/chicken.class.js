@@ -16,7 +16,6 @@ class Chicken extends MovableObject {
     this.x = x;
     this.spawnPoint = this.x;
     this.animate();
-    this.killChickenAudio.volume = 0.3
   }
 
   animate() {
@@ -40,7 +39,7 @@ class Chicken extends MovableObject {
 
     let deadChicken = setInterval(() => {
       if (this.isDead()) {
-        this.killChickenAudio.play()
+        this.playSound("killChicken", 0.3)
         this.loadImage("img/3_enemies_chicken/chicken_normal/2_dead/dead.png");
         clearInterval(deadChicken);
         setTimeout(() => {
