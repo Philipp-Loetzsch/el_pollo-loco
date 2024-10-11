@@ -189,3 +189,22 @@ window.addEventListener("keyup", (e) => {
       break;
   }
 });
+
+function checkOrientation() {
+  let warning = document.getElementById("screenWarning");
+
+  // Prüfe, ob die Breite größer ist als die Höhe (Querformat)
+  if (window.innerWidth > window.innerHeight) {
+    // Wenn Querformat, blende die Warnung aus
+    warning.classList.remove('warning')
+  } else {
+    // Wenn Hochformat, zeige die Warnung an
+    warning.classList.add('warning');
+  }
+}
+
+// Überwachen der Änderungen der Bildschirmorientierung (nur mobil)
+window.addEventListener("orientationchange", checkOrientation);
+
+// Überwachen der Änderungen der Fenstergröße (z.B. Desktop)
+window.addEventListener("resize", checkOrientation);

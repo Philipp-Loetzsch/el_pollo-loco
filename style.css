@@ -20,15 +20,15 @@ body {
   background-size: cover;
   background-position: center;
 }
-h1{
+h1 {
   background-color: rgb(230, 103, 44);
   border: 2px solid brown;
   text-shadow: 2px 1px 2px rgb(255, 218, 7);
   box-shadow: 2px 1px 5px yellow;
-  border-radius: 50% 50% 5px 5px ;
+  border-radius: 50% 50% 5px 5px;
   padding: 20px 20px 0 20px;
 }
-h2{
+h2 {
   margin: 0;
 }
 .start-screen {
@@ -89,12 +89,11 @@ h2{
       width: 100%;
     }
   }
-  table{
+  table {
     width: 100%;
     padding: 20px 20px 0 20px;
-    
   }
-  tr{
+  tr {
     padding-top: 10px;
     display: flex;
     justify-content: space-between;
@@ -171,7 +170,7 @@ h2{
   }
 }
 
-#mute{
+#mute {
   display: flex;
   position: absolute;
   align-items: center;
@@ -268,12 +267,12 @@ canvas {
     bottom: unset;
   }
 
-  #mute{
+  #mute {
     top: 5%;
     right: 10%;
     height: 60px;
     width: 60px;
-    bottom: unset; 
+    bottom: unset;
   }
 
   #reload {
@@ -283,9 +282,30 @@ canvas {
     background-color: rgba(194, 199, 194, 0.575);
   }
   .menu {
-   padding: 2% 0 0 5%;
+    padding: 2% 0 0 5%;
     justify-content: flex-start;
     gap: 30px;
+  }
+}
+
+.warning {
+  display: none;
+  position: fixed;
+  display: flex !important;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 24px;
+  z-index: 20000;
+  img{
+    width: 100%;
   }
 }
 
@@ -308,11 +328,11 @@ canvas {
       height: 40px;
     }
   }
-  #fullscreen, #mute {
+  #fullscreen,
+  #mute {
     height: 40px;
     width: 40px;
   }
-
 
   .interactions {
     font-size: 20px;
