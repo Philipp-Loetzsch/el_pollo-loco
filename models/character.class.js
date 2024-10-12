@@ -297,7 +297,7 @@ class Character extends MovableObject {
       this.clearAllIntervals();
       world.endGame("loose");
       world_music.pause()
-      this.playSound("gameOverTheme", 0.1)
+      if(!isMuted)this.playSound("gameOverTheme", 0.1)
     }
   }
 }
