@@ -87,7 +87,6 @@ class World {
     if (ending == "win") {
         imageEnding.src = "./img/9_intro_outro_screens/win/win_2.png";
     } else {
-    
       imageEnding.src ="./img/9_intro_outro_screens/game_over/oh no you lost!.png";
     }
   }

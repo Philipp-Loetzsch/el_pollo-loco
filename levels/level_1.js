@@ -26,7 +26,7 @@ function createClouds(count) {
 }
 
 function duplicateBackground() {
-  const layers = [
+  let layers = [
     ["img/5_background/layers/air.png", "img/5_background/layers/3_third_layer/2.png", "img/5_background/layers/2_second_layer/2.png", "img/5_background/layers/1_first_layer/2.png"],
     ["img/5_background/layers/air.png", "img/5_background/layers/3_third_layer/1.png", "img/5_background/layers/2_second_layer/1.png", "img/5_background/layers/1_first_layer/1.png"]
   ];
