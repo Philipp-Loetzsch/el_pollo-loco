@@ -17,7 +17,8 @@ class AudioObjects extends DrawableObject {
     bossDyingSound: "audio/boss_die.mp3",
     bossWalkingSound: "audio/boss_walking.mp3",
     bossHurtSound: "audio/boss_hurt.mp3",
-    bossAttackSound: "audio/boss_attack.mp3"
+    bossAttackSound: "audio/boss_attack.mp3",
+    bossAlertSound: "audio/alert.mp3"
   };
 
   audioInstances = {};

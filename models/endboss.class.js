@@ -81,7 +81,7 @@ class Endboss extends MovableObject {
       } else if (!this.lastBattle) {
         this.bossWalking();
       }
-    }, 1000 / 11);
+    }, 1000 / 10);
 
     let boss = setInterval(() => {
       if (world && this.lastBattle) {
@@ -152,12 +152,15 @@ class Endboss extends MovableObject {
   alertBoss() {
     if (this.currentImage >= this.IMAGES_ALERT.length) {
       this.currentImage = 0;
+      this.playSound("bossAlertSound", 0.2);
     }
     let alertAnimation = setInterval(() => {
       this.playAnimation(this.IMAGES_ALERT);
+      this.playSound("bossAttackSound", 0.2);
       if (this.currentImage >= this.IMAGES_ALERT.length) {
-        clearInterval(alertAnimation);
+        this.playSound("bossHurtSound", 0.2);
         this.firstAlert = true;
+        clearInterval(alertAnimation);
         this.bossFight();
       }
     }, 200);
@@ -173,12 +176,12 @@ class Endboss extends MovableObject {
 
   endbossWalking() {
     setInterval(() => {
-      if ( world.character.x + world.character.width / 2 <= this.x && this.lastBattle && this.enableAttack && !this.isDead()) {
+      if (this.enableBoss()) {
         this.speed = 10;
         this.moveLeft();
         this.playAnimation(this.IMAGES_WALKING);
         this.playSound("bossWalkingSound", 0.5);
-      } else if (this.lastBattle && !this.isDead()) {
+      } else if (this.lastBattle && !this.isDead() && !this.damage) {
         this.enableAttack = false;
         this.speed = 20;
         this.moveRight();
@@ -191,10 +194,23 @@ class Endboss extends MovableObject {
     }, 1000 / 10);
   }
 
+  enableBoss() {
+    return (
+      world.character.x + world.character.width / 2 <= this.x &&
+      this.lastBattle &&
+      this.enableAttack &&
+      !this.isDead() && 
+      !this.damage
+    );
+  }
+
   winGame() {
     this.clearAllIntervals();
-    world.endGame("win");
-    world_music.pause();
-    this.playSound("winningTheme", 0.2);
+    setTimeout(() => {
+      world.endGame("win");
+      world_music.pause();
+      if(!isMuted) this.playSound("winningTheme", 0.2);
+    }, 1000);
+  
   }
 }

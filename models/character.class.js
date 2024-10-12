@@ -95,7 +95,6 @@ class Character extends MovableObject {
 
   animate() {
     setInterval(() => {
-      this.pauseSound("walkingSound", 0)
       this.characterMovement();
       this.world.camera_x = -this.x + 50;
     }, 1000 / 60);
@@ -104,15 +103,7 @@ class Character extends MovableObject {
       this.InteractionAnimation();
       this.throwBottle();
       this.heal();
-      let length = world.level.enemies.length;
-      if (this.startLastBattle(length)) {
-        this.enableMove = false;
-        this.lastBattle = true;
-        this.blockLeft();
-        setTimeout(() => {
-          this.enableMove = true;
-        }, 2000);
-      }
+      this.endFigth()
     }, 1000 / 10);
 
     setInterval(() => {
@@ -127,10 +118,12 @@ class Character extends MovableObject {
   }
 
   characterMovement() {
+    this.pauseSound("walkingSound", 0)
     if (this.enableMoveRight()) {
       this.moveRight();
       this.otherDirection = false;
-      this.playSound("walkingSound", 1);
+      this.playSound("walkingSound", 1); 
+      this.idleTime = 0;    
     }
     if (this.enableMoveLeft()) {
       this.moveLeft();
@@ -290,5 +283,17 @@ class Character extends MovableObject {
   }
   blockLeft() {
     if (this.lastBattle) this.noWayBack = this.x;
+  }
+
+  endFigth(){
+    let length = world.level.enemies.length;
+    if (this.startLastBattle(length)) {
+      this.enableMove = false;
+      this.lastBattle = true;
+      this.blockLeft();
+      setTimeout(() => {
+        this.enableMove = true;
+      }, 2000);
+    }
   }
 }
