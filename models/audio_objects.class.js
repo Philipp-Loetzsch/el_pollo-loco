@@ -21,12 +21,10 @@ class AudioObjects extends DrawableObject {
     bossAlertSound: "audio/alert.mp3",
     jumpSound: "audio/jump_sound.mp3"
   };
-
   audioInstances = {};
 
   constructor() {
     super();
-    this.muteAll();
   }
 
   loadSound(soundName) {
@@ -37,6 +35,7 @@ class AudioObjects extends DrawableObject {
   }
 
   playSound(soundName, volume) {
+    if(isMuted) return
     let sound = this.loadSound(soundName);
     sound.play();
     sound.volume = volume
@@ -45,13 +44,5 @@ class AudioObjects extends DrawableObject {
   pauseSound(soundName) {
     let sound = this.loadSound(soundName);
     sound.pause();
-  }
-
-  muteAll() {
-    setInterval(() => {
-      Object.values(this.audioInstances).forEach((sound) => {
-        sound.muted = isMuted;
-      });
-    }, 100);
   }
 }

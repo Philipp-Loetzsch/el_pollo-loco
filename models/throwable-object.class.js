@@ -64,7 +64,7 @@ class ThrowableObject extends MovableObject {
         clearInterval(this.rotateInterval);
         let splashBottle = setInterval(() => {
           this.x += 0;
-          this.splash();
+          this.splash(splashBottle);
           this.splashFrame++;
         }, 50);
         clearInterval(checkPosition);
@@ -72,7 +72,7 @@ class ThrowableObject extends MovableObject {
     }, 100);
   }
 
-  splash() {
+  splash(splashBottle) {
     if (this.splashFrame === this.IMAGE_SPLASH.length - 1) {
       clearInterval(splashBottle);
       setTimeout(() => {

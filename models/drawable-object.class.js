@@ -36,5 +36,4 @@ class DrawableObject {
       ctx.stroke();
     }
   }
-
 }

@@ -215,7 +215,7 @@ class Endboss extends MovableObject {
       world.endGame("win");
       world_music.pause();
       if(!isMuted) this.playSound("winningTheme", 0.2);
-    }, 1000);
-  
+     }, 1000);
   }
+
 }

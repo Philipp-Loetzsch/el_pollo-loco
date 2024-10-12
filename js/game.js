@@ -1,145 +1,186 @@
 let canvas;
 let world;
+let level;
 let keyboard = new Keyboard();
-let mainTheme = new Audio('audio/main_menu.mp3')
+let mainTheme = new Audio("audio/main_menu.mp3");
 let world_music = new Audio("audio/world_theme.mp3");
-let isMuted = false
-let mediaElements = [mainTheme, world_music]
-let intervalMain
-let gameStart = false
+let isMuted = false;
+let mediaElements = [mainTheme, world_music];
+let intervalMain;
+let gameStart = false;
 
+/**
+ * Enables audio playback upon the first user interaction (click or keydown).
+ */
 function enableAudioOnInteraction() {
-  window.removeEventListener('click', enableAudioOnInteraction); 
-  window.removeEventListener('keydown', enableAudioOnInteraction); 
+  window.removeEventListener("click", enableAudioOnInteraction);
+  window.removeEventListener("keydown", enableAudioOnInteraction);
   playMainTheme();
 }
 
-window.addEventListener('click', enableAudioOnInteraction);
-window.addEventListener('keydown', enableAudioOnInteraction);
+window.addEventListener("click", enableAudioOnInteraction);
+window.addEventListener("keydown", enableAudioOnInteraction);
 
-function playMainTheme(){
+/**
+ * Starts playing the main theme on a loop until the game starts.
+ */
+function playMainTheme() {
   intervalMain = setInterval(() => {
-  if(gameStart) return  clearInterval(intervalMain)
-  mainTheme.play().catch(error => {
+    if (gameStart) return clearInterval(intervalMain);
+    mainTheme.play().catch((error) => {
       console.error("Fehler beim Abspielen des Audios:", error);
-      mainTheme.load();  
+      mainTheme.load();
       setTimeout(() => {
-          playMainTheme();  
-      }, 1000); 
+        playMainTheme();
+      }, 1000);
     });
   }, 1000);
-  mainTheme.volume = 0.3
+  mainTheme.volume = 0.3;
 }
 
-
+/**
+ * Initializes the game environment, including setting up the canvas and playing world music.
+ */
 function init() {
-  gameStart = true
-  mainTheme.pause()
-  world_music.play()
-  world_music.volume = 0.1
-  document.getElementById('mainMenu').classList.remove("menu")
-  document.getElementById('startScreen').classList.remove("start-screen")
-  document.getElementById('controls').classList.remove('control')
-  document.getElementById('settings').classList.remove('settings')
+  gameStart = true;
+  mainTheme.pause();
+  world_music.play();
+  world_music.volume = 0.1;
+  document.getElementById("mainMenu").classList.remove("menu");
+  document.getElementById("startScreen").classList.remove("start-screen");
+  document.getElementById("controls").classList.remove("control");
+  document.getElementById("settings").classList.remove("settings");
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
 }
 
+/**
+ * Toggles fullscreen mode for the game screen element.
+ */
 function openFullscreen() {
-  let game = document.getElementById('gameScreen');
-  let imgFullscreen = document.getElementById('imgFullscreen')
-  if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {    
+  let game = document.getElementById("gameScreen");
+  let imgFullscreen = document.getElementById("imgFullscreen");
+  if (
+    !document.fullscreenElement &&
+    !document.webkitFullscreenElement &&
+    !document.msFullscreenElement
+  ) {
     if (game.requestFullscreen) {
       game.requestFullscreen();
-    } else if (game.webkitRequestFullscreen) { 
+    } else if (game.webkitRequestFullscreen) {
       game.webkitRequestFullscreen();
-    } else if (game.msRequestFullscreen) { 
+    } else if (game.msRequestFullscreen) {
       game.msRequestFullscreen();
     }
-    imgFullscreen.src = 'img/10_mobile_icons/normal_screen.png'
+    imgFullscreen.src = "img/10_mobile_icons/normal_screen.png";
   } else {
-      if (document.exitFullscreen) {
+    if (document.exitFullscreen) {
       document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) { 
+    } else if (document.webkitExitFullscreen) {
       document.webkitExitFullscreen();
     } else if (document.msExitFullscreen) {
       document.msExitFullscreen();
     }
-       imgFullscreen.src = 'img/10_mobile_icons/full-screen.png'
+    imgFullscreen.src = "img/10_mobile_icons/full-screen.png";
   }
 }
 
+/**
+ * Reloads the game, resetting it to the initial state.
+ */
+function reloadGame() {
+  location.reload(false); 
 
-function reloadGame(){
-  location.reload();
 }
 
-function toggleSettings(){
-  document.getElementById('settings').classList.toggle('settings')
-  document.getElementById('controls').classList.remove('control')
+/**
+ * Toggles the visibility of the settings menu.
+ */
+function toggleSettings() {
+  document.getElementById("settings").classList.toggle("settings");
+  document.getElementById("controls").classList.remove("control");
 }
 
-function toggleControl(){
-  document.getElementById('controls').classList.toggle('control')
-  document.getElementById('settings').classList.remove('settings')
+/**
+ * Toggles the visibility of the control instructions.
+ */
+function toggleControl() {
+  document.getElementById("controls").classList.toggle("control");
+  document.getElementById("settings").classList.remove("settings");
 }
 
-function muteVolume(){
+/**
+ * Mutes or unmutes all audio elements based on the current mute status.
+ */
+function muteVolume() {
   isMuted = !isMuted;
-  mediaElements.forEach(element => {
+  mediaElements.forEach((element) => {
     element.muted = isMuted;
   });
-  if(isMuted) document.getElementById('muteVolumeImg').src = 'img/10_mobile_icons/mute.png';
-  else document.getElementById('muteVolumeImg').src = 'img/10_mobile_icons/volume.png';
-  
+  if (isMuted)
+    document.getElementById("muteVolumeImg").src =
+      "img/10_mobile_icons/mute.png";
+  else
+    document.getElementById("muteVolumeImg").src =
+      "img/10_mobile_icons/volume.png";
 }
 
+/**
+ * Simulates pressing a keyboard button based on a touch input.
+ * @param {string} buttonId - The ID of the button to simulate.
+ */
 function touchButton(buttonId) {
   switch (buttonId) {
-      case 'left':
-          keyboard.LEFT = true;
-          break;
-      case 'right':
-          keyboard.RIGHT = true;
-          break;
-      case 'h':
-          keyboard.H = true;
-          break;
-      case 'd':
-          keyboard.D = true;
-          break;
-      case 'space':
-          keyboard.SPACE = true;
-          break;
-      default:
-          console.log('Unbekannter Button: ' + buttonId);
+    case "left":
+      keyboard.LEFT = true;
+      break;
+    case "right":
+      keyboard.RIGHT = true;
+      break;
+    case "h":
+      keyboard.H = true;
+      break;
+    case "d":
+      keyboard.D = true;
+      break;
+    case "space":
+      keyboard.SPACE = true;
+      break;
+    default:
+      console.log("Unbekannter Button: " + buttonId);
   }
 }
 
-// Funktion, um das Loslassen eines Buttons zu registrieren
+/**
+ * Simulates releasing a keyboard button based on a touch input.
+ * @param {string} buttonId - The ID of the button to simulate.
+ */
 function releaseButton(buttonId) {
   switch (buttonId) {
-      case 'left':
-          keyboard.LEFT = false;
-          break;
-      case 'right':
-          keyboard.RIGHT = false;
-          break;
-      case 'h':
-          keyboard.H = false;
-          break;
-      case 'd':
-          keyboard.D = false;
-          break;
-      case 'space':
-          keyboard.SPACE = false;
-          break;
-      default:
-          console.log('Unbekannter Button: ' + buttonId);
+    case "left":
+      keyboard.LEFT = false;
+      break;
+    case "right":
+      keyboard.RIGHT = false;
+      break;
+    case "h":
+      keyboard.H = false;
+      break;
+    case "d":
+      keyboard.D = false;
+      break;
+    case "space":
+      keyboard.SPACE = false;
+      break;
+    default:
+      console.log("Unbekannter Button: " + buttonId);
   }
 }
 
-
+/**
+ * Sets keyboard properties to true based on the key pressed.
+ * @param {KeyboardEvent} e - The keyboard event.
+ */
 window.addEventListener("keydown", (e) => {
   switch (e.key) {
     case "ArrowRight":
@@ -165,6 +206,10 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
+/**
+ * Sets keyboard properties to false based on the key released.
+ * @param {KeyboardEvent} e - The keyboard event.
+ */
 window.addEventListener("keyup", (e) => {
   switch (e.key) {
     case "ArrowRight":
@@ -190,21 +235,17 @@ window.addEventListener("keyup", (e) => {
   }
 });
 
+/**
+ * Checks the screen orientation and displays a warning if the device is in portrait mode.
+ */
 function checkOrientation() {
   let warning = document.getElementById("screenWarning");
-
-  // Prüfe, ob die Breite größer ist als die Höhe (Querformat)
   if (window.innerWidth > window.innerHeight) {
-    // Wenn Querformat, blende die Warnung aus
-    warning.classList.remove('warning')
+    warning.classList.remove("warning");
   } else {
-    // Wenn Hochformat, zeige die Warnung an
-    warning.classList.add('warning');
+    warning.classList.add("warning");
   }
 }
 
-// Überwachen der Änderungen der Bildschirmorientierung (nur mobil)
 window.addEventListener("orientationchange", checkOrientation);
-
-// Überwachen der Änderungen der Fenstergröße (z.B. Desktop)
 window.addEventListener("resize", checkOrientation);
