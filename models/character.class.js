@@ -122,18 +122,19 @@ class Character extends MovableObject {
     if (this.enableMoveRight()) {
       this.moveRight();
       this.otherDirection = false;
-      this.playSound("walkingSound", 1); 
+      if (!this.isAboveGround()) this.playSound("walkingSound", 1); 
       this.idleTime = 0;    
     }
     if (this.enableMoveLeft()) {
       this.moveLeft();
       this.otherDirection = true;
-      this.playSound("walkingSound", 1);
+      if (!this.isAboveGround()) this.playSound("walkingSound", 1);
       this.idleTime = 0;
     }
     if (this.enableJump()) {
       this.idleTime = 0;
       this.startJumping = true;
+      this.playSound("jumpSound", 0.1);
       this.jump(25);
     }
   }
@@ -144,12 +145,7 @@ class Character extends MovableObject {
         this.dying();
         this.playSound("dyingSound", 0.5)
         this.deadFrame++;
-        if (this.deadFrame >= this.IMAGES_DEAD.length) {
-          this.clearAllIntervals();
-          world.endGame("loose");
-          world_music.pause()
-          this.playSound("gameOverTheme", 0.1)
-        }
+        this.charIsDead()
       }, 500);
     } else if (this.isHurt()) {
       this.playSound("hurtSound", 0.3)
@@ -294,6 +290,14 @@ class Character extends MovableObject {
       setTimeout(() => {
         this.enableMove = true;
       }, 2000);
+    }
+  }
+  charIsDead(){
+    if (this.deadFrame >= this.IMAGES_DEAD.length) {
+      this.clearAllIntervals();
+      world.endGame("loose");
+      world_music.pause()
+      this.playSound("gameOverTheme", 0.1)
     }
   }
 }

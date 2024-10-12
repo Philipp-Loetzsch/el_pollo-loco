@@ -7,10 +7,10 @@ let level1 = new Level(
 
 function createEnemies(count, minDistance) {
   let enemies = [];
-  let previousPosition = 200; 
+  let previousPosition = 100; 
   for (let i = 0; i < count; i++) {
     let [x, y] = generatePosition(previousPosition, minDistance);
-    enemies.push(i % 2 === 0 ? new Chicken(x, y) : new ChickenSmall(x, y));
+    enemies.push(Math.random() < 0.5 ? new Chicken(x, y) : new ChickenSmall(x, y));
     previousPosition = x; 
   }
   enemies.push(new Endboss());
