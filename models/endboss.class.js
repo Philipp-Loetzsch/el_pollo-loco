@@ -66,6 +66,17 @@ class Endboss extends MovableObject {
   }
 
   animate() {
+    this.movement()
+    let boss = setInterval(() => {
+      if (world && this.lastBattle) {
+        this.bossFight();
+        clearInterval(boss);
+      }
+    }, 1000 / 10);
+    this.lastFight()
+  }
+
+  movement(){
     let mainAnimation = setInterval(() => {
       if (this.x <= this.level_end_x - 500) {
         this.leftEnd = true;
@@ -82,25 +93,6 @@ class Endboss extends MovableObject {
         this.bossWalking();
       }
     }, 1000 / 10);
-
-    let boss = setInterval(() => {
-      if (world && this.lastBattle) {
-        this.bossFight();
-        clearInterval(boss);
-      }
-    }, 1000 / 10);
-
-    setInterval(() => {
-      if (!world) return;
-      let length = world.level.enemies.length;
-      if (
-        world.character.x >= world.level.enemies[length - 1].x - 550 &&
-        !this.isDead()
-      ) {
-        world.endbossBar.y = 20;
-        this.endFight();
-      }
-    }, 400);
   }
 
   bossDied() {
@@ -144,6 +136,19 @@ class Endboss extends MovableObject {
       this.otherDirection = true;
     }
   }
+
+  lastFight(){
+    setInterval(() => {
+      if (!world) return;
+      let length = world.level.enemies.length;
+      if (world.character.x >= world.level.enemies[length - 1].x - 550 && !this.isDead()
+      ) {
+        world.endbossBar.y = 20;
+        this.endFight();
+      }
+    }, 400);
+  }
+
   endFight() {
     this.lastBattle = true;
     this.otherDirection = false;

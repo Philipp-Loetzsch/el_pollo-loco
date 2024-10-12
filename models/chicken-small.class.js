@@ -3,7 +3,6 @@ class ChickenSmall extends MovableObject {
   width = 45;
   y = 365;
 
-
   IMAGES_WALKING = [
     "img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
     "img/3_enemies_chicken/chicken_small/1_walk/2_w.png",
@@ -16,12 +15,17 @@ class ChickenSmall extends MovableObject {
     this.x = 200 + Math.random() * x;
     this.spawnPoint = this.x;
     this.animate();
-    this.applyGravaty()
+    this.applyGravaty();
   }
 
   animate() {
     this.speed = 0.15 + Math.random() * 1.25;
+    this.movement();
+    this.jumpingChicken();
+    this.dyingChickenSmall();
+  }
 
+  movement() {
     setInterval(() => {
       if (this.x <= this.spawnPoint - 500 || this.x <= 0) {
         this.leftEnd = true;
@@ -30,26 +34,28 @@ class ChickenSmall extends MovableObject {
       }
       if (!this.leftEnd && this.energy == 100) {
         this.moveLeft();
-            
+
         this.otherDirection = false;
       } else if (this.energy == 100) {
         this.moveRight();
         this.otherDirection = true;
-      }    
+      }
     }, 1000 / 60);
+  }
+  jumpingChicken() {
     setInterval(() => {
-        if(!this.isAboveGround() && !this.isDead()){
-        this.jump(20 * Math.random())
-        }
+      if (!this.isAboveGround() && !this.isDead()) {
+        this.jump(20 * Math.random());
+      }
     }, 2000 * Math.random());
+  }
 
+  dyingChickenSmall() {
     let deadChicken = setInterval(() => {
       if (this.isDead()) {
-        this.playSound("killChickenSmall", 0.2)
-        this.offsetY = 500
-        this.loadImage(
-          "img/3_enemies_chicken/chicken_small/2_dead/dead.png"
-        );
+        this.playSound("killChickenSmall", 0.2);
+        this.offsetY = 500;
+        this.loadImage("img/3_enemies_chicken/chicken_small/2_dead/dead.png");
         clearInterval(deadChicken);
         setTimeout(() => {
           this.removeEnemie(this);

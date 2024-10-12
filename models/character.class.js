@@ -262,6 +262,7 @@ class Character extends MovableObject {
       this.enableMove
     );
   }
+
   enabelThrow() {
     return (
       this.world.keyboard.D &&
@@ -270,6 +271,7 @@ class Character extends MovableObject {
       this.enableMove
     );
   }
+
   startLastBattle(length) {
     return (
       this.x >= world.level.enemies[length - 1].x - 500 &&
@@ -277,6 +279,7 @@ class Character extends MovableObject {
       !this.lastBattle
     );
   }
+
   blockLeft() {
     if (this.lastBattle) this.noWayBack = this.x;
   }
@@ -292,6 +295,7 @@ class Character extends MovableObject {
       }, 2000);
     }
   }
+  
   charIsDead(){
     if (this.deadFrame >= this.IMAGES_DEAD.length) {
       this.clearAllIntervals();
