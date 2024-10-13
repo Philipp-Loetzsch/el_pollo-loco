@@ -134,7 +134,8 @@ function toggleSettings() {
 /**
  * Toggles the visibility of the control instructions.
  */
-function toggleControl() {
+function toggleControl(event) {
+  event.preventDefault()
   document.getElementById("controls").classList.toggle("control");
   document.getElementById("settings").classList.remove("settings");
 }

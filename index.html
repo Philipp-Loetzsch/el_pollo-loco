@@ -4,11 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>El pollo loco</title>
-    <link
-      rel="shortcut icon"
-      href="img/3_enemies_chicken/chicken_normal/1_walk/1_w.png"
-      type="image/x-icon"
-    />
+    <link rel="shortcut icon"  href="img/3_enemies_chicken/chicken_normal/1_walk/1_w.png"  type="image/x-icon"/>
     <link rel="stylesheet" href="style.css" />
     <script src="./models/keyboard.class.js"></script>
     <script src="./js/game.js"></script>
@@ -46,7 +42,7 @@
         <button onclick="init()">
           <img src="./img/10_mobile_icons/start.png" alt="" />
         </button>
-        <button onclick="toggleControl()">
+        <button onclick="toggleControl(event)">
           <img src="./img/10_mobile_icons/control.png" alt="" />
         </button>
         <button onclick="toggleSettings()">
@@ -102,57 +98,36 @@
           </tr>
           <tr>
             <td>Pixaby.com and flaticon.com</td>
+            <td><a href="imprint.html"><i>legal notice</i></a></td>
           </tr>
+
         </table>
       </div>
       <button id="fullscreen" onclick="openFullscreen()">
-        <img
-          id="imgFullscreen"
-          src="./img/10_mobile_icons/full-screen.png"
-          alt="FULLSCREEN"
-        />
+        <img id="imgFullscreen" src="./img/10_mobile_icons/full-screen.png" alt="FULLSCREEN"/>
       </button>
       <button id="mute" onclick="muteVolume()">
         <img id="muteVolumeImg" src="./img/10_mobile_icons/volume.png" alt="" />
       </button>
       <canvas id="canvas" width="720" height="480"></canvas>
       <div id="movement">
-        <button
-          id="left"
-          ontouchstart="touchButton(id)"
-          ontouchend="releaseButton(id)"
+        <button id="left"  ontouchstart="touchButton(id)" ontouchend="releaseButton(id, event)"
         >
           <img src="./img/10_mobile_icons/left.png" alt="LEFT" />
         </button>
-        <button
-          id="right"
-          ontouchstart="touchButton(id)"
-          ontouchend="releaseButton(id)"
-        >
+        <button  id="right"  ontouchstart="touchButton(id)" ontouchend="releaseButton(id)">
           <img src="./img/10_mobile_icons/right.png" alt="RIGHT" />
         </button>
       </div>
 
       <div id="action">
-        <button
-          id="h"
-          ontouchstart="touchButton(id)"
-          ontouchend="releaseButton(id)"
-        >
+        <button id="h" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)">
           <img src="./img/10_mobile_icons/heart.png" alt="HEAL" />
         </button>
-        <button
-          id="d"
-          ontouchstart="touchButton(id)"
-          ontouchend="releaseButton(id)"
-        >
+        <button id="d" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)">
           <img src="./img/10_mobile_icons/throw.png" alt="THROW" />
         </button>
-        <button
-          id="space"
-          ontouchstart="touchButton(id)"
-          ontouchend="releaseButton(id)"
-        >
+        <button id="space" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)">
           <img src="./img/10_mobile_icons/jump.png" alt="JUMP" />
         </button>
       </div>
