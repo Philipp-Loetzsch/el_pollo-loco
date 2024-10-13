@@ -1,4 +1,6 @@
-let level1 = new Level(
+let level1;
+function initLevel(){
+level1 = new Level(
   createEnemies(15, 200), 
   createClouds(10),  
   duplicateBackground(), 
@@ -71,4 +73,5 @@ function generatePosition(previousPosition, minDistance) {
   let x = previousPosition + minDistance + Math.floor(Math.random() * 50); 
   let y = Math.floor(100 + Math.random() * 100); 
   return [x, y];
+}
 }

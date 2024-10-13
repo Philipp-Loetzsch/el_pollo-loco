@@ -51,7 +51,9 @@ function init() {
   document.getElementById("controls").classList.remove("control");
   document.getElementById("settings").classList.remove("settings");
   canvas = document.getElementById("canvas");
+  initLevel()
   world = new World(canvas, keyboard);
+ 
 }
 
 /**
@@ -89,6 +91,8 @@ function openFullscreen() {
  * Reloads the game, resetting it to the initial state.
  */
 function reloadGame() {
+  let endGame = document.getElementById("gameEnd");
+  endGame.classList.remove("game-ending");
  /*  level1 = new Level() */
   init()
 }
