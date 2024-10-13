@@ -39,14 +39,4 @@ class DrawableObject {
       this.imageChache[path] = img; // Note: Ensure imageChache is defined in the class.
     });
   }
-
-  drawFrame(ctx) {
-    if (false) {
-      ctx.beginPath();
-      ctx.lineWidth = "2";
-      ctx.strokeStyle = "blue";
-      ctx.rect( this.x + this.offsetX, this.y + this.offsetY, this.width - this.offsetWidth, this.height - this.offsetHeight);
-      ctx.stroke();
-    }
-  }
 }

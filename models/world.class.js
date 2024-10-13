@@ -91,7 +91,6 @@ class World {
           this.flipImage(mo);
       }
       mo.draw(this.ctx);
-      mo.drawFrame(this.ctx);
       if (mo.otherDirection) this.flipImageBack(mo);
   }
 
@@ -114,19 +113,4 @@ class World {
       mo.x = mo.x * -1;
       this.ctx.restore();
   }
-
-/*   /**
-   * Handles the end of the game and displays the appropriate ending screen.
-   * @param {string} ending - The type of ending ("win" or "lose").
-   
-  endGame(ending) {
-      let endGame = document.getElementById("gameEnd");
-      endGame.classList.add("game-ending");
-      let imageEnding = endGame.querySelector("img");
-      if (ending == "win") {
-          imageEnding.src = "./img/9_intro_outro_screens/win/win_2.png";
-      } else {
-          imageEnding.src = "./img/9_intro_outro_screens/game_over/oh no you lost!.png";
-      }
-  } */
 }

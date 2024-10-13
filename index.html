@@ -39,13 +39,13 @@
         <img src="img/9_intro_outro_screens/start/startscreen_2.png" alt="" />
       </div>
       <div id="mainMenu" class="menu d_none">
-        <button onclick="init()">
+        <button onclick="init()" class="button">
           <img src="./img/10_mobile_icons/start.png" alt="" />
         </button>
-        <button onclick="toggleControl(event)">
+        <button onclick="toggleControl()" class="button">
           <img src="./img/10_mobile_icons/control.png" alt="" />
         </button>
-        <button onclick="toggleSettings()">
+        <button onclick="toggleSettings()" class="button">
           <img src="./img/10_mobile_icons/info.png" alt="" />
         </button>
       </div>
@@ -103,45 +103,54 @@
 
         </table>
       </div>
-      <button id="fullscreen" onclick="openFullscreen()">
+      <button id="fullscreen" class="button" onclick="openFullscreen()">
         <img id="imgFullscreen" src="./img/10_mobile_icons/full-screen.png" alt="FULLSCREEN"/>
       </button>
-      <button id="mute" onclick="muteVolume()">
+      <button id="mute" class="button" onclick="muteVolume()">
         <img id="muteVolumeImg" src="./img/10_mobile_icons/volume.png" alt="" />
       </button>
       <canvas id="canvas" width="720" height="480"></canvas>
       <div id="movement">
-        <button id="left"  ontouchstart="touchButton(id)" ontouchend="releaseButton(id, event)"
+        <button id="left" class="button" ontouchstart="touchButton(id)" ontouchend="releaseButton(id, event)"
         >
           <img src="./img/10_mobile_icons/left.png" alt="LEFT" />
         </button>
-        <button  id="right"  ontouchstart="touchButton(id)" ontouchend="releaseButton(id)">
+        <button id="right" class="button" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)">
           <img src="./img/10_mobile_icons/right.png" alt="RIGHT" />
         </button>
       </div>
 
       <div id="action">
-        <button id="h" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)">
+        <button id="h" class="button" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)">
           <img src="./img/10_mobile_icons/heart.png" alt="HEAL" />
         </button>
-        <button id="d" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)">
+        <button id="d" class="button" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)">
           <img src="./img/10_mobile_icons/throw.png" alt="THROW" />
         </button>
-        <button id="space" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)">
+        <button id="space" class="button" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)">
           <img src="./img/10_mobile_icons/jump.png" alt="JUMP" />
         </button>
       </div>
       <div id="gameEnd" class="d_none">
         <img src="./img/9_intro_outro_screens/win/win_1.png" alt="" />
-        <button onclick="reloadGame()">
+        <button onclick="reloadGame()" class="button">
           <img src="./img/10_mobile_icons/refresh.png" alt="RELOAD" />
         </button>
       </div>
     </div>
-
     <div id="screenWarning" class="d_none">
       <p>Please rotate the screen to landscape mode!</p>
       <img src="./img/10_mobile_icons/rotate_screen.gif" alt="">
     </div>
+
+    <script>
+      let buttons = document.querySelectorAll('button');
+
+      buttons.forEach(button => {
+      button.addEventListener('contextmenu', event => {
+        event.preventDefault();
+        });   
+      });
+    </script>
   </body>
 </html>

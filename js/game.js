@@ -134,8 +134,7 @@ function toggleSettings() {
 /**
  * Toggles the visibility of the control instructions.
  */
-function toggleControl(event) {
-  event.preventDefault()
+function toggleControl() {
   document.getElementById("controls").classList.toggle("control");
   document.getElementById("settings").classList.remove("settings");
 }
@@ -310,3 +309,4 @@ function playTheme(theme, volume) {
   theme.volume = volume;
   return theme.play();
 }
+

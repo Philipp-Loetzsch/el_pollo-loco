@@ -18,64 +18,63 @@ class ChickenSmall extends MovableObject {
     this.applyGravaty();
   }
 
-/**
- * Controls the animation logic for the small chicken, including movement, jumping, and dying behaviors.
- */
-animate() {
-  this.speed = 0.15 + Math.random() * 1.25;
-  this.movement();
-  this.jumpingChicken();
-  this.dyingChickenSmall();
-}
+  /**
+   * Controls the animation logic for the small chicken, including movement, jumping, and dying behaviors.
+   */
+  animate() {
+    this.speed = 0.15 + Math.random() * 1.25;
+    this.movement();
+    this.jumpingChicken();
+    this.dyingChickenSmall();
+  }
 
-/**
- * Manages the movement of the small chicken, making it move left or right within a specified range.
- */
-movement() {
-  setInterval(() => {
-    if (this.x <= this.spawnPoint - 500 || this.x <= 0) {
-      this.leftEnd = true;
-    } else if (this.x >= this.spawnPoint + 500) {
-      this.leftEnd = false;
-    }
-    if (!this.leftEnd && this.energy == 100) {
-      this.moveLeft();
-      this.otherDirection = false;
-    } else if (this.energy == 100) {
-      this.moveRight();
-      this.otherDirection = true;
-    }
-  }, 1000 / 60);
-}
+  /**
+   * Manages the movement of the small chicken, making it move left or right within a specified range.
+   */
+  movement() {
+    setInterval(() => {
+      if (this.x <= this.spawnPoint - 500 || this.x <= 0) {
+        this.leftEnd = true;
+      } else if (this.x >= this.spawnPoint + 500) {
+        this.leftEnd = false;
+      }
+      if (!this.leftEnd && this.energy == 100) {
+        this.moveLeft();
+        this.otherDirection = false;
+      } else if (this.energy == 100) {
+        this.moveRight();
+        this.otherDirection = true;
+      }
+    }, 1000 / 60);
+  }
 
-/**
- * Makes the small chicken jump randomly when it is on the ground and alive.
- */
-jumpingChicken() {
-  setInterval(() => {
-    if (!this.isAboveGround() && !this.isDead()) {
-      this.jump(20 * Math.random());
-    }
-  }, 2000 * Math.random());
-}
+  /**
+   * Makes the small chicken jump randomly when it is on the ground and alive.
+   */
+  jumpingChicken() {
+    setInterval(() => {
+      if (!this.isAboveGround() && !this.isDead()) {
+        this.jump(20 * Math.random());
+      }
+    }, 2000 * Math.random());
+  }
 
-/**
- * Handles the small chicken's death animation and removal, playing a sound and stopping movement.
- */
-dyingChickenSmall() {
-  let deadChicken = setInterval(() => {
-    if (this.isDead()) {
-      this.playSound("killChickenSmall", 0.2);
-      this.offsetY = 500;
-      this.loadImage("img/3_enemies_chicken/chicken_small/2_dead/dead.png");
-      clearInterval(deadChicken);
-      setTimeout(() => {
-        this.removeEnemie(this);
-      }, 2000);
-    } else {
-      this.playAnimation(this.IMAGES_WALKING);
-    }
-  }, 1000 / 10);
-}
-
+  /**
+   * Handles the small chicken's death animation and removal, playing a sound and stopping movement.
+   */
+  dyingChickenSmall() {
+    let deadChicken = setInterval(() => {
+      if (this.isDead()) {
+        this.playSound("killChickenSmall", 0.2);
+        this.offsetY = 500;
+        this.loadImage("img/3_enemies_chicken/chicken_small/2_dead/dead.png");
+        clearInterval(deadChicken);
+        setTimeout(() => {
+          this.removeEnemie(this);
+        }, 2000);
+      } else {
+        this.playAnimation(this.IMAGES_WALKING);
+      }
+    }, 1000 / 10);
+  }
 }
