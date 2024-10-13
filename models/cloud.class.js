@@ -10,14 +10,16 @@ class Cloud extends MovableObject {
     this.animate();
   }
 
-  animate() {
-    setInterval(() => {
-      this.moveLeft();
-      if(this.x <= -500){
-        this.x = this.spawnPoint
-      }
-    }, 1000 / 60);
-   
-  }
+ /**
+ * Continuously moves the object to the left and resets its position to the spawn point if it goes off-screen.
+ */
+animate() {
+  setInterval(() => {
+    this.moveLeft();
+    if (this.x <= -500) {
+      this.x = this.spawnPoint;
+    }
+  }, 1000 / 60);
+}
 
 }

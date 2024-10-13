@@ -19,10 +19,15 @@ class Bottle extends CollactableObject {
     this.y = y;
     this.animate()
   }
-  animate() {
-    setInterval(() => {
-      this.playAnimation(this.IMAGE);
-    }, 1000 / 2);
-  }
+
+/**
+ * Animates an object by playing its image frames at a set interval.
+ */
+animate() {
+  setInterval(() => {
+    this.playAnimation(this.IMAGE);
+  }, 1000 / 2);
+}
+
 
 }

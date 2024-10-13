@@ -54,6 +54,9 @@ class Endboss extends MovableObject {
     "img/4_enemie_boss_chicken/5_dead/G26.png",
   ];
 
+  /**
+   * Initializes the Endboss by loading images and starting the animation.
+   */
   constructor() {
     super().loadImage(this.IMAGES_WALKING[0]);
     this.loadImages(this.IMAGES_WALKING);
@@ -65,18 +68,24 @@ class Endboss extends MovableObject {
     this.animate();
   }
 
+  /**
+   * Handles the main animation loop for the end boss.
+   */
   animate() {
-    this.movement()
+    this.movement();
     let boss = setInterval(() => {
       if (world && this.lastBattle) {
         this.bossFight();
         clearInterval(boss);
       }
     }, 1000 / 10);
-    this.lastFight()
+    this.lastFight();
   }
 
-  movement(){
+  /**
+   * Manages the movement of the end boss, including walking and reacting to damage.
+   */
+  movement() {
     let mainAnimation = setInterval(() => {
       if (this.x <= this.level_end_x - 500) {
         this.leftEnd = true;
@@ -88,13 +97,16 @@ class Endboss extends MovableObject {
         clearInterval(mainAnimation);
       } else if (this.damage) {
         this.bossHurt();
-        this.x += 40;
+        this.x += 40; 
       } else if (!this.lastBattle) {
         this.bossWalking();
       }
     }, 1000 / 10);
   }
 
+  /**
+   * Handles the death of the end boss, playing animations and sounds.
+   */
   bossDied() {
     this.currentImage = 0;
     this.endSceneFrame = 0;
@@ -116,15 +128,21 @@ class Endboss extends MovableObject {
     }, 100);
   }
 
+  /**
+   * Handles the hurt state of the end boss, playing hurt animations and sounds.
+   */
   bossHurt() {
     this.playAnimation(this.IMAGES_HURT);
     this.playSound("bossHurtSound", 0.2);
     setTimeout(() => {
-      this.damage = false;
+      this.damage = false; 
     }, this.IMAGES_HURT.length * 200);
     world.endbossBar.setPercentage(this.energy / 3);
   }
 
+  /**
+   * Handles the walking animation of the end boss.
+   */
   bossWalking() {
     this.playAnimation(this.IMAGES_WALKING);
 
@@ -137,23 +155,31 @@ class Endboss extends MovableObject {
     }
   }
 
-  lastFight(){
+  /**
+   * Checks if the last fight has begun based on the player's position.
+   */
+  lastFight() {
     setInterval(() => {
       if (!world) return;
       let length = world.level.enemies.length;
-      if (world.character.x >= world.level.enemies[length - 1].x - 550 && !this.isDead()
-      ) {
-        world.endbossBar.y = 20;
+      if (world.character.x >= world.level.enemies[length - 1].x - 550 && !this.isDead()) {
+        world.endbossBar.y = 20; 
         this.endFight();
       }
     }, 400);
   }
 
+  /**
+   * Indicates that the final fight has started, setting necessary flags.
+   */
   endFight() {
     this.lastBattle = true;
-    this.otherDirection = false;
+    this.otherDirection = false; 
   }
 
+  /**
+   * Triggers the alert animation for the end boss before attacking.
+   */
   alertBoss() {
     if (this.currentImage >= this.IMAGES_ALERT.length) {
       this.currentImage = 0;
@@ -164,21 +190,27 @@ class Endboss extends MovableObject {
       this.playSound("bossAttackSound", 0.2);
       if (this.currentImage >= this.IMAGES_ALERT.length) {
         this.playSound("bossHurtSound", 0.2);
-        this.firstAlert = true;
+        this.firstAlert = true; 
         clearInterval(alertAnimation);
         this.bossFight();
       }
     }, 200);
   }
 
+  /**
+   * Initiates the boss fight sequence.
+   */
   bossFight() {
     if (!this.firstAlert) {
-      this.alertBoss();
+      this.alertBoss(); 
     } else {
       this.endbossWalking();
     }
   }
 
+  /**
+   * Handles the walking and attacking behavior of the end boss during the fight.
+   */
   endbossWalking() {
     setInterval(() => {
       if (this.enableBoss()) {
@@ -199,6 +231,10 @@ class Endboss extends MovableObject {
     }, 1000 / 10);
   }
 
+  /**
+   * Determines if the boss is enabled to attack based on character's position.
+   * @returns {boolean} - Whether the boss can attack.
+   */
   enableBoss() {
     return (
       world.character.x + world.character.width / 2 <= this.x &&
@@ -209,13 +245,15 @@ class Endboss extends MovableObject {
     );
   }
 
+  /**
+   * Handles the end game scenario when the player wins.
+   */
   winGame() {
-    this.clearAllIntervals();
-    setTimeout(() => {
-      world.endGame("win");
-      world_music.pause();
-      if(!isMuted) this.playSound("winningTheme", 0.2);
-     }, 1000);
+    this.clearAllIntervals(); 
+      setTimeout(() => {
+      world.endGame("win"); 
+      world_music.pause(); 
+      if (!isMuted) this.playSound("winningTheme", 0.2); 
+    }, 1000);
   }
-
 }

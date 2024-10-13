@@ -27,22 +27,37 @@ class AudioObjects extends DrawableObject {
     super();
   }
 
-  loadSound(soundName) {
-    if (!this.audioInstances[soundName]) {
-      this.audioInstances[soundName] = new Audio(this.audioPaths[soundName]);
-    }
-    return this.audioInstances[soundName];
+  /**
+ * Loads a sound by name, creating a new audio instance if it doesn't exist.
+ * @param {string} soundName - Name of the sound to load.
+ * @returns {Audio} - The loaded audio instance.
+ */
+loadSound(soundName) {
+  if (!this.audioInstances[soundName]) {
+    this.audioInstances[soundName] = new Audio(this.audioPaths[soundName]);
   }
+  return this.audioInstances[soundName];
+}
 
-  playSound(soundName, volume) {
-    if(isMuted) return
-    let sound = this.loadSound(soundName);
-    sound.play();
-    sound.volume = volume
-  }
+/**
+ * Plays a specified sound at a given volume, if not muted.
+ * @param {string} soundName - Name of the sound to play.
+ * @param {number} volume - Volume level (0.0 to 1.0).
+ */
+playSound(soundName, volume) {
+  if (isMuted) return;
+  let sound = this.loadSound(soundName);
+  sound.play();
+  sound.volume = volume;
+}
 
-  pauseSound(soundName) {
-    let sound = this.loadSound(soundName);
-    sound.pause();
-  }
+/**
+ * Pauses a specified sound.
+ * @param {string} soundName - Name of the sound to pause.
+ */
+pauseSound(soundName) {
+  let sound = this.loadSound(soundName);
+  sound.pause();
+}
+
 }

@@ -14,6 +14,9 @@ class Coin extends CollactableObject {
     this.animate();
   }
 
+  /**
+   * Animates a blinking effect by cycling through the `IMAGE_BLINK` images at a set interval.
+   */
   animate() {
     setInterval(() => {
       this.playAnimation(this.IMAGE_BLINK);

@@ -14,71 +14,17 @@ class Character extends MovableObject {
   noWayBack = -200;
   enableMove = true;
 
-  IMAGES_IDLE = [
-    "img/2_character_pepe/1_idle/idle/I-1.png",
-    "img/2_character_pepe/1_idle/idle/I-2.png",
-    "img/2_character_pepe/1_idle/idle/I-3.png",
-    "img/2_character_pepe/1_idle/idle/I-4.png",
-    "img/2_character_pepe/1_idle/idle/I-5.png",
-    "img/2_character_pepe/1_idle/idle/I-6.png",
-    "img/2_character_pepe/1_idle/idle/I-7.png",
-    "img/2_character_pepe/1_idle/idle/I-8.png",
-    "img/2_character_pepe/1_idle/idle/I-9.png",
-    "img/2_character_pepe/1_idle/idle/I-10.png",
-  ];
-
-  IMAGES_LONG_IDLE = [
-    "img/2_character_pepe/1_idle/long_idle/I-11.png",
-    "img/2_character_pepe/1_idle/long_idle/I-12.png",
-    "img/2_character_pepe/1_idle/long_idle/I-13.png",
-    "img/2_character_pepe/1_idle/long_idle/I-14.png",
-    "img/2_character_pepe/1_idle/long_idle/I-15.png",
-    "img/2_character_pepe/1_idle/long_idle/I-16.png",
-    "img/2_character_pepe/1_idle/long_idle/I-17.png",
-    "img/2_character_pepe/1_idle/long_idle/I-18.png",
-    "img/2_character_pepe/1_idle/long_idle/I-19.png",
-    "img/2_character_pepe/1_idle/long_idle/I-20.png",
-  ];
-
-  IMAGES_WALKING = [
-    "img/2_character_pepe/2_walk/W-21.png",
-    "img/2_character_pepe/2_walk/W-22.png",
-    "img/2_character_pepe/2_walk/W-23.png",
-    "img/2_character_pepe/2_walk/W-24.png",
-    "img/2_character_pepe/2_walk/W-25.png",
-    "img/2_character_pepe/2_walk/W-26.png",
-  ];
-  IMAGES_JUMPING = [
-    "img/2_character_pepe/3_jump/J-31.png",
-    "img/2_character_pepe/3_jump/J-32.png",
-    "img/2_character_pepe/3_jump/J-33.png",
-    "img/2_character_pepe/3_jump/J-34.png",
-    "img/2_character_pepe/3_jump/J-35.png",
-    "img/2_character_pepe/3_jump/J-36.png",
-    "img/2_character_pepe/3_jump/J-37.png",
-    "img/2_character_pepe/3_jump/J-38.png",
-    "img/2_character_pepe/3_jump/J-39.png",
-  ];
-
-  IMAGES_HURT = [
-    "img/2_character_pepe/4_hurt/H-41.png",
-    "img/2_character_pepe/4_hurt/H-42.png",
-    "img/2_character_pepe/4_hurt/H-43.png",
-  ];
-
-  IMAGES_DEAD = [
-    "img/2_character_pepe/5_dead/D-51.png",
-    "img/2_character_pepe/5_dead/D-52.png",
-    "img/2_character_pepe/5_dead/D-53.png",
-    "img/2_character_pepe/5_dead/D-54.png",
-    "img/2_character_pepe/5_dead/D-55.png",
-    "img/2_character_pepe/5_dead/D-56.png",
-    "img/2_character_pepe/5_dead/D-57.png",
-  ];
+  IMAGES_IDLE = [ /* Array of image paths for idle animation */ ];
+  IMAGES_LONG_IDLE = [ /* Array of image paths for long idle animation */ ];
+  IMAGES_WALKING = [ /* Array of image paths for walking animation */ ];
+  IMAGES_JUMPING = [ /* Array of image paths for jumping animation */ ];
+  IMAGES_HURT = [ /* Array of image paths for hurt animation */ ];
+  IMAGES_DEAD = [ /* Array of image paths for dead animation */ ];
   world;
 
-
-
+  /**
+   * Initializes the character by loading images, setting animations, and applying gravity.
+   */
   constructor() {
     super().loadImage(this.IMAGES_IDLE[0]);
     this.loadImages(this.IMAGES_WALKING);
@@ -93,6 +39,9 @@ class Character extends MovableObject {
     this.checkCollactable();
   }
 
+  /**
+   * Manages character animations and movement logic using intervals.
+   */
   animate() {
     setInterval(() => {
       this.characterMovement();
@@ -103,13 +52,14 @@ class Character extends MovableObject {
       this.InteractionAnimation();
       this.throwBottle();
       this.heal();
-      this.endFigth()
+      this.endFigth();
     }, 1000 / 10);
 
     setInterval(() => {
-    this.pauseSound("snoringSound", 0)
-      if (!(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isAboveGround())
+      this.pauseSound("snoringSound", 0);
+      if (!(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isAboveGround()) {
         this.idleAnimation();
+      }
     }, 300);
 
     setInterval(() => {
@@ -117,13 +67,16 @@ class Character extends MovableObject {
     }, 50);
   }
 
+  /**
+   * Handles character movement and sound effects based on keyboard input.
+   */
   characterMovement() {
-    this.pauseSound("walkingSound", 0)
+    this.pauseSound("walkingSound", 0);
     if (this.enableMoveRight()) {
       this.moveRight();
       this.otherDirection = false;
       if (!this.isAboveGround()) this.playSound("walkingSound", 1); 
-      this.idleTime = 0;    
+      this.idleTime = 0;
     }
     if (this.enableMoveLeft()) {
       this.moveLeft();
@@ -139,16 +92,19 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * Plays animations based on interactions (e.g., being hurt, walking).
+   */
   InteractionAnimation() {
     if (this.isDead()) {
       setInterval(() => {
         this.dying();
-        this.playSound("dyingSound", 0.5)
+        this.playSound("dyingSound", 0.5);
         this.deadFrame++;
-        this.charIsDead()
+        this.charIsDead();
       }, 500);
     } else if (this.isHurt()) {
-      this.playSound("hurtSound", 0.3)
+      this.playSound("hurtSound", 0.3);
       this.playAnimation(this.IMAGES_HURT);
     } else if (this.isWalkung()) {
       this.playAnimation(this.IMAGES_WALKING);
@@ -156,15 +112,14 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * Handles bottle throwing action.
+   */
   throwBottle() {
     if (this.enabelThrow()) {
       this.bottleAmount--;
       this.idleTime = 0;
-      let bottle = new ThrowableObject(
-        this.x + 50,
-        this.y + 50,
-        this.otherDirection
-      );
+      let bottle = new ThrowableObject(this.x + 50, this.y + 50, this.otherDirection);
       world.throwableObjects.push(bottle);
       this.currentThrow = true;
       world.bottleBar.percentage -= 20;
@@ -175,6 +130,9 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * Heals the character when conditions are met.
+   */
   heal() {
     if (this.world.keyboard.H && this.energy < 100 && this.coinAmount == 5) {
       this.energy = 100;
@@ -182,28 +140,31 @@ class Character extends MovableObject {
       world.coinBar.percentage -= 100;
       world.coinBar.setPercentage(world.coinBar.percentage);
       world.healthBar.setPercentage(this.energy);
-      this.playSound("healingSound", 0.6)
-      let healChar = new Healing(
-        this.x,
-        this.y
-      )
-      this.world.healingObjects.push(healChar)
+      this.playSound("healingSound", 0.6);
+      let healChar = new Healing(this.x, this.y);
+      this.world.healingObjects.push(healChar);
     }
   }
 
+  /**
+   * Plays idle or long idle animations based on idle time.
+   */
   idleAnimation() {
     if (!this.idleTime) {
       this.idleTime = new Date().getTime();
     }
     if (this.longIdle() && this.enableMove) {
-    this.playAnimation(this.IMAGES_LONG_IDLE);
-    this.playSound("snoringSound", 0.5)
-    return  
+      this.playAnimation(this.IMAGES_LONG_IDLE);
+      this.playSound("snoringSound", 0.5);
+      return;
     } else {
       this.playAnimation(this.IMAGES_IDLE);
     }
   }
 
+  /**
+   * Plays the jumping animation based on speed and position.
+   */
   jumpAnimation() {
     if (this.startJumping) {
       this.currentImage = 0;
@@ -218,16 +179,27 @@ class Character extends MovableObject {
     this.playAnimation(this.IMAGES_JUMPING);
   }
 
+  /**
+   * Checks if the character has been idle for a long time.
+   * @returns {boolean} - True if idle for more than 5 seconds.
+   */
   longIdle() {
     let longIdle = new Date().getTime() - this.idleTime;
     longIdle = longIdle / 1000;
     return longIdle > 5;
   }
 
+  /**
+   * Plays the death animation.
+   */
   dying() {
     this.playAnimation(this.IMAGES_DEAD);
   }
 
+  /**
+   * Checks if the character can move to the right.
+   * @returns {boolean} - True if allowed to move right.
+   */
   enableMoveRight() {
     return (
       this.world.keyboard.RIGHT &&
@@ -237,6 +209,10 @@ class Character extends MovableObject {
     );
   }
 
+  /**
+   * Checks if the character can move to the left.
+   * @returns {boolean} - True if allowed to move left.
+   */
   enableMoveLeft() {
     return (
       this.world.keyboard.LEFT &&
@@ -246,6 +222,10 @@ class Character extends MovableObject {
     );
   }
 
+  /**
+   * Checks if the character can jump.
+   * @returns {boolean} - True if allowed to jump.
+   */
   enableJump() {
     return (
       this.world.keyboard.SPACE &&
@@ -255,6 +235,10 @@ class Character extends MovableObject {
     );
   }
 
+  /**
+   * Determines if the character is walking.
+   * @returns {boolean} - True if moving left or right.
+   */
   isWalkung() {
     return (
       (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) &&
@@ -263,6 +247,10 @@ class Character extends MovableObject {
     );
   }
 
+  /**
+   * Checks if the character can throw a bottle.
+   * @returns {boolean} - True if throwing is allowed.
+   */
   enabelThrow() {
     return (
       this.world.keyboard.D &&
@@ -272,6 +260,11 @@ class Character extends MovableObject {
     );
   }
 
+  /**
+   * Starts the final battle if conditions are met.
+   * @param {number} length - Total number of enemies.
+   * @returns {boolean} - True if final battle is starting.
+   */
   startLastBattle(length) {
     return (
       this.x >= world.level.enemies[length - 1].x - 500 &&
@@ -280,11 +273,17 @@ class Character extends MovableObject {
     );
   }
 
+  /**
+   * Blocks movement to the left when the final battle starts.
+   */
   blockLeft() {
     if (this.lastBattle) this.noWayBack = this.x;
   }
 
-  endFigth(){
+  /**
+   * Manages the start and end of the final battle.
+   */
+  endFigth() {
     let length = world.level.enemies.length;
     if (this.startLastBattle(length)) {
       this.enableMove = false;
@@ -295,13 +294,16 @@ class Character extends MovableObject {
       }, 2000);
     }
   }
-  
-  charIsDead(){
+
+  /**
+   * Handles character death, stopping all animations and ending the game.
+   */
+  charIsDead() {
     if (this.deadFrame >= this.IMAGES_DEAD.length) {
       this.clearAllIntervals();
       world.endGame("loose");
-      world_music.pause()
-      if(!isMuted)this.playSound("gameOverTheme", 0.1)
+      world_music.pause();
+      if (!isMuted) this.playSound("gameOverTheme", 0.1);
     }
   }
 }
