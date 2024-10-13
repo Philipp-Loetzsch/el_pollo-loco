@@ -89,8 +89,8 @@ function openFullscreen() {
  * Reloads the game, resetting it to the initial state.
  */
 function reloadGame() {
-  location.reload(false); 
-
+ /*  level1 = new Level() */
+  init()
 }
 
 /**
