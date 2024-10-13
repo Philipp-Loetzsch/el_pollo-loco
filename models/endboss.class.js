@@ -251,9 +251,8 @@ class Endboss extends MovableObject {
   winGame() {
     this.clearAllIntervals(); 
       setTimeout(() => {
-      world.endGame("win"); 
+      endGame("win"); 
       world_music.pause(); 
-      if (!isMuted) this.playSound("winningTheme", 0.2); 
     }, 1000);
   }
 }

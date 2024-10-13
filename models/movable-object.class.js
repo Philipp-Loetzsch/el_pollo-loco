@@ -17,7 +17,7 @@ class MovableObject extends CollidingObject {
    * @returns {boolean} True if the object's energy is 0, false otherwise.
    */
   isDead() {
-    return this.energy == 0;
+    return this.energy === 0;
   }
 
   /**

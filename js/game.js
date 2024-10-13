@@ -4,8 +4,10 @@ let level;
 let keyboard = new Keyboard();
 let mainTheme = new Audio("audio/main_menu.mp3");
 let world_music = new Audio("audio/world_theme.mp3");
+let gameOverTheme = new Audio ("audio/gameover_theme.mp3")
+let winningTheme = new Audio ("audio/winning_theme.mp3")
 let isMuted = false;
-let mediaElements = [mainTheme, world_music];
+let mediaElements = [mainTheme, world_music, gameOverTheme, winningTheme];
 let intervalMain;
 let gameStart = false;
 
@@ -25,9 +27,10 @@ window.addEventListener("keydown", enableAudioOnInteraction);
  * Starts playing the main theme on a loop until the game starts.
  */
 function playMainTheme() {
+  mainTheme.currentTime = 0
   intervalMain = setInterval(() => {
     if (gameStart) return clearInterval(intervalMain);
-    mainTheme.play().catch((error) => {
+     mainTheme.play().catch((error) => {
       console.error("Fehler beim Abspielen des Audios:", error);
       mainTheme.load();
       setTimeout(() => {
@@ -44,8 +47,7 @@ function playMainTheme() {
 function init() {
   gameStart = true;
   mainTheme.pause();
-  world_music.play();
-  world_music.volume = 0.1;
+  playTheme(world_music, 0.1)
   document.getElementById("mainMenu").classList.remove("menu");
   document.getElementById("startScreen").classList.remove("start-screen");
   document.getElementById("controls").classList.remove("control");
@@ -62,39 +64,63 @@ function init() {
 function openFullscreen() {
   let game = document.getElementById("gameScreen");
   let imgFullscreen = document.getElementById("imgFullscreen");
-  if (
-    !document.fullscreenElement &&
-    !document.webkitFullscreenElement &&
-    !document.msFullscreenElement
-  ) {
-    if (game.requestFullscreen) {
-      game.requestFullscreen();
-    } else if (game.webkitRequestFullscreen) {
-      game.webkitRequestFullscreen();
-    } else if (game.msRequestFullscreen) {
-      game.msRequestFullscreen();
-    }
-    imgFullscreen.src = "img/10_mobile_icons/normal_screen.png";
+  if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+    fullScreen(game ,imgFullscreen)
   } else {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) {
-      document.msExitFullscreen();
-    }
-    imgFullscreen.src = "img/10_mobile_icons/full-screen.png";
+    normalScreen(imgFullscreen)
+
   }
+}
+
+/**
+ * Switches the game element to fullscreen mode and updates the fullscreen button image.
+ * 
+ * @param {HTMLElement} game - The HTML element that should enter fullscreen mode.
+ * @param {HTMLImageElement} imgFullscreen - The image element that represents the fullscreen toggle button.
+ */
+function fullScreen(game, imgFullscreen) {
+  if (game.requestFullscreen) {
+    game.requestFullscreen();
+  } else if (game.webkitRequestFullscreen) { 
+    game.webkitRequestFullscreen();
+  } else if (game.msRequestFullscreen) {
+    game.msRequestFullscreen();
+  }
+  imgFullscreen.src = "img/10_mobile_icons/normal_screen.png";
+}
+
+/**
+ * Exits fullscreen mode and updates the fullscreen button image.
+ * 
+ * @param {HTMLImageElement} imgFullscreen - The image element that represents the fullscreen toggle button.
+ */
+function normalScreen(imgFullscreen) {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) { 
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) { 
+    document.msExitFullscreen();
+  }
+  imgFullscreen.src = "img/10_mobile_icons/full-screen.png";
 }
 
 /**
  * Reloads the game, resetting it to the initial state.
  */
 function reloadGame() {
+  gameOverTheme.pause()
+  winningTheme.pause()
+  playMainTheme()
+  gameStart = false
   let endGame = document.getElementById("gameEnd");
   endGame.classList.remove("game-ending");
- /*  level1 = new Level() */
-  init()
+  document.getElementById("mainMenu").classList.add("menu");
+  document.getElementById("startScreen").classList.add("start-screen");
+  document.getElementById("controls").classList.add("control");
+  document.getElementById("settings").classList.add("settings");
+  document.getElementById("controls").classList.remove("control");
+  document.getElementById("settings").classList.remove("settings");
 }
 
 /**
@@ -253,3 +279,33 @@ function checkOrientation() {
 
 window.addEventListener("orientationchange", checkOrientation);
 window.addEventListener("resize", checkOrientation);
+
+
+  /**
+   * Handles the end of the game and displays the appropriate ending screen.
+   * @param {string} ending - The type of ending ("win" or "lose").
+   */
+ function endGame(ending) {
+    let endGame = document.getElementById("gameEnd");
+    endGame.classList.add("game-ending");
+    let imageEnding = endGame.querySelector("img");
+    if (ending == "win") {
+        imageEnding.src = "./img/9_intro_outro_screens/win/win_2.png";
+        playTheme(winningTheme, 0.2)
+    } else {
+        playTheme(gameOverTheme, 0.2)
+        imageEnding.src = "./img/9_intro_outro_screens/game_over/oh no you lost!.png";
+    }
+}
+/**
+ * Plays the chosen theme sound from the beginning at a specified volume level.
+ * 
+ * @param {HTMLAudioElement} theme - The audio element that represents the theme to be played.
+ * @param {number} volume - The volume level at which the theme should be played (0.0 to 1.0).
+ * @returns {Promise<void>} - A promise that resolves when the audio starts playing.
+ */
+function playTheme(theme, volume) {
+  theme.currentTime = 0;
+  theme.volume = volume;
+  return theme.play();
+}

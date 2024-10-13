@@ -5,8 +5,8 @@ class AudioObjects extends DrawableObject {
     hurtSound: "audio/char_hit.mp3",
     healingSound: "audio/heal_up.mp3",
     dyingSound: "audio/char_die.mp3",
-    gameOverTheme: "audio/gameover_theme.mp3",
-    winningTheme: "audio/winning_theme.mp3",
+   /*  gameOverTheme: "audio/gameover_theme.mp3",
+    winningTheme: "audio/winning_theme.mp3", */
     collectCoin: "audio/collect_coin.mp3",
     collectBottle: "audio/collect_bottle.mp3",
     killChicken: "audio/kill_chicken.mp3",

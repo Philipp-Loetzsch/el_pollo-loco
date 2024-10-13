@@ -1,5 +1,5 @@
 class World {
-  character = new Character();
+  character =new Character();
   level = level1;
   canvas;
   ctx;
@@ -24,6 +24,7 @@ class World {
       this.keyboard = keyboard;
       this.drawWorld();
       this.setWorld();
+  /*     new DrawableObject(); */
   }
 
   /**
@@ -114,10 +115,10 @@ class World {
       this.ctx.restore();
   }
 
-  /**
+/*   /**
    * Handles the end of the game and displays the appropriate ending screen.
    * @param {string} ending - The type of ending ("win" or "lose").
-   */
+   
   endGame(ending) {
       let endGame = document.getElementById("gameEnd");
       endGame.classList.add("game-ending");
@@ -127,5 +128,5 @@ class World {
       } else {
           imageEnding.src = "./img/9_intro_outro_screens/game_over/oh no you lost!.png";
       }
-  }
+  } */
 }

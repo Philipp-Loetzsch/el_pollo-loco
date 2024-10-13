@@ -100,21 +100,18 @@ animate() {
     this.characterMovement();
     this.world.camera_x = -this.x + 50;
   }, 1000 / 60);
-
   setInterval(() => {
     this.InteractionAnimation();
     this.throwBottle();
     this.heal();
     this.endFigth();
   }, 1000 / 10);
-
   setInterval(() => {
     this.pauseSound("snoringSound", 0);
     if (!(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isAboveGround()) {
       this.idleAnimation();
     }
   }, 300);
-
   setInterval(() => {
     if (this.isAboveGround()) this.jumpAnimation();
   }, 50);
@@ -354,9 +351,8 @@ endFigth() {
 charIsDead() {
   if (this.deadFrame >= this.IMAGES_DEAD.length) {
     this.clearAllIntervals();
-    world.endGame("loose");
+    endGame("loose");
     world_music.pause();
-    if (!isMuted) this.playSound("gameOverTheme", 0.1);
   }
 }
 }
