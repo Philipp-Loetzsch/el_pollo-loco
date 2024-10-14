@@ -10,6 +10,11 @@
     background-image: url(./img/desert.png);
     background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-height: 100vh;
 }
 main{
     background-image: linear-gradient(#ffbb00e1, #ffdd00e8, #FFA500);
