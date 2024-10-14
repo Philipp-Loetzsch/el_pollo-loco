@@ -1,7 +1,7 @@
 let canvas;
-let world;
 let level;
 let keyboard = new Keyboard();
+let world;
 let mainTheme = new Audio("audio/main_menu.mp3");
 let world_music = new Audio("audio/world_theme.mp3");
 let gameOverTheme = new Audio ("audio/gameover_theme.mp3")
@@ -10,6 +10,15 @@ let isMuted = false;
 let mediaElements = [mainTheme, world_music, gameOverTheme, winningTheme];
 let intervalMain;
 let gameStart = false;
+
+
+
+window.addEventListener('load', () => {
+  let preloader = document.getElementById('preloader');
+  preloader.style.display = 'none';
+
+});
+
 
 /**
  * Enables audio playback upon the first user interaction (click or keydown).
@@ -22,6 +31,13 @@ function enableAudioOnInteraction() {
 
 window.addEventListener("click", enableAudioOnInteraction);
 window.addEventListener("keydown", enableAudioOnInteraction);
+
+
+function initWorld(){
+  canvas = document.getElementById("canvas");
+  initLevel()
+  world = new World(canvas, keyboard);
+}
 
 /**
  * Starts playing the main theme on a loop until the game starts.
@@ -55,7 +71,6 @@ function init() {
   canvas = document.getElementById("canvas");
   initLevel()
   world = new World(canvas, keyboard);
- 
 }
 
 /**
@@ -107,7 +122,7 @@ function normalScreen(imgFullscreen) {
 
 /**
  * Reloads the game, resetting it to the initial state.
- */
+ */ 
 function loadMainMenu() {
   gameOverTheme.pause()
   winningTheme.pause()
@@ -117,10 +132,6 @@ function loadMainMenu() {
   endGame.classList.remove("game-ending");
   document.getElementById("mainMenu").classList.add("menu");
   document.getElementById("startScreen").classList.add("start-screen");
-  document.getElementById("controls").classList.add("control");
-  document.getElementById("settings").classList.add("settings");
-  document.getElementById("controls").classList.remove("control");
-  document.getElementById("settings").classList.remove("settings");
 }
 
 function reloadGame(){

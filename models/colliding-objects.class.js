@@ -3,11 +3,11 @@ class CollidingObject extends AudioObjects {
   lastAttack = false;
   collect = false;
 
-   /**
+  /**
    * Checks if the object is above the ground based on its type.
    * @returns {boolean} True if the object is above the ground, false otherwise.
    */
-   isAboveGround() {
+  isAboveGround() {
     if (this instanceof ThrowableObject || this instanceof ChickenSmall) {
       return this.y < 350;
     } else {
@@ -36,9 +36,8 @@ class CollidingObject extends AudioObjects {
     setInterval(() => {
       world.level.enemies.forEach((enemie) => {
         if (this.isColliding(enemie)) {
-          if (this.isAttack(enemie)) {
-            this.attack(enemie);
-          } else {
+          if (this.isAttack(enemie)) this.attack(enemie);
+          else {
             this.hit(20);
             world.healthBar.setPercentage(world.character.energy);
           }
@@ -56,8 +55,7 @@ class CollidingObject extends AudioObjects {
     return (
       this.x - this.offsetX + this.width >= obj.x + this.offsetX &&
       this.x + this.offsetX <= obj.x + obj.width &&
-      this.y + this.offsetY + this.offsetHeight >=
-        obj.y - obj.height / 2.5 + obj.offsetY &&
+      this.y + this.offsetY + this.offsetHeight >= obj.y - obj.height / 2.5 + obj.offsetY &&
       this.y + this.offsetY <= obj.y + obj.height - obj.offsetHeight
     );
   }
@@ -117,22 +115,40 @@ class CollidingObject extends AudioObjects {
     setInterval(() => {
       world.level.collectableObjects.forEach((co) => {
         if (this.isColliding(co) && !this.collect) {
-          if (co instanceof Coin && this.coinAmount < 5) {
-            this.removeItem(co);
-            world.coinBar.percentage += 20;
-            world.coinBar.setPercentage(world.coinBar.percentage);
-            this.coinAmount++;
-            this.playSound("collectCoin", 0.2);
-          } else if (co instanceof Bottle && this.bottleAmount < 5) {
-            this.removeItem(co);
-            world.bottleBar.percentage += 20;
-            world.bottleBar.setPercentage(world.bottleBar.percentage);
-            this.bottleAmount++;
-            this.playSound("collectBottle", 1);
-          }
+          if (co instanceof Coin && this.coinAmount < 5) this.collectCoin(co);
+          else if (co instanceof Bottle && this.bottleAmount < 5)
+            this.collectBottle(co);
         }
       });
     }, 1000 / 60);
+  }
+
+  /**
+   * Collects a coin, increases the coin amount, and updates the coin bar.
+   * Plays a sound effect when a coin is collected.
+   *
+   * @param {Object} co - The coin object to be collected.
+   */
+  collectCoin(co) {
+    this.removeItem(co);
+    world.coinBar.percentage += 20;
+    world.coinBar.setPercentage(world.coinBar.percentage);
+    this.coinAmount++;
+    this.playSound("collectCoin", 0.2);
+  }
+
+  /**
+   * Collects a bottle, increases the bottle amount, and updates the bottle bar.
+   * Plays a sound effect when a bottle is collected.
+   *
+   * @param {Object} co - The bottle object to be collected.
+   */
+  collectBottle(co) {
+    this.removeItem(co);
+    world.bottleBar.percentage += 20;
+    world.bottleBar.setPercentage(world.bottleBar.percentage);
+    this.bottleAmount++;
+    this.playSound("collectBottle", 1);
   }
 
   /**
