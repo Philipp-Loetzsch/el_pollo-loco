@@ -34,18 +34,18 @@
   </head>
   <body onload="checkOrientation()">
     <h1 translate="no">El pollo loco</h1>
-    <div id="gameScreen">
+    <div id="gameScreen" >
       <div id="startScreen" class="start-screen d_none">
         <img src="img/9_intro_outro_screens/start/startscreen_2.png" alt="" />
       </div>
       <div id="mainMenu" class="menu d_none">
-        <button onclick="init()" class="button">
+        <button onclick="init()" class="button" tabindex="-1">
           <img src="./img/10_mobile_icons/start.png" alt="" />
         </button>
-        <button onclick="toggleControl()" class="button">
+        <button onclick="toggleControl()" class="button" tabindex="-1">
           <img src="./img/10_mobile_icons/control.png" alt="" />
         </button>
-        <button onclick="toggleSettings()" class="button">
+        <button onclick="toggleSettings()" class="button" tabindex="-1">
           <img src="./img/10_mobile_icons/info.png" alt="" />
         </button>
       </div>
@@ -103,37 +103,36 @@
 
         </table>
       </div>
-      <button id="fullscreen" class="button" onclick="openFullscreen()">
+      <button id="fullscreen" class="button" onclick="openFullscreen()" tabindex="-1">
         <img id="imgFullscreen" src="./img/10_mobile_icons/full-screen.png" alt="FULLSCREEN"/>
       </button>
-      <button id="mute" class="button" onclick="muteVolume()">
+      <button id="mute" class="button" onclick="muteVolume()" tabindex="-1">
         <img id="muteVolumeImg" src="./img/10_mobile_icons/volume.png" alt="" />
       </button>
       <canvas id="canvas" width="720" height="480"></canvas>
       <div id="movement">
-        <button id="left" class="button" ontouchstart="touchButton(id)" ontouchend="releaseButton(id, event)"
-        >
+        <button id="left" class="button" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)" tabindex="-1">
           <img src="./img/10_mobile_icons/left.png" alt="LEFT" />
         </button>
-        <button id="right" class="button" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)">
+        <button id="right" class="button" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)" tabindex="-1">
           <img src="./img/10_mobile_icons/right.png" alt="RIGHT" />
         </button>
       </div>
 
       <div id="action">
-        <button id="h" class="button" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)">
+        <button id="h" class="button" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)" tabindex="-1">
           <img src="./img/10_mobile_icons/heart.png" alt="HEAL" />
         </button>
-        <button id="d" class="button" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)">
+        <button id="d" class="button" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)" tabindex="-1">
           <img src="./img/10_mobile_icons/throw.png" alt="THROW" />
         </button>
-        <button id="space" class="button" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)">
+        <button id="space" class="button" ontouchstart="touchButton(id)" ontouchend="releaseButton(id)" tabindex="-1">
           <img src="./img/10_mobile_icons/jump.png" alt="JUMP" />
         </button>
       </div>
       <div id="gameEnd" class="d_none">
         <img src="./img/9_intro_outro_screens/win/win_1.png" alt="" />
-        <button onclick="reloadGame()" class="button">
+        <button onclick="reloadGame()" class="button" tabindex="-1">
           <img src="./img/10_mobile_icons/refresh.png" alt="RELOAD" />
         </button>
       </div>

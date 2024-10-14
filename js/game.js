@@ -68,8 +68,8 @@ function openFullscreen() {
     fullScreen(game ,imgFullscreen)
   } else {
     normalScreen(imgFullscreen)
-
   }
+  document.activeElement.blur();
 }
 
 /**
@@ -147,12 +147,9 @@ function muteVolume() {
   mediaElements.forEach((element) => {
     element.muted = isMuted;
   });
-  if (isMuted)
-    document.getElementById("muteVolumeImg").src =
-      "img/10_mobile_icons/mute.png";
-  else
-    document.getElementById("muteVolumeImg").src =
-      "img/10_mobile_icons/volume.png";
+  if (isMuted) document.getElementById("muteVolumeImg").src = "img/10_mobile_icons/mute.png";
+  else document.getElementById("muteVolumeImg").src = "img/10_mobile_icons/volume.png";
+  document.activeElement.blur();
 }
 
 /**
