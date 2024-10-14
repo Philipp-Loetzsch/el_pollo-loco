@@ -156,11 +156,9 @@ class Endboss extends MovableObject {
     this.playAnimation(this.IMAGES_WALKING);
 
     if (!this.leftEnd) {
-      this.moveLeft();
-      this.otherDirection = false;
+      this.moveLeft(false);
     } else if (this.leftEnd) {
-      this.moveRight();
-      this.otherDirection = true;
+      this.moveRight(true);
     }
   }
 

@@ -39,11 +39,9 @@ class ChickenSmall extends MovableObject {
         this.leftEnd = false;
       }
       if (!this.leftEnd && this.energy == 100) {
-        this.moveLeft();
-        this.otherDirection = false;
+        this.moveLeft(false);
       } else if (this.energy == 100) {
-        this.moveRight();
-        this.otherDirection = true;
+        this.moveRight(true);
       }
     }, 1000 / 60);
   }

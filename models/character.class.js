@@ -99,19 +99,21 @@ class Character extends MovableObject {
       this.throwBottle();
       this.heal();
       this.endFigth();
+      if (this.isAboveGround()) this.jumpAnimation();
     }, 1000 / 10);
+    this.idle();
+  }
+
+  /**
+   * Handles the start of the idle animation of character
+   */
+  idle(){
     setInterval(() => {
       this.pauseSound("snoringSound", 0);
-      if (
-        !(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) &&
-        !this.isAboveGround()
-      ) {
+      if (!(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isAboveGround()) {
         this.idleAnimation();
       }
     }, 300);
-    setInterval(() => {
-      if (this.isAboveGround()) this.jumpAnimation();
-    }, 50);
   }
 
   /**
@@ -119,15 +121,8 @@ class Character extends MovableObject {
    */
   characterMovement() {
     this.pauseSound("walkingSound", 0);
-    if (this.enableMoveRight()) {
-      this.moveRight();
-      this.otherDirection = false;
-      if (!this.isAboveGround()) this.playSound("walkingSound", 1);
-      this.idleTime = 0;
-    }
-    if (this.enableMoveLeft()) {
-      this.moveLeft();
-      this.otherDirection = true;
+    if (this.enableMoveRight() || this.enableMoveLeft()) {
+      this.enableMoveRight() ? this.moveRight(false) : this.moveLeft(true);
       if (!this.isAboveGround()) this.playSound("walkingSound", 1);
       this.idleTime = 0;
     }
@@ -138,7 +133,7 @@ class Character extends MovableObject {
       this.jump(25);
     }
   }
-
+  
   /**
    * Plays animations based on interactions (e.g., being hurt, walking).
    */
@@ -166,11 +161,7 @@ class Character extends MovableObject {
     if (this.enabelThrow()) {
       this.bottleAmount--;
       this.idleTime = 0;
-      let bottle = new ThrowableObject(
-        this.x + 50,
-        this.y + 50,
-        this.otherDirection
-      );
+      let bottle = new ThrowableObject( this.x + 50, this.y + 50, this.otherDirection);
       world.throwableObjects.push(bottle);
       this.currentThrow = true;
       world.bottleBar.percentage -= 20;
@@ -278,12 +269,7 @@ class Character extends MovableObject {
    * @returns {boolean} - True if allowed to jump.
    */
   enableJump() {
-    return (
-      this.world.keyboard.SPACE &&
-      !this.isAboveGround() &&
-      !this.isDead() &&
-      this.enableMove
-    );
+    return (this.world.keyboard.SPACE &&  !this.isAboveGround() &&  !this.isDead() &&  this.enableMove);
   }
 
   /**

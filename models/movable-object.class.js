@@ -34,14 +34,16 @@ class MovableObject extends CollidingObject {
   /**
    * Moves the object to the right by its speed.
    */
-  moveRight() {
+  moveRight(od) {
+    this.otherDirection = od;
     this.x += this.speed;
   }
 
   /**
    * Moves the object to the left by its speed.
    */
-  moveLeft() {
+  moveLeft(od) {
+    this.otherDirection = od;
     this.x -= this.speed;
   }
 
