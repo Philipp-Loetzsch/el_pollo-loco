@@ -110,7 +110,7 @@ class Character extends MovableObject {
   idle(){
     setInterval(() => {
       this.pauseSound("snoringSound", 0);
-      if (!(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isAboveGround()) {
+      if (!(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isAboveGround()&& gameStart) {
         this.idleAnimation();
       }
     }, 300);
@@ -337,7 +337,7 @@ class Character extends MovableObject {
    */
   charIsDead() {
     if (this.deadFrame >= this.IMAGES_DEAD.length) {
-      this.clearAllIntervals();
+      clearAllIntervals();
       endGame("loose");
       world_music.pause();
     }

@@ -16,7 +16,6 @@ let gameStart = false;
 window.addEventListener('load', () => {
   let preloader = document.getElementById('preloader');
   preloader.style.display = 'none';
-
 });
 
 
@@ -37,6 +36,7 @@ function initWorld(){
   canvas = document.getElementById("canvas");
   initLevel()
   world = new World(canvas, keyboard);
+  clearAllIntervals()
 }
 
 /**
@@ -61,7 +61,6 @@ function playMainTheme() {
  * Initializes the game environment, including setting up the canvas and playing world music.
  */
 function init() {
-  gameStart = true;
   mainTheme.pause();
   playTheme(world_music, 0.1)
   document.getElementById("mainMenu").classList.remove("menu");
@@ -71,6 +70,7 @@ function init() {
   canvas = document.getElementById("canvas");
   initLevel()
   world = new World(canvas, keyboard);
+  gameStart = true;
 }
 
 /**
@@ -326,3 +326,9 @@ function playTheme(theme, volume) {
   return theme.play();
 }
 
+/**
+* Clears all intervals set in the window.
+*/
+  function clearAllIntervals() {
+    for (let i = 1; i < 9999; i++) window.clearInterval(i); 
+  }

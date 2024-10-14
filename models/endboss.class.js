@@ -264,7 +264,7 @@ class Endboss extends MovableObject {
    * Handles the end game scenario when the player wins.
    */
   winGame() {
-    this.clearAllIntervals();
+    clearAllIntervals();
     setTimeout(() => {
       endGame("win");
       world_music.pause();

@@ -24,7 +24,6 @@ class World {
       this.keyboard = keyboard;
       this.drawWorld();
       this.setWorld();
-  /*     new DrawableObject(); */
   }
 
   /**
