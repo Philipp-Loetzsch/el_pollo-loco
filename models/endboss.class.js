@@ -115,18 +115,23 @@ class Endboss extends MovableObject {
       this.playAnimation(this.IMAGES_HURT);
       this.playSound("bossHurtSound", 0.2);
       this.endSceneFrame++;
-      if (this.endSceneFrame === this.IMAGES_HURT.length * 5) {
-        clearInterval(hurtAnimation);
-        this.endSceneFrame = 0;
-        setInterval(() => {
-          this.playAnimation(this.IMAGES_DEAD);
-          this.playSound("bossDyingSound", 1);
-          this.endSceneFrame++;
-          if (this.endSceneFrame === this.IMAGES_DEAD.length) this.winGame();
-        }, 200);
-      }
+      this.bossIsDead(hurtAnimation)
     }, 100);
   }
+
+  bossIsDead(hurtAnimation){
+    if (this.endSceneFrame === this.IMAGES_HURT.length * 5) {
+      clearInterval(hurtAnimation);
+      this.endSceneFrame = 0;
+      setInterval(() => {
+        this.playAnimation(this.IMAGES_DEAD);
+        this.playSound("bossDyingSound", 1);
+        this.endSceneFrame++;
+        if (this.endSceneFrame === this.IMAGES_DEAD.length) this.winGame();
+      }, 200);
+    }
+  }
+
 
   /**
    * Handles the hurt state of the end boss, playing hurt animations and sounds.

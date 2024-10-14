@@ -108,7 +108,7 @@ function normalScreen(imgFullscreen) {
 /**
  * Reloads the game, resetting it to the initial state.
  */
-function reloadGame() {
+function loadMainMenu() {
   gameOverTheme.pause()
   winningTheme.pause()
   playMainTheme()
@@ -121,6 +121,14 @@ function reloadGame() {
   document.getElementById("settings").classList.add("settings");
   document.getElementById("controls").classList.remove("control");
   document.getElementById("settings").classList.remove("settings");
+}
+
+function reloadGame(){
+  gameOverTheme.pause()
+  winningTheme.pause()
+  let endGame = document.getElementById("gameEnd");
+  endGame.classList.remove("game-ending");
+  init()
 }
 
 /**

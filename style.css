@@ -154,13 +154,25 @@ h2 {
   display: flex;
   background-image: linear-gradient(#FFBC00, #FFDF00, #FFA500);
   padding: 10px;
-  width: 50px;
+  width: max-content;
   height: 50px;
   border-radius: 10px;
   border: none;
   img {
     width: 100%;
   }
+}
+
+#btnMainMenu{
+  position: absolute;
+  bottom: 40px;
+  right: 25%
+}
+
+#btnReload{
+  position: absolute;
+  bottom: 40px;
+  left: 25%
 }
 
 #fullscreen {

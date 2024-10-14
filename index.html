@@ -132,9 +132,10 @@
       </div>
       <div id="gameEnd" class="d_none">
         <img src="./img/9_intro_outro_screens/win/win_1.png" alt="" />
-        <button onclick="reloadGame()" class="button" tabindex="-1">
-          <img src="./img/10_mobile_icons/refresh.png" alt="RELOAD" />
+        <button id="btnMainMenu" onclick="loadMainMenu()" class="button" tabindex="-1">
+          Main menu
         </button>
+        <button id="btnReload" onclick="reloadGame()" class="button" tabindex="-1">new Game</button>
       </div>
     </div>
     <div id="screenWarning" class="d_none">
