@@ -97,7 +97,7 @@ class Endboss extends MovableObject {
         clearInterval(mainAnimation);
       } else if (this.damage) {
         this.bossHurt();
-        this.x += 40; 
+        this.x += 40;
       } else if (!this.lastBattle) {
         this.bossWalking();
       }
@@ -115,11 +115,16 @@ class Endboss extends MovableObject {
       this.playAnimation(this.IMAGES_HURT);
       this.playSound("bossHurtSound", 0.2);
       this.endSceneFrame++;
-      this.bossIsDead(hurtAnimation)
+      this.bossIsDead(hurtAnimation);
     }, 100);
   }
 
-  bossIsDead(hurtAnimation){
+  /**
+   * Checks if the hurt animation has completed, then stops it and initiates the boss death sequence.
+   *
+   * @param {number} hurtAnimation - The interval ID for the hurt animation that should be cleared.
+   */
+  bossIsDead(hurtAnimation) {
     if (this.endSceneFrame === this.IMAGES_HURT.length * 5) {
       clearInterval(hurtAnimation);
       this.endSceneFrame = 0;
@@ -132,7 +137,6 @@ class Endboss extends MovableObject {
     }
   }
 
-
   /**
    * Handles the hurt state of the end boss, playing hurt animations and sounds.
    */
@@ -140,7 +144,7 @@ class Endboss extends MovableObject {
     this.playAnimation(this.IMAGES_HURT);
     this.playSound("bossHurtSound", 0.2);
     setTimeout(() => {
-      this.damage = false; 
+      this.damage = false;
     }, this.IMAGES_HURT.length * 200);
     world.endbossBar.setPercentage(this.energy / 3);
   }
@@ -167,8 +171,11 @@ class Endboss extends MovableObject {
     setInterval(() => {
       if (!world) return;
       let length = world.level.enemies.length;
-      if (world.character.x >= world.level.enemies[length - 1].x - 550 && !this.isDead()) {
-        world.endbossBar.y = 20; 
+      if (
+        world.character.x >= world.level.enemies[length - 1].x - 550 &&
+        !this.isDead()
+      ) {
+        world.endbossBar.y = 20;
         this.endFight();
       }
     }, 400);
@@ -179,7 +186,7 @@ class Endboss extends MovableObject {
    */
   endFight() {
     this.lastBattle = true;
-    this.otherDirection = false; 
+    this.otherDirection = false;
   }
 
   /**
@@ -195,7 +202,7 @@ class Endboss extends MovableObject {
       this.playSound("bossAttackSound", 0.2);
       if (this.currentImage >= this.IMAGES_ALERT.length) {
         this.playSound("bossHurtSound", 0.2);
-        this.firstAlert = true; 
+        this.firstAlert = true;
         clearInterval(alertAnimation);
         this.bossFight();
       }
@@ -207,7 +214,7 @@ class Endboss extends MovableObject {
    */
   bossFight() {
     if (!this.firstAlert) {
-      this.alertBoss(); 
+      this.alertBoss();
     } else {
       this.endbossWalking();
     }
@@ -224,16 +231,21 @@ class Endboss extends MovableObject {
         this.playAnimation(this.IMAGES_WALKING);
         this.playSound("bossWalkingSound", 0.5);
       } else if (this.lastBattle && !this.isDead() && !this.damage) {
-        this.enableAttack = false;
-        this.speed = 20;
-        this.moveRight();
-        this.playAnimation(this.IMAGES_ATTACK);
-        this.playSound("bossAttackSound", 0.2);
-        if (this.x >= world.character.x + 300) {
-          this.enableAttack = true;
-        }
+        this.attackAnimation();
       }
     }, 1000 / 10);
+  }
+
+  /**
+   * Animate the attack of the boss and move them right
+   */
+  attackAnimation() {
+    this.enableAttack = false;
+    this.speed = 20;
+    this.moveRight();
+    this.playAnimation(this.IMAGES_ATTACK);
+    this.playSound("bossAttackSound", 0.2);
+    if (this.x >= world.character.x + 300) this.enableAttack = true;
   }
 
   /**
@@ -245,7 +257,7 @@ class Endboss extends MovableObject {
       world.character.x + world.character.width / 2 <= this.x &&
       this.lastBattle &&
       this.enableAttack &&
-      !this.isDead() && 
+      !this.isDead() &&
       !this.damage
     );
   }
@@ -254,10 +266,10 @@ class Endboss extends MovableObject {
    * Handles the end game scenario when the player wins.
    */
   winGame() {
-    this.clearAllIntervals(); 
-      setTimeout(() => {
-      endGame("win"); 
-      world_music.pause(); 
+    this.clearAllIntervals();
+    setTimeout(() => {
+      endGame("win");
+      world_music.pause();
     }, 1000);
   }
 }
