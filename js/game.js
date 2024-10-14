@@ -11,13 +11,10 @@ let mediaElements = [mainTheme, world_music, gameOverTheme, winningTheme];
 let intervalMain;
 let gameStart = false;
 
-
-
 window.addEventListener('load', () => {
   let preloader = document.getElementById('preloader');
   preloader.style.display = 'none';
 });
-
 
 /**
  * Enables audio playback upon the first user interaction (click or keydown).
@@ -31,7 +28,9 @@ function enableAudioOnInteraction() {
 window.addEventListener("click", enableAudioOnInteraction);
 window.addEventListener("keydown", enableAudioOnInteraction);
 
-
+/**
+ * load the world and level 1 for faster loading game
+ */
 function initWorld(){
   canvas = document.getElementById("canvas");
   initLevel()
