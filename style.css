@@ -263,7 +263,7 @@ canvas {
   width: 100%;
   height: 100%;
 }
-@media screen and (max-width: 770px), (max-height: 640px) {
+@media screen and (max-width: 770px), (max-height: 1024px) {
   #gameScreen {
     width: 100%;
   }
@@ -281,8 +281,8 @@ canvas {
     justify-content: center;
     border: none;
     border-radius: 50%;
-    height: 60px;
-    width: 60px;
+    height: 100px;
+    width: 100px;
     img {
       width: 100%;
     }
@@ -295,8 +295,8 @@ canvas {
     left: 1%;
     bottom: 2%;
     img {
-      width: 60px;
-      height: 60px;
+      width: 100px;
+      height: 100px;
     }
   }
 
@@ -309,8 +309,8 @@ canvas {
   }
   #space {
     img {
-      width: 60px;
-      height: 60px;
+      width: 100px;
+      height: 100px;
     }
   }
 
@@ -362,6 +362,28 @@ canvas {
   }
 }
 
+
+@media screen and  (max-height: 640px) {
+  button {
+    height: 60px;
+    width: 60px;
+  }
+
+  #space {
+    img {
+      width: 60px;
+      height: 60px;
+    }
+  }
+
+  #movement {
+    img {
+      width: 60px;
+      height: 60px;
+    }
+  }
+}
+
 @media screen and (max-height: 400px) {
   button {
     height: 30px;
@@ -370,6 +392,8 @@ canvas {
   }
 
   #movement {
+    left: 2%;
+    bottom: 3%;
     img {
       width: 40px;
       height: 40px;
@@ -385,6 +409,11 @@ canvas {
   #mute {
     height: 40px;
     width: 40px;
+  }
+
+  #action{
+    right: 2%;
+    bottom: 3%;
   }
 
   .interactions {
